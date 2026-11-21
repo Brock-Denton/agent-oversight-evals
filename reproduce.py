@@ -4,12 +4,14 @@
 Recomputes Exp 1 (from anonymized gates + raw ablation runs + blind AI audit JSON),
 Exp 2 (directly from per-case by_case counts via exact paired randomization tests),
 Exp 3 (v3 clean-room + v2 archive + v1 pilot, with SHA-256 verification and summary parity checks),
-and Appendix Exp 4 (mechanical counts from summary.txt, with manual notes labeled separately).
+Appendix Exp 4 (mechanical counts from summary.txt, with manual notes labeled separately),
+and Exp 5 (198-run Premise Lock-In & Correlated Prior Collapse benchmark + 50 frozen scenario hashes).
 Requires Python >= 3.9 (standard library only). Exits non-zero if any SHA-256 lock fails.
 """
 from __future__ import annotations
 
 import hashlib
+import importlib.util
 import itertools
 import json
 import random
@@ -22,11 +24,20 @@ from typing import Any
 ROOT = Path(__file__).resolve().parent
 EXP1_DIR = ROOT / "exp1-production-jury"
 EXP3_DIR = ROOT / "exp3-unrepairable-honesty"
+EXP5_DIR = ROOT / "exp5-premise-lockin"
 sys.path.insert(0, str(EXP1_DIR))
 sys.path.insert(0, str(EXP3_DIR))
 
 import analyze_jury  # noqa: E402
 import score  # noqa: E402
+
+
+def _load_exp5_score():
+    spec = importlib.util.spec_from_file_location("exp5_score", EXP5_DIR / "score.py")
+    assert spec is not None and spec.loader is not None
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    return mod
 
 
 def verify_sha256_manifest(manifest_path: Path, base_dir: Path) -> tuple[int, int, list[str]]:
@@ -252,10 +263,21 @@ def reproduce_exp4_selfreport() -> dict[str, Any]:
     }
 
 
+def reproduce_exp5_premise_lockin() -> tuple[dict[str, Any], list[str]]:
+    exp5_score = _load_exp5_score()
+    results_path = EXP5_DIR / "results-exp5-198runs.json"
+    summary = exp5_score.score_results(results_path, None, EXP5_DIR)
+    h_ok, h_total, h_errs = exp5_score.verify_sha256_manifest(EXP5_DIR, "harness.sha256")
+    summary["harness_sha256_verified"] = {"ok": h_ok, "total": h_total, "errors": h_errs}
+    chk_errs = [f"exp5-premise-lockin/{e}" for e in summary["sha256_verified"]["errors"] + h_errs]
+    return summary, chk_errs
+
+
 def main() -> int:
     e3_v3, chk_errors_v3 = reproduce_exp3_honesty_v3()
     e3_v2, chk_errors_v2 = reproduce_exp3_honesty_v2_archive()
-    chk_errors = chk_errors_v3 + chk_errors_v2
+    e5, chk_errors_e5 = reproduce_exp5_premise_lockin()
+    chk_errors = chk_errors_v3 + chk_errors_v2 + chk_errors_e5
     out = {
         "exp1_production_jury": reproduce_exp1_production_jury(),
         "exp2_rubric_false_alarms": reproduce_exp2_rubric_rct(),
@@ -263,6 +285,7 @@ def main() -> int:
         "exp3_unrepairable_honesty_v2_archive": e3_v2,
         "exp3_unrepairable_honesty_v1_pilot": reproduce_exp3_honesty_v1(),
         "exp4_selfreport_boundary": reproduce_exp4_selfreport(),
+        "exp5_premise_lockin": e5,
     }
     print(json.dumps(out, indent=2))
     if chk_errors:

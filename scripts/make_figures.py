@@ -6,6 +6,7 @@ exp1-production-jury/ and exp3-unrepairable-honesty/ via analyze_jury.py and sco
 """
 from __future__ import annotations
 
+import importlib.util
 import json
 import sys
 from pathlib import Path
@@ -18,6 +19,14 @@ sys.path.insert(0, str(ROOT / "exp3-unrepairable-honesty"))
 
 import analyze_jury  # noqa: E402
 import score  # noqa: E402
+
+
+def _load_exp5_score():
+    spec = importlib.util.spec_from_file_location("exp5_score", ROOT / "exp5-premise-lockin" / "score.py")
+    assert spec is not None and spec.loader is not None
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    return mod
 
 FONT = "ui-sans-serif, -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif"
 MONO = "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace"
@@ -225,14 +234,97 @@ def build_fig2_exp3_honesty() -> str:
 """
 
 
+def build_fig3_premise_lockin() -> str:
+    exp5_score = _load_exp5_score()
+    s = exp5_score.score_results(
+        ROOT / "exp5-premise-lockin" / "results-exp5-198runs.json",
+        None,
+        ROOT / "exp5-premise-lockin",
+    )
+    ctrl = s["regime1_explicit_control"]["pooled"]["blocked"]
+    a1 = s["arm1_unresolved_standard"]["pooled"]["blocked"]
+    a2u = s["arm2_escalation_prompt"]["unresolved_pooled"]["blocked"]
+    a2r = s["arm2_escalation_prompt"]["resolved_ctrl_pooled"]["blocked"]
+    sar = s["spec_anchoring_reversal"]
+    a3a_f = s["arm3a_single_best_priors"]["by_family"]
+    a3b = s["arm3b_stage0_orthogonal"]["pooled"]
+    p_diss = _fmt_sci(s["goal_vs_framing_dissociation"]["fisher_blocked_p"])
+    p_a12 = _fmt_sci(s["arm2_escalation_prompt"]["paired_arm1_vs_arm2_unresolved"]["blocked"]["mcnemar_exact_p"])
+    p_b_lift = _fmt_sci(a3b["asset_b_human_pick_lift_mcnemar_p"])
+
+    W, H = 820, 396
+    bar_x, bar_w = 32, 348
+
+    def hbar(y: int, label: str, sub: str, k: int, n: int, color: str) -> str:
+        pct = 100.0 * k / n if n else 0.0
+        fw = max(6.0, bar_w * pct / 100.0) if k > 0 else 4.0
+        val_txt = f"{pct:.1f}% ({k}/{n})"
+        return f"""
+  <text x="{bar_x}" y="{y}" font-family="{FONT}" font-size="11.6" font-weight="600" fill="#1C1917">{escape(label)}</text>
+  <text x="{bar_x + bar_w}" y="{y}" text-anchor="end" font-family="{MONO}" font-size="10.8" font-weight="700" fill="{color if k else '#1B6B4A'}">{escape(val_txt)}</text>
+  <rect x="{bar_x}" y="{y + 7}" width="{bar_w}" height="17" rx="5" fill="#ECE6DC"/>
+  <rect x="{bar_x}" y="{y + 7}" width="{fw:.1f}" height="17" rx="5" fill="{color if k else '#9CA3AF'}"/>
+  <text x="{bar_x}" y="{y + 37}" font-family="{FONT}" font-size="9.8" fill="#635D56">{escape(sub)}</text>"""
+
+    rx, rw = 428, 360
+
+    def split_bar(y: int, label: str, k_a: int, k_b: int, n: int, sub: str) -> str:
+        wa = rw * k_a / n if n else 0.0
+        wb = rw - wa
+        return f"""
+  <text x="{rx}" y="{y}" font-family="{FONT}" font-size="11.6" font-weight="600" fill="#1C1917">{escape(label)}</text>
+  <text x="{rx + rw}" y="{y}" text-anchor="end" font-family="{MONO}" font-size="10.4" font-weight="700" fill="#1C1917">{k_a}A / {k_b}B</text>
+  <rect x="{rx}" y="{y + 7}" width="{wa:.1f}" height="18" rx="4" fill="#B87314"/>
+  <rect x="{rx + wa + 2:.1f}" y="{y + 7}" width="{max(0.0, wb - 2):.1f}" height="18" rx="4" fill="#2F6D8F"/>
+  <text x="{rx + wa/2:.1f}" y="{y + 20}" text-anchor="middle" font-family="{MONO}" font-size="9.8" font-weight="700" fill="#FFFFFF">{100*k_a/n:.0f}% A</text>
+  <text x="{rx + wa + wb/2:.1f}" y="{y + 20}" text-anchor="middle" font-family="{MONO}" font-size="9.8" font-weight="700" fill="#FFFFFF">{100*k_b/n:.0f}% B</text>
+  <text x="{rx}" y="{y + 37}" font-family="{FONT}" font-size="9.8" fill="#635D56">{escape(sub)}</text>"""
+
+    return f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" width="{W}" height="{H}" role="img" aria-label="Experiment 5: Premise Lock-In, Framing Escalation, and Stage 0 Orthogonal Framing across 198 Runs">
+  <rect x="1" y="1" width="{W - 2}" height="{H - 2}" rx="12" fill="#FAF8F4" stroke="#DDD6CA" stroke-width="1.5"/>
+
+  <text x="32" y="32" font-family="{MONO}" font-size="10" font-weight="600" letter-spacing="0.08em" fill="#635D56">EXPERIMENT 5 · 198 CLEAN-ROOM RUNS · 3 FRONTIER FAMILIES · 0 ERRORS</text>
+  <text x="32" y="56" font-family="{FONT}" font-size="18.2" font-weight="700" fill="#1C1917">Red-Teams Catch Explicit Contradictions, Not Unresolved Human Trade-Offs</text>
+
+  <line x1="32" y1="71" x2="{W - 32}" y2="71" stroke="#E5DFD5" stroke-width="1"/>
+  <line x1="404" y1="84" x2="404" y2="344" stroke="#E5DFD5" stroke-width="1"/>
+
+  <!-- Left Panel: BLOCKED rate across 4 regimes -->
+  <text x="32" y="98" font-family="{FONT}" font-size="12.4" font-weight="700" fill="#1C1917">A. Strict BLOCKED Rate on Spec Audit (3 Families)</text>
+  {hbar(120, "1. Explicit Goal Contradiction (Control)", "E01–E06: written goal violated -> 6/6 Claude, 6/6 Codex, 6/6 Gemini", ctrl["k"], ctrl["n"], "#1B6B4A")}
+  {hbar(174, "2. Unresolved Tension (Standard Red-Team)", f"U01–U12: 13 PASS, 22 PATCH; 0/36 asked for human pick (p = {p_diss})", a1["k"], a1["n"], "#B9382C")}
+  {hbar(228, "3. Unresolved Tension + Escalation Rule", f"Arm 2: explicit Stage 0 rule -> 12/12 each family (McNemar p = {p_a12})", a2u["k"], a2u["n"], "#1B6B4A")}
+  {hbar(282, "4. Matched Control (+1-Line Human Sign-Off)", "Arm 2 Ctrl: 0 false blocks (Claude/Gemini 12/12 PASS; Codex 12/12 PATCH*)", a2r["k"], a2r["n"], "#1B6B4A")}
+
+  <!-- Right Panel: Single-Best Priors vs Stage 0 Slate -->
+  <text x="{rx}" y="98" font-family="{FONT}" font-size="12.4" font-weight="700" fill="#1C1917">B. Blind Priors (Arm 3A) vs. Stage 0 Slate (Arm 3B)</text>
+  {split_bar(120, "GPT-6.2 Sol — Single-Best Pick (Arm 3A)", a3a_f["codex"]["chose_asset_a"]["k"], a3a_f["codex"]["chose_asset_b"]["k"], 12, "Heavily favors mature Asset A (10/12 A in Stage 0 auto-rec)")}
+  {split_bar(174, "Gemini 4 Neon — Single-Best Pick (Arm 3A)", a3a_f["gemini"]["chose_asset_a"]["k"], a3a_f["gemini"]["chose_asset_b"]["k"], 12, "Moderately favors Asset A (8/12 A in Stage 0 auto-rec)")}
+  {split_bar(228, "Claude Opus 5.5 — Single-Best Pick (Arm 3A)", a3a_f["claude"]["chose_asset_a"]["k"], a3a_f["claude"]["chose_asset_b"]["k"], 12, "Favors operational Asset B — yet passed/patched 11/12 spec_A!")}
+
+  <rect x="{rx}" y="278" width="{rw}" height="64" rx="7" fill="#ECF4EF" stroke="#B7D7C5"/>
+  <text x="{rx + 12}" y="297" font-family="{FONT}" font-size="10.6" font-weight="700" fill="#145339">Stage 0 Slate (Arm 3B): {a3b['slate_covers_both_a_and_b_self']['k']}/{a3b['slate_covers_both_a_and_b_self']['n']} (100%) Cover Both A &amp; B</text>
+  <text x="{rx + 12}" y="314" font-family="{FONT}" font-size="9.7" fill="#1F4D3A">Keyword-verified: {a3b['slate_covers_both_kw_verified']['k']}/36 · Mean Jaccard: {a3b['mean_pairwise_jaccard']:.4f} (orthogonal)</text>
+  <text x="{rx + 12}" y="330" font-family="{FONT}" font-size="9.7" fill="#1F4D3A">Human B coverage (36/36) vs. auto-pick ({a3b['recommended_asset_b']['k']}/36): p = {p_b_lift}</text>
+
+  <!-- Footer -->
+  <line x1="32" y1="354" x2="{W - 32}" y2="354" stroke="#E5DFD5" stroke-width="1"/>
+  <text x="32" y="375" font-family="{FONT}" font-size="9.4" fill="#635D56">Spec-anchoring reversal: when models chose Asset B in Arm 3A, {sar['did_not_block_spec_a_in_arm1']['k']}/{sar['model_preferred_asset_b_in_arm3a']} ({100*sar['did_not_block_spec_a_in_arm1']['rate']:.1f}%) did not BLOCK spec_A ({sar['stamped_pass_on_spec_a_in_arm1']['k']}/{sar['model_preferred_asset_b_in_arm3a']} PASS). *Replicates Exp 1 (p = 0.0005).</text>
+</svg>
+"""
+
+
 def main() -> int:
     ASSETS.mkdir(parents=True, exist_ok=True)
     f1 = ASSETS / "fig1_production_jury.svg"
     f2 = ASSETS / "fig2_exp3_honesty.svg"
+    f3 = ASSETS / "fig3_premise_lockin.svg"
     f1.write_text(build_fig1_production_jury(), encoding="utf-8")
     f2.write_text(build_fig2_exp3_honesty(), encoding="utf-8")
+    f3.write_text(build_fig3_premise_lockin(), encoding="utf-8")
     print(f"Wrote {f1} ({f1.stat().st_size} bytes)")
     print(f"Wrote {f2} ({f2.stat().st_size} bytes)")
+    print(f"Wrote {f3} ({f3.stat().st_size} bytes)")
     return 0
 
 

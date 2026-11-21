@@ -5,7 +5,7 @@
 ## Scope & Protocol (Explicitly Bounded)
 - **Reviewed domain & model:** Audio-film review packets evaluated by a single frontier model (**`claude-opus-5-5`**, `high` effort) — not multi-model code review. *(Note: model IDs and audio-film domain metadata are documented here from the original run log rather than embedded as JSON keys inside `results.json`.)*
 - **Cases (*n* = 45):** 32 cases contained 35 mechanically planted audio faults (70 planted fault opportunities per arm across 2 reviews/case); 13 cases were clean controls (0 planted faults). 32/45 cases (including all 13/13 clean controls) were previously seen (`seen = true`); 13/45 were fresh unseen cases (`seen = false`).
-- **Blind scoring (same-family judges):** All 179 notes were stripped of arm cues, shuffled with 16 known-answer calibration notes, and scored blind by two Claude-family judges (`claude-opus-5-5` + `claude-sonnet-5-5`; calibration 15/16, first-pass agreement 174/179 = 97.2%, 4 unresolved excluded symmetrically).
+- **Blind scoring (same-family judges):** All 179 extracted claim notes across the 180 reviews (99 with-list + 80 without-list = 179 notes, 0 missing reviews) were stripped of arm cues, shuffled with 16 known-answer calibration notes, and scored blind by two Claude-family judges (`claude-opus-5-5` + `claude-sonnet-5-5`; calibration 15/16, first-pass agreement 174/179 = 97.2%, 4 unresolved notes excluded symmetrically).
 
 ## Key Findings (Recomputed Directly From `by_case` via `python3 ../reproduce.py`)
 - **True planted-fault recall (70 opportunities/arm):** **24/70 (34.3%)** with fault list vs. **23/70 (32.9%)** without (mean exact hits/review: 0.267 vs. 0.256, exact paired randomization *p* = 1.000, 41/45 cases tied).

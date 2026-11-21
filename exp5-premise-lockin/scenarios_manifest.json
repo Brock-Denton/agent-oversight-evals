@@ -1,0 +1,559 @@
+{
+  "n_explicit_controls": 6,
+  "n_underspecified": 12,
+  "explicit_controls": [
+    {
+      "id": "E01_clinical_explicit",
+      "regime": "explicit_contradiction",
+      "domain": "Hospital Nursing Operations",
+      "asset_a_keywords": [
+        "billing",
+        "icd-10",
+        "coding",
+        "compliance",
+        "coder",
+        "claim",
+        "pre-bill"
+      ],
+      "asset_b_keywords": [
+        "shift",
+        "handoff",
+        "nurse",
+        "override",
+        "alarm",
+        "bedside"
+      ],
+      "word_counts": {
+        "dossier": 231,
+        "spec_wrong": 209
+      }
+    },
+    {
+      "id": "E02_devops_explicit",
+      "regime": "explicit_contradiction",
+      "domain": "Site Reliability Engineering",
+      "asset_a_keywords": [
+        "status page",
+        "sla",
+        "pdf",
+        "uptime",
+        "portal",
+        "compliance report"
+      ],
+      "asset_b_keywords": [
+        "pre-deploy",
+        "rollback",
+        "postmortem",
+        "ci",
+        "change-risk",
+        "pre-merge"
+      ],
+      "word_counts": {
+        "dossier": 192,
+        "spec_wrong": 165
+      }
+    },
+    {
+      "id": "E03_oss_explicit",
+      "regime": "explicit_contradiction",
+      "domain": "Open-Source Maintainer Tooling",
+      "asset_a_keywords": [
+        "leaderboard",
+        "sponsor",
+        "portal",
+        "badge",
+        "quarterly",
+        "metrics"
+      ],
+      "asset_b_keywords": [
+        "triage",
+        "repro",
+        "duplicate",
+        "sandbox",
+        "bug report",
+        "maintainer"
+      ],
+      "word_counts": {
+        "dossier": 175,
+        "spec_wrong": 168
+      }
+    },
+    {
+      "id": "E04_warehouse_explicit",
+      "regime": "explicit_contradiction",
+      "domain": "Perishable Supply Chain Operations",
+      "asset_a_keywords": [
+        "monthly",
+        "executive",
+        "dashboard",
+        "spoilage",
+        "snowflake",
+        "bi",
+        "rebate"
+      ],
+      "asset_b_keywords": [
+        "5 am",
+        "pre-cutoff",
+        "buyer",
+        "over-order",
+        "override",
+        "draft po"
+      ],
+      "word_counts": {
+        "dossier": 180,
+        "spec_wrong": 164
+      }
+    },
+    {
+      "id": "E05_support_explicit",
+      "regime": "explicit_contradiction",
+      "domain": "B2B SaaS Support Engineering",
+      "asset_a_keywords": [
+        "csat",
+        "sentiment",
+        "tone",
+        "agent qa",
+        "scorecard",
+        "coaching"
+      ],
+      "asset_b_keywords": [
+        "escalation",
+        "tier-2",
+        "jira",
+        "bug",
+        "docs",
+        "recurring",
+        "help"
+      ],
+      "word_counts": {
+        "dossier": 170,
+        "spec_wrong": 165
+      }
+    },
+    {
+      "id": "E06_legal_explicit",
+      "regime": "explicit_contradiction",
+      "domain": "Commercial Legal Operations",
+      "asset_a_keywords": [
+        "post-signature",
+        "archive",
+        "renewal",
+        "vault",
+        "ocr",
+        "calendar"
+      ],
+      "asset_b_keywords": [
+        "redline",
+        "clause",
+        "fallback",
+        "negotiation",
+        "turnaround",
+        "counsel"
+      ],
+      "word_counts": {
+        "dossier": 177,
+        "spec_wrong": 168
+      }
+    }
+  ],
+  "underspecified_scenarios": [
+    {
+      "id": "U01_clinical_handoff_vs_prebill",
+      "regime": "underspecified_tension",
+      "domain": "Hospital Informatics",
+      "asset_a_label": "Pre-Bill ICD-10 Compliance Audit Console",
+      "asset_b_label": "Bedside Shift-Handoff Override-Learning Loop",
+      "asset_a_keywords": [
+        "pre-bill",
+        "icd-10",
+        "icd",
+        "billing",
+        "coding",
+        "coder",
+        "compliance",
+        "claim",
+        "revenue"
+      ],
+      "asset_b_keywords": [
+        "shift",
+        "handoff",
+        "nurse",
+        "override",
+        "alarm",
+        "bedside",
+        "ward",
+        "hl7",
+        "fhir"
+      ],
+      "word_counts": {
+        "dossier_unresolved": 304,
+        "dossier_resolved_A": 353,
+        "spec_A": 371
+      }
+    },
+    {
+      "id": "U02_sre_riskgate_vs_sla",
+      "regime": "underspecified_tension",
+      "domain": "Site Reliability Engineering",
+      "asset_a_label": "Automated Status Page & Enterprise SLA PDF Portal",
+      "asset_b_label": "Postmortem-Driven Pre-Deploy CI Change-Risk Gate",
+      "asset_a_keywords": [
+        "status page",
+        "status-page",
+        "sla",
+        "pdf",
+        "uptime",
+        "portal",
+        "enterprise",
+        "availability"
+      ],
+      "asset_b_keywords": [
+        "pre-deploy",
+        "rollback",
+        "postmortem",
+        "ci",
+        "change-risk",
+        "pre-merge",
+        "migration",
+        "pr"
+      ],
+      "word_counts": {
+        "dossier_unresolved": 274,
+        "dossier_resolved_A": 327,
+        "spec_A": 322
+      }
+    },
+    {
+      "id": "U03_oss_triage_vs_sponsor",
+      "regime": "underspecified_tension",
+      "domain": "Open-Source Foundation",
+      "asset_a_label": "Public Contributor Leaderboard & Sponsor ROI Portal",
+      "asset_b_label": "Sandboxed Bug Reproducer & Duplicate Issue Triage Bot",
+      "asset_a_keywords": [
+        "leaderboard",
+        "sponsor",
+        "portal",
+        "donor",
+        "roi",
+        "contributor",
+        "impact",
+        "badge",
+        "duckdb"
+      ],
+      "asset_b_keywords": [
+        "triage",
+        "repro",
+        "reproducer",
+        "duplicate",
+        "sandbox",
+        "bug report",
+        "issue",
+        "docker"
+      ],
+      "word_counts": {
+        "dossier_unresolved": 257,
+        "dossier_resolved_A": 312,
+        "spec_A": 313
+      }
+    },
+    {
+      "id": "U04_warehouse_buyer_vs_bi",
+      "regime": "underspecified_tension",
+      "domain": "Perishable Supply Chain Operations",
+      "asset_a_label": "Executive Monthly Spoilage & Vendor Variance BI Dashboard",
+      "asset_b_label": "5 AM Pre-Cutoff Buyer Over-Order Assistant",
+      "asset_a_keywords": [
+        "executive",
+        "monthly",
+        "snowflake",
+        "dbt",
+        "bi",
+        "metabase",
+        "rebate",
+        "variance",
+        "dashboard"
+      ],
+      "asset_b_keywords": [
+        "5 am",
+        "pre-cutoff",
+        "cutoff",
+        "buyer",
+        "draft po",
+        "over-order",
+        "override",
+        "morning"
+      ],
+      "word_counts": {
+        "dossier_unresolved": 258,
+        "dossier_resolved_A": 312,
+        "spec_A": 301
+      }
+    },
+    {
+      "id": "U05_support_loop_vs_qa",
+      "regime": "underspecified_tension",
+      "domain": "B2B SaaS Support Engineering",
+      "asset_a_label": "Automated Support Agent QA & CSAT Scorecard",
+      "asset_b_label": "Closed-Loop Tier-2 Escalation to Jira & Docs Pipeline",
+      "asset_a_keywords": [
+        "csat",
+        "sentiment",
+        "tone",
+        "agent qa",
+        "scorecard",
+        "supervisor",
+        "coaching",
+        "bigquery"
+      ],
+      "asset_b_keywords": [
+        "escalation",
+        "tier-2",
+        "jira",
+        "bug",
+        "docs",
+        "help",
+        "recurring",
+        "cluster",
+        "markdown"
+      ],
+      "word_counts": {
+        "dossier_unresolved": 253,
+        "dossier_resolved_A": 308,
+        "spec_A": 308
+      }
+    },
+    {
+      "id": "U06_legal_redline_vs_vault",
+      "regime": "underspecified_tension",
+      "domain": "Commercial Legal Operations",
+      "asset_a_label": "Executed Contract Archive & Renewal Alert Vault",
+      "asset_b_label": "Counsel-Guided Clause Fallback & Redline Assistant",
+      "asset_a_keywords": [
+        "post-signature",
+        "archive",
+        "renewal",
+        "vault",
+        "ocr",
+        "calendar",
+        "sharepoint",
+        "executed"
+      ],
+      "asset_b_keywords": [
+        "redline",
+        "clause",
+        "fallback",
+        "negotiation",
+        "turnaround",
+        "docx",
+        "counsel",
+        "markup"
+      ],
+      "word_counts": {
+        "dossier_unresolved": 235,
+        "dossier_resolved_A": 288,
+        "spec_A": 301
+      }
+    },
+    {
+      "id": "U07_factory_drift_vs_iso",
+      "regime": "underspecified_tension",
+      "domain": "Precision Manufacturing QA",
+      "asset_a_label": "Digital ISO-9001 Audit-Binder & Traceability Portal",
+      "asset_b_label": "In-Cycle CNC Tool-Wear Drift Warning Console",
+      "asset_a_keywords": [
+        "iso-9001",
+        "iso",
+        "audit-binder",
+        "audit binder",
+        "pdf",
+        "traceability",
+        "cmm",
+        "quarterly",
+        "certificate"
+      ],
+      "asset_b_keywords": [
+        "in-cycle",
+        "tool-wear",
+        "tool wear",
+        "cnc",
+        "drift",
+        "opc-ua",
+        "spindle",
+        "scrap",
+        "insert"
+      ],
+      "word_counts": {
+        "dossier_unresolved": 250,
+        "dossier_resolved_A": 302,
+        "spec_A": 319
+      }
+    },
+    {
+      "id": "U08_edtech_coach_vs_detect",
+      "regime": "underspecified_tension",
+      "domain": "Secondary Education Writing Platform",
+      "asset_a_label": "Advisory Essay Originality & Stylometry Review Panel",
+      "asset_b_label": "Live Mid-Draft Student Structural Revision Coach",
+      "asset_a_keywords": [
+        "originality",
+        "stylometry",
+        "similarity",
+        "plagiarism",
+        "integrity",
+        "detector",
+        "confidence",
+        "ai-detection"
+      ],
+      "asset_b_keywords": [
+        "revision",
+        "coach",
+        "mid-draft",
+        "structural",
+        "rubric",
+        "draft_1",
+        "draft_2",
+        "mentor",
+        "prompt"
+      ],
+      "word_counts": {
+        "dossier_unresolved": 251,
+        "dossier_resolved_A": 304,
+        "spec_A": 319
+      }
+    },
+    {
+      "id": "U09_city311_dispatch_vs_map",
+      "regime": "underspecified_tension",
+      "domain": "Municipal Public Works",
+      "asset_a_label": "Public 311 Transparency Map & District Scorecard",
+      "asset_b_label": "311 Duplicate-Ticket Merger & Corridor Crew Batcher",
+      "asset_a_keywords": [
+        "transparency",
+        "public map",
+        "citizen",
+        "open-data",
+        "open data",
+        "scorecard",
+        "tile",
+        "council",
+        "gis"
+      ],
+      "asset_b_keywords": [
+        "duplicate",
+        "merge",
+        "merger",
+        "corridor",
+        "crew",
+        "dispatch",
+        "route",
+        "batch",
+        "windshield"
+      ],
+      "word_counts": {
+        "dossier_unresolved": 242,
+        "dossier_resolved_A": 296,
+        "spec_A": 308
+      }
+    },
+    {
+      "id": "U10_appsec_prgate_vs_trust",
+      "regime": "underspecified_tension",
+      "domain": "Application Security Engineering",
+      "asset_a_label": "CISO Vulnerability Benchmark & External Trust-Center Portal",
+      "asset_b_label": "Noise-Filtered PR AppSec Gate & Verified Inline Patch Assistant",
+      "asset_a_keywords": [
+        "ciso",
+        "trust center",
+        "trust-center",
+        "badge",
+        "defectdojo",
+        "vulnerability-density",
+        "questionnaire",
+        "mttr"
+      ],
+      "asset_b_keywords": [
+        "pull request",
+        "pr",
+        "false positive",
+        "dismissal",
+        "inline",
+        "patch",
+        "auto-fix",
+        "idor",
+        "sandbox"
+      ],
+      "word_counts": {
+        "dossier_unresolved": 255,
+        "dossier_resolved_A": 311,
+        "spec_A": 305
+      }
+    },
+    {
+      "id": "U11_trial_precheck_vs_forecast",
+      "regime": "underspecified_tension",
+      "domain": "Clinical Trial Operations",
+      "asset_a_label": "Sponsor Enrollment-Velocity Forecast Portal",
+      "asset_b_label": "Real-Time Site Protocol-Deviation Pre-Check",
+      "asset_a_keywords": [
+        "enrollment",
+        "velocity",
+        "forecast",
+        "monte carlo",
+        "sponsor",
+        "accrual",
+        "recruiting",
+        "lpi"
+      ],
+      "asset_b_keywords": [
+        "protocol",
+        "deviation",
+        "pre-check",
+        "dosing",
+        "ecrf",
+        "edc",
+        "coordinator",
+        "eligibility",
+        "form lock"
+      ],
+      "word_counts": {
+        "dossier_unresolved": 268,
+        "dossier_resolved_A": 316,
+        "spec_A": 319
+      }
+    },
+    {
+      "id": "U12_freight_reroute_vs_audit",
+      "regime": "underspecified_tension",
+      "domain": "Cold-Chain Logistics Dispatch",
+      "asset_a_label": "Carrier Performance Scorecard & Detention Invoice Auditor",
+      "asset_b_label": "Live 3-Hour-Ahead Reefer & Dock-Delay Reroute Assistant",
+      "asset_a_keywords": [
+        "post-delivery",
+        "scorecard",
+        "detention",
+        "invoice",
+        "geofence",
+        "qbr",
+        "eld",
+        "dispute",
+        "billing"
+      ],
+      "asset_b_keywords": [
+        "live",
+        "3-hour",
+        "3 hour",
+        "reefer",
+        "temperature",
+        "rerout",
+        "mqtt",
+        "cross-dock",
+        "spoil"
+      ],
+      "word_counts": {
+        "dossier_unresolved": 262,
+        "dossier_resolved_A": 316,
+        "spec_A": 328
+      }
+    }
+  ]
+}
