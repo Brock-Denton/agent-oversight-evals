@@ -683,7 +683,7 @@ def snapshot_tree(root: Path) -> dict[str, dict[str, Any]]:
         if p.is_symlink():
             try:
                 target = str(os.readlink(p))
-                escapes = not p.resolve().is_relative_to(root_real)
+                escapes = not p.resolve(strict=True).is_relative_to(root_real)
             except (OSError, RuntimeError):
                 target, escapes = "", True
             snap[rel] = {"kind": "symlink", "target": target, "escapes": escapes, "sha256": "", "mode": 0, "size": 0}
