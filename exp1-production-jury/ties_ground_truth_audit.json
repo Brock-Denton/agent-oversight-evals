@@ -48,7 +48,7 @@
       "UNPROVEN_CLAIM_GAP": 4,
       "FALSE_ALARM_OR_NITPICK": 17
     },
-    "note": "Raters A and B achieved 100% agreement (24/24, kappa=1.000) on real defects missed by the passing judge (3/24 = 12.5%). Every A-vs-B disagreement (14/24) occurred strictly on the non-defect boundary between UNPROVEN_CLAIM_GAP and FALSE_ALARM_OR_NITPICK \u2014 predominantly around opaque non-verbose unittest dot logs (11/14 disagreements), directly demonstrating why proof-completeness standards diverge across independent evaluators."
+    "note": "Raters A and B achieved 100% agreement (24/24, kappa=1.000) on real defects missed by the passing judge (3/24 = 12.5%, 1 unique recurring UI defect). Every A-vs-B disagreement (14/24) occurred strictly on the non-defect boundary between UNPROVEN_CLAIM_GAP and FALSE_ALARM_OR_NITPICK — with a 13:1 directional skew between identical-model passes (exact McNemar p=0.00183) and 8/14 discordant cases on non-verbose dot-only test logs or uncaptured probe bodies (9/14 non-visual, 5/14 visual)."
   },
   "consensus_summary": {
     "n": 24,

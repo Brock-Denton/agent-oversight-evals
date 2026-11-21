@@ -91,4 +91,4 @@ agent-oversight-evals/
 └── exp4-selfreport-boundary/    # Appendix: 40-build instrument alignment audit
 ```
 
-See [PAPER.md](PAPER.md) for complete statistical tables, sensitivity analyses, symmetric harness disclosures, caught-workaround diffs, and full methodological limitations.
+See [PAPER.md](PAPER.md) for complete statistical tables, sensitivity analyses, harness disclosures, caught-workaround diffs, and full methodological limitations.
