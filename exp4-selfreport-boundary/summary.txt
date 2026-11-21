@@ -1,0 +1,41 @@
+b01	AGREES	phone also {'steps_never_settled': 2}; desktop also {'steps_never_settled': 3}
+b02	AGREES	phone also {'steps_never_settled': 6}; desktop also {'steps_never_settled': 5}
+b03	AGREES	phone also {'overlaps': 5, 'steps_never_settled': 5}; desktop also {'overlaps': 20, 'blank_where_dom_holds_content': 3, 'steps_never_settled': 5}
+b04	AGREES	phone also {'overlaps': 21, 'low_contrast': 6, 'steps_never_settled': 13}; desktop also {'overlaps': 18, 'low_contrast': 6, 'steps_never_settled': 15}
+b05	AGREES	phone also {'overlaps': 7, 'steps_never_settled': 10}; desktop also {'overlaps': 8, 'steps_never_settled': 9}
+b06	AGREES	phone also {'overlaps': 2, 'low_contrast': 1, 'steps_never_settled': 8}; desktop also {'overlaps': 3, 'low_contrast': 45, 'steps_never_settled': 8}
+b07	AGREES	phone also {'overlaps': 1, 'low_contrast': 28, 'steps_never_settled': 40}; desktop also {'overlaps': 1, 'low_contrast': 11, 'blank_where_dom_holds_content': 1, 'steps_never_settled': 40}
+b08	AGREES	phone also {'overlaps': 5, 'low_contrast': 3, 'steps_never_settled': 6}; desktop also {'overlaps': 6, 'low_contrast': 3, 'steps_never_settled': 6}
+b09	AGREES	phone also {'steps_never_settled': 1}; desktop also {'steps_never_settled': 2}
+b10	AGREES	phone also {'steps_never_settled': 1}; desktop also {'steps_never_settled': 2}
+b11	AGREES	phone also {'overlaps': 8, 'low_contrast': 3, 'steps_never_settled': 5}; desktop also {'overlaps': 7, 'low_contrast': 3, 'steps_never_settled': 6}
+b12	AGREES	phone also {'overlaps': 8, 'steps_never_settled': 14}; desktop also {'overlaps': 8, 'steps_never_settled': 13}
+b13	AGREES	phone also {'overlaps': 5, 'low_contrast': 2, 'steps_never_settled': 9}; desktop also {'overlaps': 7, 'low_contrast': 2, 'steps_never_settled': 9}
+b14	AGREES	phone also {'overlaps': 1, 'low_contrast': 2, 'steps_never_settled': 10}; desktop also {'overlaps': 2, 'low_contrast': 2, 'steps_never_settled': 9}
+b15	AGREES	phone also {'overlaps': 4, 'steps_never_settled': 8}; desktop also {'overlaps': 6, 'steps_never_settled': 8}
+b16	AGREES	phone also {'steps_never_settled': 6}; desktop also {'overlaps': 3, 'blank_where_dom_holds_content': 1, 'steps_never_settled': 6}
+b17	AGREES	phone also {'blank_where_dom_holds_content': 1, 'steps_never_settled': 1}; desktop also {'blank_where_dom_holds_content': 14, 'steps_never_settled': 2}
+b18	AGREES	phone also {'overlaps': 1, 'blank_where_dom_holds_content': 206, 'steps_never_settled': 2}; desktop also {'overlaps': 1, 'blank_where_dom_holds_content': 235, 'steps_never_settled': 2}
+b19	AGREES	phone also {'overlaps': 6, 'steps_never_settled': 11}; desktop also {'overlaps': 9, 'steps_never_settled': 12}
+b20	AGREES	phone also {'overlaps': 1, 'low_contrast': 9, 'blank_where_dom_holds_content': 9, 'steps_never_settled': 9}; desktop also {'overlaps': 26, 'low_contrast': 10, 'blank_where_dom_holds_content': 7, 'steps_never_settled': 11}
+b21	CONTRADICTS	phone overflow 263px; phone also {'overlaps': 12, 'low_contrast': 3, 'steps_never_settled': 7}; desktop also {'overlaps': 13, 'low_contrast': 3, 'steps_never_settled': 7}
+b22	AGREES	phone also {'overlaps': 2, 'steps_never_settled': 9}; desktop also {'overlaps': 8, 'steps_never_settled': 9}
+b23	AGREES	phone also {'overlaps': 1, 'low_contrast': 120, 'blank_where_dom_holds_content': 1, 'steps_never_settled': 8}; desktop also {'overlaps': 2, 'low_contrast': 240, 'blank_where_dom_holds_content': 10, 'steps_never_settled': 8}
+b24	AGREES	phone also {'overlaps': 15, 'low_contrast': 117, 'blank_where_dom_holds_content': 1, 'steps_never_settled': 5}; desktop also {'overlaps': 18, 'low_contrast': 211, 'blank_where_dom_holds_content': 5, 'steps_never_settled': 5}
+b25	AGREES	phone also {'steps_never_settled': 1}; desktop also {'overlaps': 4, 'steps_never_settled': 1}
+b26	AGREES	phone also {'blank_where_dom_holds_content': 12, 'steps_never_settled': 1}; desktop also {'blank_where_dom_holds_content': 3, 'steps_never_settled': 2}
+b27	AGREES	phone also {'overlaps': 13, 'steps_never_settled': 1}; desktop also {'overlaps': 9, 'steps_never_settled': 1}
+b28	AGREES	phone also {'overlaps': 6, 'low_contrast': 5, 'steps_never_settled': 17}; desktop also {'overlaps': 11, 'low_contrast': 5, 'steps_never_settled': 14}
+b29	AGREES	phone also {'overlaps': 5, 'low_contrast': 16, 'steps_never_settled': 8}; desktop also {'overlaps': 3, 'low_contrast': 37, 'steps_never_settled': 8}
+b30	AGREES	phone also {'overlaps': 1, 'low_contrast': 1, 'steps_never_settled': 8}; desktop also {'overlaps': 2, 'low_contrast': 2, 'steps_never_settled': 7}
+b31	AGREES	phone also {'overlaps': 5, 'low_contrast': 37, 'steps_never_settled': 7}; desktop also {'overlaps': 11, 'low_contrast': 77, 'blank_where_dom_holds_content': 2, 'steps_never_settled': 8}
+b32	AGREES	phone also {'overlaps': 1, 'low_contrast': 11, 'steps_never_settled': 8}; desktop also {'overlaps': 8, 'low_contrast': 40, 'steps_never_settled': 8}
+b33	AGREES	phone also {'overlaps': 1, 'steps_never_settled': 1}; desktop also {'steps_never_settled': 2}
+b34	AGREES	phone also {'overlaps': 1, 'steps_never_settled': 3}; desktop also {'overlaps': 1, 'steps_never_settled': 5}
+b35	AGREES	phone also {'overlaps': 16, 'low_contrast': 4, 'steps_never_settled': 11}; desktop also {'overlaps': 17, 'steps_never_settled': 13}
+b36	AGREES	phone also {'overlaps': 7, 'low_contrast': 24, 'steps_never_settled': 9}; desktop also {'overlaps': 32, 'low_contrast': 24, 'steps_never_settled': 9}
+b37	AGREES	phone also {'overlaps': 6, 'steps_never_settled': 7}; desktop also {'overlaps': 6, 'steps_never_settled': 8}
+b38	AGREES	phone also {'steps_never_settled': 7}; desktop also {'overlaps': 4, 'steps_never_settled': 7}
+b39	AGREES	phone also {'steps_never_settled': 4}; desktop also {'steps_never_settled': 5}
+b40	AGREES	phone also {'overlaps': 14, 'low_contrast': 3, 'steps_never_settled': 10}; desktop also {'overlaps': 14, 'low_contrast': 3, 'steps_never_settled': 9}
+builds 40; contradicts its report 1; agrees 39; not measured 0

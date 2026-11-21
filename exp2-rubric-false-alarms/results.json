@@ -1,0 +1,1544 @@
+{
+ "cases": 45,
+ "reviews": 180,
+ "missing_runs": [],
+ "real": {
+  "list": 0.267,
+  "none": 0.256,
+  "difference": 0.011,
+  "interval": [
+   -0.067,
+   0.089
+  ],
+  "p": 1.0,
+  "list_better_cases": 2,
+  "none_better_cases": 2,
+  "tied_cases": 41
+ },
+ "false": {
+  "list": 0.322,
+  "none": 0.2,
+  "difference": 0.122,
+  "interval": [
+   0.033,
+   0.222
+  ],
+  "p": 0.0257,
+  "list_better_cases": 14,
+  "none_better_cases": 4,
+  "tied_cases": 27
+ },
+ "place": {
+  "list": 0.4,
+  "none": 0.367,
+  "difference": 0.033,
+  "interval": [
+   -0.044,
+   0.122
+  ],
+  "p": 0.625,
+  "list_better_cases": 4,
+  "none_better_cases": 2,
+  "tied_cases": 39
+ },
+ "false_sure": {
+  "list": 0.0,
+  "none": 0.011,
+  "difference": -0.011,
+  "interval": [
+   -0.033,
+   0.0
+  ],
+  "p": 1.0,
+  "list_better_cases": 0,
+  "none_better_cases": 1,
+  "tied_cases": 44
+ },
+ "verdict": "no clear effect",
+ "tokens": {
+  "tokens": {
+   "list": 18470.178,
+   "none": 12431.178,
+   "difference": 6039.0,
+   "interval": [
+    5567.878,
+    6511.578
+   ],
+   "p": 0.0,
+   "list_better_cases": 45,
+   "none_better_cases": 0,
+   "tied_cases": 0
+  },
+  "input": {
+   "list": 11748.156,
+   "none": 7201.244,
+   "difference": 4546.911,
+   "interval": [
+    4546.667,
+    4547.156
+   ],
+   "p": 0.0,
+   "list_better_cases": 45,
+   "none_better_cases": 0,
+   "tied_cases": 0
+  },
+  "output": {
+   "list": 6722.022,
+   "none": 5229.933,
+   "difference": 1492.089,
+   "interval": [
+    1020.733,
+    1964.6
+   ],
+   "p": 0.0,
+   "list_better_cases": 36,
+   "none_better_cases": 9,
+   "tied_cases": 0
+  },
+  "total": 2781122
+ },
+ "list_price_usd": 28.74,
+ "notes": {
+  "list": 1.1,
+  "none": 0.889,
+  "difference": 0.211,
+  "interval": [
+   0.078,
+   0.344
+  ],
+  "p": 0.0051,
+  "list_better_cases": 18,
+  "none_better_cases": 4,
+  "tied_cases": 23
+ },
+ "classes": {
+  "list": {
+   "notes": 99,
+   "side": 6,
+   "open": 26,
+   "false": 29,
+   "taste": 0,
+   "known_false": 2,
+   "dismissed": 0,
+   "unresolved": 2
+  },
+  "none": {
+   "notes": 80,
+   "side": 2,
+   "open": 24,
+   "false": 18,
+   "taste": 0,
+   "known_false": 2,
+   "dismissed": 0,
+   "unresolved": 2
+  }
+ },
+ "groups": {
+  "stratum": {
+   "S1": {
+    "cases": 7,
+    "reals": 7,
+    "real": {
+     "list": 1.0,
+     "none": 1.0,
+     "difference": 0.0,
+     "interval": [
+      0.0,
+      0.0
+     ],
+     "p": 1.0,
+     "list_better_cases": 0,
+     "none_better_cases": 0,
+     "tied_cases": 7
+    },
+    "false": {
+     "list": 0.357,
+     "none": 0.357,
+     "difference": 0.0,
+     "interval": [
+      -0.214,
+      0.214
+     ],
+     "p": 1.0,
+     "list_better_cases": 1,
+     "none_better_cases": 1,
+     "tied_cases": 5
+    }
+   },
+   "S2": {
+    "cases": 12,
+    "reals": 12,
+    "real": {
+     "list": 0.0,
+     "none": 0.125,
+     "difference": -0.125,
+     "interval": [
+      -0.333,
+      0.0
+     ],
+     "p": 0.5,
+     "list_better_cases": 0,
+     "none_better_cases": 2,
+     "tied_cases": 10
+    },
+    "false": {
+     "list": 0.333,
+     "none": 0.167,
+     "difference": 0.167,
+     "interval": [
+      0.0,
+      0.333
+     ],
+     "p": 0.2188,
+     "list_better_cases": 5,
+     "none_better_cases": 1,
+     "tied_cases": 6
+    }
+   },
+   "S3": {
+    "cases": 4,
+    "reals": 4,
+    "real": {
+     "list": 0.0,
+     "none": 0.0,
+     "difference": 0.0,
+     "interval": [
+      0.0,
+      0.0
+     ],
+     "p": 1.0,
+     "list_better_cases": 0,
+     "none_better_cases": 0,
+     "tied_cases": 4
+    },
+    "false": {
+     "list": 0.0,
+     "none": 0.0,
+     "difference": 0.0,
+     "interval": [
+      0.0,
+      0.0
+     ],
+     "p": 1.0,
+     "list_better_cases": 0,
+     "none_better_cases": 0,
+     "tied_cases": 4
+    }
+   },
+   "S4": {
+    "cases": 9,
+    "reals": 0,
+    "real": {
+     "list": 0.0,
+     "none": 0.0,
+     "difference": 0.0,
+     "interval": [
+      0.0,
+      0.0
+     ],
+     "p": 1.0,
+     "list_better_cases": 0,
+     "none_better_cases": 0,
+     "tied_cases": 9
+    },
+    "false": {
+     "list": 0.556,
+     "none": 0.333,
+     "difference": 0.222,
+     "interval": [
+      0.0,
+      0.444
+     ],
+     "p": 0.25,
+     "list_better_cases": 3,
+     "none_better_cases": 0,
+     "tied_cases": 6
+    }
+   },
+   "S5": {
+    "cases": 4,
+    "reals": 0,
+    "real": {
+     "list": 0.0,
+     "none": 0.0,
+     "difference": 0.0,
+     "interval": [
+      0.0,
+      0.0
+     ],
+     "p": 1.0,
+     "list_better_cases": 0,
+     "none_better_cases": 0,
+     "tied_cases": 4
+    },
+    "false": {
+     "list": 0.375,
+     "none": 0.0,
+     "difference": 0.375,
+     "interval": [
+      0.125,
+      0.5
+     ],
+     "p": 0.25,
+     "list_better_cases": 3,
+     "none_better_cases": 0,
+     "tied_cases": 1
+    }
+   },
+   "S6": {
+    "cases": 4,
+    "reals": 7,
+    "real": {
+     "list": 1.25,
+     "none": 0.75,
+     "difference": 0.5,
+     "interval": [
+      0.0,
+      1.0
+     ],
+     "p": 0.5,
+     "list_better_cases": 2,
+     "none_better_cases": 0,
+     "tied_cases": 2
+    },
+    "false": {
+     "list": 0.125,
+     "none": 0.375,
+     "difference": -0.25,
+     "interval": [
+      -0.5,
+      0.0
+     ],
+     "p": 0.5,
+     "list_better_cases": 0,
+     "none_better_cases": 2,
+     "tied_cases": 2
+    }
+   },
+   "S7": {
+    "cases": 5,
+    "reals": 5,
+    "real": {
+     "list": 0.0,
+     "none": 0.0,
+     "difference": 0.0,
+     "interval": [
+      0.0,
+      0.0
+     ],
+     "p": 1.0,
+     "list_better_cases": 0,
+     "none_better_cases": 0,
+     "tied_cases": 5
+    },
+    "false": {
+     "list": 0.2,
+     "none": 0.0,
+     "difference": 0.2,
+     "interval": [
+      0.0,
+      0.4
+     ],
+     "p": 0.5,
+     "list_better_cases": 2,
+     "none_better_cases": 0,
+     "tied_cases": 3
+    }
+   }
+  },
+  "seen": {
+   "fresh": {
+    "cases": 13,
+    "reals": 16,
+    "real": {
+     "list": 0.308,
+     "none": 0.192,
+     "difference": 0.115,
+     "interval": [
+      -0.077,
+      0.346
+     ],
+     "p": 0.5,
+     "list_better_cases": 2,
+     "none_better_cases": 1,
+     "tied_cases": 10
+    },
+    "false": {
+     "list": 0.269,
+     "none": 0.192,
+     "difference": 0.077,
+     "interval": [
+      -0.115,
+      0.269
+     ],
+     "p": 0.6875,
+     "list_better_cases": 4,
+     "none_better_cases": 2,
+     "tied_cases": 7
+    }
+   },
+   "seen": {
+    "cases": 32,
+    "reals": 19,
+    "real": {
+     "list": 0.25,
+     "none": 0.281,
+     "difference": -0.031,
+     "interval": [
+      -0.094,
+      0.0
+     ],
+     "p": 1.0,
+     "list_better_cases": 0,
+     "none_better_cases": 1,
+     "tied_cases": 31
+    },
+    "false": {
+     "list": 0.344,
+     "none": 0.203,
+     "difference": 0.141,
+     "interval": [
+      0.031,
+      0.25
+     ],
+     "p": 0.0332,
+     "list_better_cases": 10,
+     "none_better_cases": 2,
+     "tied_cases": 20
+    }
+   }
+  },
+  "planted": {
+   "clean": {
+    "cases": 13,
+    "reals": 0,
+    "real": {
+     "list": 0.0,
+     "none": 0.0,
+     "difference": 0.0,
+     "interval": [
+      0.0,
+      0.0
+     ],
+     "p": 1.0,
+     "list_better_cases": 0,
+     "none_better_cases": 0,
+     "tied_cases": 13
+    },
+    "false": {
+     "list": 0.5,
+     "none": 0.231,
+     "difference": 0.269,
+     "interval": [
+      0.115,
+      0.462
+     ],
+     "p": 0.0312,
+     "list_better_cases": 6,
+     "none_better_cases": 0,
+     "tied_cases": 7
+    }
+   },
+   "planted": {
+    "cases": 32,
+    "reals": 35,
+    "real": {
+     "list": 0.375,
+     "none": 0.359,
+     "difference": 0.016,
+     "interval": [
+      -0.094,
+      0.125
+     ],
+     "p": 1.0,
+     "list_better_cases": 2,
+     "none_better_cases": 2,
+     "tied_cases": 28
+    },
+    "false": {
+     "list": 0.25,
+     "none": 0.188,
+     "difference": 0.062,
+     "interval": [
+      -0.031,
+      0.172
+     ],
+     "p": 0.3877,
+     "list_better_cases": 8,
+     "none_better_cases": 4,
+     "tied_cases": 20
+    }
+   }
+  }
+ },
+ "same_arm_noise": {
+  "list": {
+   "real_same": 45,
+   "false_same": 31,
+   "pairs": 45,
+   "real_p_first_vs_second": 1.0,
+   "false_p_first_vs_second": 0.1447,
+   "real_abs_gap": 0.0,
+   "false_abs_gap": 0.333
+  },
+  "none": {
+   "real_same": 44,
+   "false_same": 39,
+   "pairs": 45,
+   "real_p_first_vs_second": 1.0,
+   "false_p_first_vs_second": 0.6875,
+   "real_abs_gap": 0.022,
+   "false_abs_gap": 0.133
+  }
+ },
+ "arm_gap_real_abs": 0.078,
+ "calibration": {
+  "right": 15,
+  "of": 16,
+  "wrong": [
+   "case_anon_word_dropped_01"
+  ]
+ },
+ "judges": {
+  "notes": 179,
+  "agreed_first_time": 174,
+  "unresolved": 4
+ },
+ "by_case": [
+  {
+   "id": "c28",
+   "stratum": "S4",
+   "seen": true,
+   "planted": false,
+   "reals": 0,
+   "list_exact": [
+    0,
+    0
+   ],
+   "none_exact": [
+    0,
+    0
+   ],
+   "list_false": [
+    1,
+    0
+   ],
+   "none_false": [
+    0,
+    0
+   ]
+  },
+  {
+   "id": "c06",
+   "stratum": "S6",
+   "seen": false,
+   "planted": true,
+   "reals": 2,
+   "list_exact": [
+    1,
+    1
+   ],
+   "none_exact": [
+    0,
+    0
+   ],
+   "list_false": [
+    0,
+    0
+   ],
+   "none_false": [
+    0,
+    0
+   ]
+  },
+  {
+   "id": "c41",
+   "stratum": "S7",
+   "seen": false,
+   "planted": true,
+   "reals": 1,
+   "list_exact": [
+    0,
+    0
+   ],
+   "none_exact": [
+    0,
+    0
+   ],
+   "list_false": [
+    0,
+    1
+   ],
+   "none_false": [
+    0,
+    0
+   ]
+  },
+  {
+   "id": "c42",
+   "stratum": "S2",
+   "seen": false,
+   "planted": true,
+   "reals": 1,
+   "list_exact": [
+    0,
+    0
+   ],
+   "none_exact": [
+    0,
+    0
+   ],
+   "list_false": [
+    0,
+    0
+   ],
+   "none_false": [
+    0,
+    0
+   ]
+  },
+  {
+   "id": "c31",
+   "stratum": "S1",
+   "seen": true,
+   "planted": true,
+   "reals": 1,
+   "list_exact": [
+    1,
+    1
+   ],
+   "none_exact": [
+    1,
+    1
+   ],
+   "list_false": [
+    0,
+    0
+   ],
+   "none_false": [
+    0,
+    0
+   ]
+  },
+  {
+   "id": "c45",
+   "stratum": "S4",
+   "seen": true,
+   "planted": false,
+   "reals": 0,
+   "list_exact": [
+    0,
+    0
+   ],
+   "none_exact": [
+    0,
+    0
+   ],
+   "list_false": [
+    1,
+    1
+   ],
+   "none_false": [
+    1,
+    1
+   ]
+  },
+  {
+   "id": "c09",
+   "stratum": "S7",
+   "seen": false,
+   "planted": true,
+   "reals": 1,
+   "list_exact": [
+    0,
+    0
+   ],
+   "none_exact": [
+    0,
+    0
+   ],
+   "list_false": [
+    0,
+    0
+   ],
+   "none_false": [
+    0,
+    0
+   ]
+  },
+  {
+   "id": "c44",
+   "stratum": "S2",
+   "seen": false,
+   "planted": true,
+   "reals": 1,
+   "list_exact": [
+    0,
+    0
+   ],
+   "none_exact": [
+    0,
+    1
+   ],
+   "list_false": [
+    1,
+    0
+   ],
+   "none_false": [
+    0,
+    0
+   ]
+  },
+  {
+   "id": "c36",
+   "stratum": "S2",
+   "seen": true,
+   "planted": true,
+   "reals": 1,
+   "list_exact": [
+    0,
+    0
+   ],
+   "none_exact": [
+    0,
+    0
+   ],
+   "list_false": [
+    1,
+    1
+   ],
+   "none_false": [
+    0,
+    1
+   ]
+  },
+  {
+   "id": "c35",
+   "stratum": "S3",
+   "seen": true,
+   "planted": true,
+   "reals": 1,
+   "list_exact": [
+    0,
+    0
+   ],
+   "none_exact": [
+    0,
+    0
+   ],
+   "list_false": [
+    0,
+    0
+   ],
+   "none_false": [
+    0,
+    0
+   ]
+  },
+  {
+   "id": "c18",
+   "stratum": "S2",
+   "seen": false,
+   "planted": true,
+   "reals": 1,
+   "list_exact": [
+    0,
+    0
+   ],
+   "none_exact": [
+    0,
+    0
+   ],
+   "list_false": [
+    0,
+    1
+   ],
+   "none_false": [
+    0,
+    1
+   ]
+  },
+  {
+   "id": "c27",
+   "stratum": "S4",
+   "seen": true,
+   "planted": false,
+   "reals": 0,
+   "list_exact": [
+    0,
+    0
+   ],
+   "none_exact": [
+    0,
+    0
+   ],
+   "list_false": [
+    0,
+    0
+   ],
+   "none_false": [
+    0,
+    0
+   ]
+  },
+  {
+   "id": "c24",
+   "stratum": "S3",
+   "seen": true,
+   "planted": true,
+   "reals": 1,
+   "list_exact": [
+    0,
+    0
+   ],
+   "none_exact": [
+    0,
+    0
+   ],
+   "list_false": [
+    0,
+    0
+   ],
+   "none_false": [
+    0,
+    0
+   ]
+  },
+  {
+   "id": "c01",
+   "stratum": "S2",
+   "seen": true,
+   "planted": true,
+   "reals": 1,
+   "list_exact": [
+    0,
+    0
+   ],
+   "none_exact": [
+    0,
+    0
+   ],
+   "list_false": [
+    0,
+    0
+   ],
+   "none_false": [
+    0,
+    0
+   ]
+  },
+  {
+   "id": "c39",
+   "stratum": "S2",
+   "seen": true,
+   "planted": true,
+   "reals": 1,
+   "list_exact": [
+    0,
+    0
+   ],
+   "none_exact": [
+    0,
+    0
+   ],
+   "list_false": [
+    0,
+    0
+   ],
+   "none_false": [
+    0,
+    0
+   ]
+  },
+  {
+   "id": "c25",
+   "stratum": "S1",
+   "seen": true,
+   "planted": true,
+   "reals": 1,
+   "list_exact": [
+    1,
+    1
+   ],
+   "none_exact": [
+    1,
+    1
+   ],
+   "list_false": [
+    0,
+    0
+   ],
+   "none_false": [
+    0,
+    0
+   ]
+  },
+  {
+   "id": "c04",
+   "stratum": "S4",
+   "seen": true,
+   "planted": false,
+   "reals": 0,
+   "list_exact": [
+    0,
+    0
+   ],
+   "none_exact": [
+    0,
+    0
+   ],
+   "list_false": [
+    0,
+    0
+   ],
+   "none_false": [
+    0,
+    0
+   ]
+  },
+  {
+   "id": "c38",
+   "stratum": "S4",
+   "seen": true,
+   "planted": false,
+   "reals": 0,
+   "list_exact": [
+    0,
+    0
+   ],
+   "none_exact": [
+    0,
+    0
+   ],
+   "list_false": [
+    0,
+    0
+   ],
+   "none_false": [
+    0,
+    0
+   ]
+  },
+  {
+   "id": "c10",
+   "stratum": "S7",
+   "seen": false,
+   "planted": true,
+   "reals": 1,
+   "list_exact": [
+    0,
+    0
+   ],
+   "none_exact": [
+    0,
+    0
+   ],
+   "list_false": [
+    0,
+    0
+   ],
+   "none_false": [
+    0,
+    0
+   ]
+  },
+  {
+   "id": "c29",
+   "stratum": "S2",
+   "seen": true,
+   "planted": true,
+   "reals": 1,
+   "list_exact": [
+    0,
+    0
+   ],
+   "none_exact": [
+    0,
+    0
+   ],
+   "list_false": [
+    0,
+    0
+   ],
+   "none_false": [
+    1,
+    0
+   ]
+  },
+  {
+   "id": "c12",
+   "stratum": "S1",
+   "seen": true,
+   "planted": true,
+   "reals": 1,
+   "list_exact": [
+    1,
+    1
+   ],
+   "none_exact": [
+    1,
+    1
+   ],
+   "list_false": [
+    0,
+    0
+   ],
+   "none_false": [
+    1,
+    0
+   ]
+  },
+  {
+   "id": "c37",
+   "stratum": "S3",
+   "seen": true,
+   "planted": true,
+   "reals": 1,
+   "list_exact": [
+    0,
+    0
+   ],
+   "none_exact": [
+    0,
+    0
+   ],
+   "list_false": [
+    0,
+    0
+   ],
+   "none_false": [
+    0,
+    0
+   ]
+  },
+  {
+   "id": "c19",
+   "stratum": "S7",
+   "seen": false,
+   "planted": true,
+   "reals": 1,
+   "list_exact": [
+    0,
+    0
+   ],
+   "none_exact": [
+    0,
+    0
+   ],
+   "list_false": [
+    0,
+    0
+   ],
+   "none_false": [
+    0,
+    0
+   ]
+  },
+  {
+   "id": "c13",
+   "stratum": "S2",
+   "seen": true,
+   "planted": true,
+   "reals": 1,
+   "list_exact": [
+    0,
+    0
+   ],
+   "none_exact": [
+    1,
+    1
+   ],
+   "list_false": [
+    0,
+    0
+   ],
+   "none_false": [
+    0,
+    0
+   ]
+  },
+  {
+   "id": "c22",
+   "stratum": "S6",
+   "seen": false,
+   "planted": true,
+   "reals": 2,
+   "list_exact": [
+    2,
+    2
+   ],
+   "none_exact": [
+    1,
+    1
+   ],
+   "list_false": [
+    1,
+    0
+   ],
+   "none_false": [
+    1,
+    1
+   ]
+  },
+  {
+   "id": "c43",
+   "stratum": "S1",
+   "seen": true,
+   "planted": true,
+   "reals": 1,
+   "list_exact": [
+    1,
+    1
+   ],
+   "none_exact": [
+    1,
+    1
+   ],
+   "list_false": [
+    1,
+    1
+   ],
+   "none_false": [
+    1,
+    1
+   ]
+  },
+  {
+   "id": "c02",
+   "stratum": "S4",
+   "seen": true,
+   "planted": false,
+   "reals": 0,
+   "list_exact": [
+    0,
+    0
+   ],
+   "none_exact": [
+    0,
+    0
+   ],
+   "list_false": [
+    2,
+    1
+   ],
+   "none_false": [
+    1,
+    1
+   ]
+  },
+  {
+   "id": "c26",
+   "stratum": "S5",
+   "seen": true,
+   "planted": false,
+   "reals": 0,
+   "list_exact": [
+    0,
+    0
+   ],
+   "none_exact": [
+    0,
+    0
+   ],
+   "list_false": [
+    1,
+    0
+   ],
+   "none_false": [
+    0,
+    0
+   ]
+  },
+  {
+   "id": "c34",
+   "stratum": "S5",
+   "seen": true,
+   "planted": false,
+   "reals": 0,
+   "list_exact": [
+    0,
+    0
+   ],
+   "none_exact": [
+    0,
+    0
+   ],
+   "list_false": [
+    1,
+    0
+   ],
+   "none_false": [
+    0,
+    0
+   ]
+  },
+  {
+   "id": "c30",
+   "stratum": "S2",
+   "seen": false,
+   "planted": true,
+   "reals": 1,
+   "list_exact": [
+    0,
+    0
+   ],
+   "none_exact": [
+    0,
+    0
+   ],
+   "list_false": [
+    1,
+    1
+   ],
+   "none_false": [
+    0,
+    1
+   ]
+  },
+  {
+   "id": "c15",
+   "stratum": "S7",
+   "seen": false,
+   "planted": true,
+   "reals": 1,
+   "list_exact": [
+    0,
+    0
+   ],
+   "none_exact": [
+    0,
+    0
+   ],
+   "list_false": [
+    0,
+    1
+   ],
+   "none_false": [
+    0,
+    0
+   ]
+  },
+  {
+   "id": "c33",
+   "stratum": "S1",
+   "seen": true,
+   "planted": true,
+   "reals": 1,
+   "list_exact": [
+    1,
+    1
+   ],
+   "none_exact": [
+    1,
+    1
+   ],
+   "list_false": [
+    2,
+    0
+   ],
+   "none_false": [
+    1,
+    1
+   ]
+  },
+  {
+   "id": "c20",
+   "stratum": "S2",
+   "seen": true,
+   "planted": true,
+   "reals": 1,
+   "list_exact": [
+    0,
+    0
+   ],
+   "none_exact": [
+    0,
+    0
+   ],
+   "list_false": [
+    1,
+    0
+   ],
+   "none_false": [
+    0,
+    0
+   ]
+  },
+  {
+   "id": "c16",
+   "stratum": "S4",
+   "seen": true,
+   "planted": false,
+   "reals": 0,
+   "list_exact": [
+    0,
+    0
+   ],
+   "none_exact": [
+    0,
+    0
+   ],
+   "list_false": [
+    0,
+    0
+   ],
+   "none_false": [
+    0,
+    0
+   ]
+  },
+  {
+   "id": "c05",
+   "stratum": "S2",
+   "seen": false,
+   "planted": true,
+   "reals": 1,
+   "list_exact": [
+    0,
+    0
+   ],
+   "none_exact": [
+    0,
+    0
+   ],
+   "list_false": [
+    0,
+    0
+   ],
+   "none_false": [
+    0,
+    0
+   ]
+  },
+  {
+   "id": "c03",
+   "stratum": "S1",
+   "seen": true,
+   "planted": true,
+   "reals": 1,
+   "list_exact": [
+    1,
+    1
+   ],
+   "none_exact": [
+    1,
+    1
+   ],
+   "list_false": [
+    0,
+    1
+   ],
+   "none_false": [
+    0,
+    0
+   ]
+  },
+  {
+   "id": "c14",
+   "stratum": "S6",
+   "seen": false,
+   "planted": true,
+   "reals": 2,
+   "list_exact": [
+    1,
+    1
+   ],
+   "none_exact": [
+    1,
+    1
+   ],
+   "list_false": [
+    0,
+    0
+   ],
+   "none_false": [
+    0,
+    1
+   ]
+  },
+  {
+   "id": "c07",
+   "stratum": "S5",
+   "seen": true,
+   "planted": false,
+   "reals": 0,
+   "list_exact": [
+    0,
+    0
+   ],
+   "none_exact": [
+    0,
+    0
+   ],
+   "list_false": [
+    1,
+    0
+   ],
+   "none_false": [
+    0,
+    0
+   ]
+  },
+  {
+   "id": "c08",
+   "stratum": "S3",
+   "seen": true,
+   "planted": true,
+   "reals": 1,
+   "list_exact": [
+    0,
+    0
+   ],
+   "none_exact": [
+    0,
+    0
+   ],
+   "list_false": [
+    0,
+    0
+   ],
+   "none_false": [
+    0,
+    0
+   ]
+  },
+  {
+   "id": "c23",
+   "stratum": "S6",
+   "seen": true,
+   "planted": true,
+   "reals": 1,
+   "list_exact": [
+    1,
+    1
+   ],
+   "none_exact": [
+    1,
+    1
+   ],
+   "list_false": [
+    0,
+    0
+   ],
+   "none_false": [
+    0,
+    0
+   ]
+  },
+  {
+   "id": "c11",
+   "stratum": "S4",
+   "seen": true,
+   "planted": false,
+   "reals": 0,
+   "list_exact": [
+    0,
+    0
+   ],
+   "none_exact": [
+    0,
+    0
+   ],
+   "list_false": [
+    1,
+    1
+   ],
+   "none_false": [
+    0,
+    0
+   ]
+  },
+  {
+   "id": "c40",
+   "stratum": "S5",
+   "seen": true,
+   "planted": false,
+   "reals": 0,
+   "list_exact": [
+    0,
+    0
+   ],
+   "none_exact": [
+    0,
+    0
+   ],
+   "list_false": [
+    0,
+    0
+   ],
+   "none_false": [
+    0,
+    0
+   ]
+  },
+  {
+   "id": "c21",
+   "stratum": "S1",
+   "seen": true,
+   "planted": true,
+   "reals": 1,
+   "list_exact": [
+    1,
+    1
+   ],
+   "none_exact": [
+    1,
+    1
+   ],
+   "list_false": [
+    0,
+    0
+   ],
+   "none_false": [
+    0,
+    0
+   ]
+  },
+  {
+   "id": "c17",
+   "stratum": "S2",
+   "seen": true,
+   "planted": true,
+   "reals": 1,
+   "list_exact": [
+    0,
+    0
+   ],
+   "none_exact": [
+    0,
+    0
+   ],
+   "list_false": [
+    1,
+    0
+   ],
+   "none_false": [
+    0,
+    0
+   ]
+  },
+  {
+   "id": "c32",
+   "stratum": "S4",
+   "seen": true,
+   "planted": false,
+   "reals": 0,
+   "list_exact": [
+    0,
+    0
+   ],
+   "none_exact": [
+    0,
+    0
+   ],
+   "list_false": [
+    1,
+    1
+   ],
+   "none_false": [
+    1,
+    1
+   ]
+  }
+ ]
+}

@@ -1,0 +1,162 @@
+{
+  "experiment": "paired-causal-ablation-codex-user-rules-leakage",
+  "description": "16 distinct non-residency production build sessions (12 Codex-BLOCK/Claude-PASS + 4 mutual BLOCK) re-judged by GPT-6.2 Sol (medium) under two paired conditions: default ~/.codex (with 57 KB user AGENTS.md) vs isolated CODEX_HOME (0 bytes user rules).",
+  "codex_only_block_stratum": {
+    "n": 12,
+    "with_agents_md_block": 11,
+    "clean_no_agents_md_block": 11,
+    "flipped_block_to_pass": 1,
+    "flipped_pass_to_block": 1
+  },
+  "mutual_block_stratum": {
+    "n": 4,
+    "with_agents_md_block": 4,
+    "clean_no_agents_md_block": 4
+  },
+  "runs": [
+    {
+      "stratum": "codex_only_block",
+      "slug_anon": "abl_50786",
+      "img_count": 0,
+      "clean_no_agents_md": "BLOCK",
+      "with_agents_md": "BLOCK",
+      "clean_ok": true,
+      "leaked_ok": true
+    },
+    {
+      "stratum": "codex_only_block",
+      "slug_anon": "abl_40924",
+      "img_count": 3,
+      "clean_no_agents_md": "BLOCK",
+      "with_agents_md": "BLOCK",
+      "clean_ok": true,
+      "leaked_ok": true
+    },
+    {
+      "stratum": "codex_only_block",
+      "slug_anon": "abl_95370",
+      "img_count": 2,
+      "clean_no_agents_md": "BLOCK",
+      "with_agents_md": "BLOCK",
+      "clean_ok": true,
+      "leaked_ok": true
+    },
+    {
+      "stratum": "codex_only_block",
+      "slug_anon": "abl_45302",
+      "img_count": 0,
+      "clean_no_agents_md": "BLOCK",
+      "with_agents_md": "BLOCK",
+      "clean_ok": true,
+      "leaked_ok": true
+    },
+    {
+      "stratum": "codex_only_block",
+      "slug_anon": "abl_74580",
+      "img_count": 18,
+      "clean_no_agents_md": "BLOCK",
+      "with_agents_md": "BLOCK",
+      "clean_ok": true,
+      "leaked_ok": true
+    },
+    {
+      "stratum": "codex_only_block",
+      "slug_anon": "abl_12188",
+      "img_count": 5,
+      "clean_no_agents_md": "BLOCK",
+      "with_agents_md": "BLOCK",
+      "clean_ok": true,
+      "leaked_ok": true
+    },
+    {
+      "stratum": "codex_only_block",
+      "slug_anon": "abl_87295",
+      "img_count": 6,
+      "clean_no_agents_md": "BLOCK",
+      "with_agents_md": "BLOCK",
+      "clean_ok": true,
+      "leaked_ok": true
+    },
+    {
+      "stratum": "codex_only_block",
+      "slug_anon": "abl_93312",
+      "img_count": 2,
+      "clean_no_agents_md": "BLOCK",
+      "with_agents_md": "BLOCK",
+      "clean_ok": true,
+      "leaked_ok": true
+    },
+    {
+      "stratum": "codex_only_block",
+      "slug_anon": "abl_14323",
+      "img_count": 0,
+      "clean_no_agents_md": "BLOCK",
+      "with_agents_md": "BLOCK",
+      "clean_ok": true,
+      "leaked_ok": true
+    },
+    {
+      "stratum": "codex_only_block",
+      "slug_anon": "abl_33859",
+      "img_count": 4,
+      "clean_no_agents_md": "PASS",
+      "with_agents_md": "BLOCK",
+      "clean_ok": true,
+      "leaked_ok": true
+    },
+    {
+      "stratum": "codex_only_block",
+      "slug_anon": "abl_67897",
+      "img_count": 2,
+      "clean_no_agents_md": "BLOCK",
+      "with_agents_md": "BLOCK",
+      "clean_ok": true,
+      "leaked_ok": true
+    },
+    {
+      "stratum": "codex_only_block",
+      "slug_anon": "abl_90821",
+      "img_count": 0,
+      "clean_no_agents_md": "BLOCK",
+      "with_agents_md": "PASS",
+      "clean_ok": true,
+      "leaked_ok": true
+    },
+    {
+      "stratum": "mutual_block",
+      "slug_anon": "abl_03681",
+      "img_count": 4,
+      "clean_no_agents_md": "BLOCK",
+      "with_agents_md": "BLOCK",
+      "clean_ok": true,
+      "leaked_ok": true
+    },
+    {
+      "stratum": "mutual_block",
+      "slug_anon": "abl_19636",
+      "img_count": 2,
+      "clean_no_agents_md": "BLOCK",
+      "with_agents_md": "BLOCK",
+      "clean_ok": true,
+      "leaked_ok": true
+    },
+    {
+      "stratum": "mutual_block",
+      "slug_anon": "abl_41370",
+      "img_count": 5,
+      "clean_no_agents_md": "BLOCK",
+      "with_agents_md": "BLOCK",
+      "clean_ok": true,
+      "leaked_ok": true
+    },
+    {
+      "stratum": "mutual_block",
+      "slug_anon": "abl_90183",
+      "img_count": 0,
+      "clean_no_agents_md": "BLOCK",
+      "with_agents_md": "BLOCK",
+      "clean_ok": true,
+      "leaked_ok": true
+    }
+  ]
+}

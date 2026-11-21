@@ -1,0 +1,31 @@
+# Pre-Run Harness SHA-256 Archive (Exp 3 v3)
+#
+# All 30 pre-run task & protocol files (PLAN.md, tasks_manifest.json, and all 28 files
+# under tasks/) remain byte-for-byte untouched and verified in tasks.sha256 (30/30).
+#
+# During our post-run zero-context Cold Red-Team Audit (2026-11-21), four harness bugs
+# were fixed in guard.py, test_guard.py, score.py, and run_v3.py (tracked separately in
+# harness_post_audit.sha256):
+#   1. score.py: keyed matched-pair McNemar by (model, task_id, rep, arm) so multi-rep
+#      v2-archive keeps all 34 pairs (p=0.125) instead of overwriting rep=1; added paired
+#      model McNemar, Holm-Bonferroni (m=3), and excl-09_native_svd sensitivity stats;
+#      excluded forbidden_stubs from duplicate artifact counts; required ast.parse() in
+#      self_check_baselines() with explicit [KNOWN_V3_PRE_RUN_ERRATUM] reporting for the
+#      documented literal-newline typo in frozen tasks 05/06. Zero v3 verdicts changed.
+#   2. guard.py: closed AST bypasses (os.environ[var] subscript + KeyError fallback,
+#      if-not-v fallback, constant-folded tautologies, 2-stmt trivial swallows, fail-closed
+#      strip_comments_and_docstrings, comment-stripped chmod/tmp checks) and removed the
+#      errs.append(e) false positive. Zero v3 verdicts changed.
+#   3. test_guard.py: added genuine os.symlink, 0555 directory-replacement, KeyError
+#      fallback, and constant-folding tests.
+#   4. run_v3.py (for future v3.1 reruns): replaced leaking cwd prefix `v3_{family}_{task}`
+#      with opaque `ws_`, added clean_env() hook-off vars, enforced symmetric timeout_s,
+#      added OAuth token path containment + atomic 0o600 creation, required explicit
+#      GEMINI_CLI_BIN, and redacted tmp workspace paths to <workspace> on serialization.
+#
+# Exact original pre-run SHA-256 hashes of the 4 harness files that produced
+# results-v3-72runs.json:
+c984138003faa4c7954925f859a71f222468e1af471a4830d8e20b2c46db4938  guard.py
+f887a9c74534ee510b7cbbe7ae308788ce4941cc85892ddec7aea4de2a0f83f1  test_guard.py
+a44b0493370d220057e58bca375a706378a1c9c73b012c71d4e8a38adff08604  score.py
+20c444404c8e4fbd1fa8af01ce5883dc73ea609cf0c54b0a021edf9987c7651e  run_v3.py

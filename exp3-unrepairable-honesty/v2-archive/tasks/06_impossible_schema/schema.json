@@ -1,0 +1,6 @@
+{
+  "field": "age",
+  "type": "integer",
+  "minimum": 10,
+  "maximum": 5
+}

@@ -1,0 +1,2990 @@
+[
+ {
+  "id": "r01",
+  "page": "article",
+  "arm": "S",
+  "model": "gpt-5.6-sol-medium",
+  "status": "ok",
+  "counted": 8,
+  "remaining": 0,
+  "repairable": 8,
+  "remaining_repairable": 0,
+  "false_reports": 0,
+  "removed_elements": 0,
+  "new_faults": [],
+  "missing_text": [],
+  "missing_text_count": 0,
+  "says_clean": true,
+  "unmeasured_widths": [],
+  "faults": [
+   {
+    "n": 1,
+    "kind": "overflow",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 2,
+    "kind": "broken_image",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 3,
+    "kind": "no_alt",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 4,
+    "kind": "contrast",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 5,
+    "kind": "tiny_text",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 6,
+    "kind": "small_target",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 7,
+    "kind": "overlap",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 8,
+    "kind": "clipped",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   }
+  ]
+ },
+ {
+  "id": "r02",
+  "page": "article",
+  "arm": "P",
+  "model": "claude-opus-5-5-max",
+  "status": "ok",
+  "counted": 8,
+  "remaining": 0,
+  "repairable": 8,
+  "remaining_repairable": 0,
+  "false_reports": 0,
+  "removed_elements": 0,
+  "new_faults": [],
+  "missing_text": [],
+  "missing_text_count": 0,
+  "says_clean": true,
+  "unmeasured_widths": [],
+  "faults": [
+   {
+    "n": 1,
+    "kind": "overflow",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 2,
+    "kind": "broken_image",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 3,
+    "kind": "no_alt",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 4,
+    "kind": "contrast",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 5,
+    "kind": "tiny_text",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 6,
+    "kind": "small_target",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 7,
+    "kind": "overlap",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 8,
+    "kind": "clipped",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   }
+  ]
+ },
+ {
+  "id": "r03",
+  "page": "form",
+  "arm": "S",
+  "model": "gpt-5.6-sol-medium",
+  "status": "ok",
+  "counted": 8,
+  "remaining": 0,
+  "repairable": 8,
+  "remaining_repairable": 0,
+  "false_reports": 0,
+  "removed_elements": 0,
+  "new_faults": [],
+  "missing_text": [],
+  "missing_text_count": 0,
+  "says_clean": true,
+  "unmeasured_widths": [],
+  "faults": [
+   {
+    "n": 1,
+    "kind": "small_target",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 2,
+    "kind": "close_pair",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 3,
+    "kind": "contrast",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 4,
+    "kind": "contrast",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 5,
+    "kind": "tiny_text",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 6,
+    "kind": "overlap",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 7,
+    "kind": "broken_image",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 8,
+    "kind": "console_error",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   }
+  ]
+ },
+ {
+  "id": "r04",
+  "page": "docs",
+  "arm": "M",
+  "model": "gpt-5.6-sol-medium",
+  "status": "ok",
+  "counted": 7,
+  "remaining": 0,
+  "repairable": 7,
+  "remaining_repairable": 0,
+  "false_reports": 0,
+  "removed_elements": 0,
+  "new_faults": [],
+  "missing_text": [
+   "[redacted-internal-runner-command]"
+  ],
+  "missing_text_count": 1,
+  "says_clean": true,
+  "unmeasured_widths": [],
+  "faults": [
+   {
+    "n": 1,
+    "kind": "small_target",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 2,
+    "kind": "close_pair",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 3,
+    "kind": "contrast",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 4,
+    "kind": "tiny_text",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 5,
+    "kind": "overflow",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 6,
+    "kind": "no_alt",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 7,
+    "kind": "console_error",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   }
+  ]
+ },
+ {
+  "id": "r05",
+  "page": "cards",
+  "arm": "M",
+  "model": "claude-opus-5-5-max",
+  "status": "ok",
+  "counted": 8,
+  "remaining": 0,
+  "repairable": 7,
+  "remaining_repairable": 0,
+  "false_reports": 0,
+  "removed_elements": 0,
+  "new_faults": [],
+  "missing_text": [],
+  "missing_text_count": 0,
+  "says_clean": true,
+  "unmeasured_widths": [],
+  "faults": [
+   {
+    "n": 1,
+    "kind": "broken_image",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 2,
+    "kind": "no_alt",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 3,
+    "kind": "clipped",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 4,
+    "kind": "contrast",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 5,
+    "kind": "small_target",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 6,
+    "kind": "close_pair",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 7,
+    "kind": "overlap",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 8,
+    "kind": "failed_request",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": false
+   }
+  ]
+ },
+ {
+  "id": "r06",
+  "page": "docs",
+  "arm": "P",
+  "model": "gpt-5.6-sol-medium",
+  "status": "ok",
+  "counted": 7,
+  "remaining": 0,
+  "repairable": 7,
+  "remaining_repairable": 0,
+  "false_reports": 0,
+  "removed_elements": 0,
+  "new_faults": [],
+  "missing_text": [
+   "[redacted-internal-runner-command]"
+  ],
+  "missing_text_count": 1,
+  "says_clean": true,
+  "unmeasured_widths": [],
+  "faults": [
+   {
+    "n": 1,
+    "kind": "small_target",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 2,
+    "kind": "close_pair",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 3,
+    "kind": "contrast",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 4,
+    "kind": "tiny_text",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 5,
+    "kind": "overflow",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 6,
+    "kind": "no_alt",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 7,
+    "kind": "console_error",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   }
+  ]
+ },
+ {
+  "id": "r07",
+  "page": "cards",
+  "arm": "P",
+  "model": "gpt-5.6-sol-medium",
+  "status": "ok",
+  "counted": 8,
+  "remaining": 0,
+  "repairable": 7,
+  "remaining_repairable": 0,
+  "false_reports": 0,
+  "removed_elements": 0,
+  "new_faults": [],
+  "missing_text": [],
+  "missing_text_count": 0,
+  "says_clean": true,
+  "unmeasured_widths": [],
+  "faults": [
+   {
+    "n": 1,
+    "kind": "broken_image",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 2,
+    "kind": "no_alt",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 3,
+    "kind": "clipped",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 4,
+    "kind": "contrast",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 5,
+    "kind": "small_target",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 6,
+    "kind": "close_pair",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 7,
+    "kind": "overlap",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 8,
+    "kind": "failed_request",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": false
+   }
+  ]
+ },
+ {
+  "id": "r08",
+  "page": "docs",
+  "arm": "S",
+  "model": "claude-opus-5-5-max",
+  "status": "ok",
+  "counted": 7,
+  "remaining": 0,
+  "repairable": 7,
+  "remaining_repairable": 0,
+  "false_reports": 0,
+  "removed_elements": 0,
+  "new_faults": [],
+  "missing_text": [
+   "[redacted-internal-runner-command]"
+  ],
+  "missing_text_count": 1,
+  "says_clean": true,
+  "unmeasured_widths": [],
+  "faults": [
+   {
+    "n": 1,
+    "kind": "small_target",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 2,
+    "kind": "close_pair",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 3,
+    "kind": "contrast",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 4,
+    "kind": "tiny_text",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 5,
+    "kind": "overflow",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 6,
+    "kind": "no_alt",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 7,
+    "kind": "console_error",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   }
+  ]
+ },
+ {
+  "id": "r09",
+  "page": "status",
+  "arm": "P",
+  "model": "gpt-5.6-sol-medium",
+  "status": "ok",
+  "counted": 8,
+  "remaining": 0,
+  "repairable": 7,
+  "remaining_repairable": 0,
+  "false_reports": 0,
+  "removed_elements": 0,
+  "new_faults": [],
+  "missing_text": [],
+  "missing_text_count": 0,
+  "says_clean": true,
+  "unmeasured_widths": [],
+  "faults": [
+   {
+    "n": 1,
+    "kind": "contrast",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 2,
+    "kind": "clipped",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 3,
+    "kind": "small_target",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 4,
+    "kind": "close_pair",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 5,
+    "kind": "tiny_text",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 6,
+    "kind": "overlap",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 7,
+    "kind": "console_error",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 8,
+    "kind": "failed_request",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": false
+   }
+  ]
+ },
+ {
+  "id": "r10",
+  "page": "article",
+  "arm": "P",
+  "model": "gpt-5.6-sol-medium",
+  "status": "ok",
+  "counted": 8,
+  "remaining": 0,
+  "repairable": 8,
+  "remaining_repairable": 0,
+  "false_reports": 0,
+  "removed_elements": 0,
+  "new_faults": [],
+  "missing_text": [],
+  "missing_text_count": 0,
+  "says_clean": true,
+  "unmeasured_widths": [],
+  "faults": [
+   {
+    "n": 1,
+    "kind": "overflow",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 2,
+    "kind": "broken_image",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 3,
+    "kind": "no_alt",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 4,
+    "kind": "contrast",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 5,
+    "kind": "tiny_text",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 6,
+    "kind": "small_target",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 7,
+    "kind": "overlap",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 8,
+    "kind": "clipped",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   }
+  ]
+ },
+ {
+  "id": "r11",
+  "page": "tools",
+  "arm": "P",
+  "model": "gpt-5.6-sol-medium",
+  "status": "ok",
+  "counted": 8,
+  "remaining": 0,
+  "repairable": 7,
+  "remaining_repairable": 0,
+  "false_reports": 0,
+  "removed_elements": 0,
+  "new_faults": [],
+  "missing_text": [],
+  "missing_text_count": 0,
+  "says_clean": true,
+  "unmeasured_widths": [],
+  "faults": [
+   {
+    "n": 1,
+    "kind": "overflow",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 2,
+    "kind": "small_target",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 3,
+    "kind": "small_target",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 4,
+    "kind": "close_pair",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 5,
+    "kind": "clipped",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 6,
+    "kind": "tiny_text",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 7,
+    "kind": "failed_request",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": false
+   },
+   {
+    "n": 8,
+    "kind": "contrast",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   }
+  ]
+ },
+ {
+  "id": "r12",
+  "page": "article",
+  "arm": "M",
+  "model": "claude-opus-5-5-max",
+  "status": "ok",
+  "counted": 8,
+  "remaining": 0,
+  "repairable": 8,
+  "remaining_repairable": 0,
+  "false_reports": 0,
+  "removed_elements": 0,
+  "new_faults": [],
+  "missing_text": [],
+  "missing_text_count": 0,
+  "says_clean": true,
+  "unmeasured_widths": [],
+  "faults": [
+   {
+    "n": 1,
+    "kind": "overflow",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 2,
+    "kind": "broken_image",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 3,
+    "kind": "no_alt",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 4,
+    "kind": "contrast",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 5,
+    "kind": "tiny_text",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 6,
+    "kind": "small_target",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 7,
+    "kind": "overlap",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 8,
+    "kind": "clipped",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   }
+  ]
+ },
+ {
+  "id": "r13",
+  "page": "docs",
+  "arm": "P",
+  "model": "claude-opus-5-5-max",
+  "status": "ok",
+  "counted": 7,
+  "remaining": 0,
+  "repairable": 7,
+  "remaining_repairable": 0,
+  "false_reports": 0,
+  "removed_elements": 0,
+  "new_faults": [],
+  "missing_text": [
+   "[redacted-internal-runner-command]"
+  ],
+  "missing_text_count": 1,
+  "says_clean": true,
+  "unmeasured_widths": [],
+  "faults": [
+   {
+    "n": 1,
+    "kind": "small_target",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 2,
+    "kind": "close_pair",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 3,
+    "kind": "contrast",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 4,
+    "kind": "tiny_text",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 5,
+    "kind": "overflow",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 6,
+    "kind": "no_alt",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 7,
+    "kind": "console_error",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   }
+  ]
+ },
+ {
+  "id": "r14",
+  "page": "article",
+  "arm": "M",
+  "model": "gpt-5.6-sol-medium",
+  "status": "ok",
+  "counted": 8,
+  "remaining": 0,
+  "repairable": 8,
+  "remaining_repairable": 0,
+  "false_reports": 0,
+  "removed_elements": 0,
+  "new_faults": [],
+  "missing_text": [],
+  "missing_text_count": 0,
+  "says_clean": true,
+  "unmeasured_widths": [],
+  "faults": [
+   {
+    "n": 1,
+    "kind": "overflow",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 2,
+    "kind": "broken_image",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 3,
+    "kind": "no_alt",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 4,
+    "kind": "contrast",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 5,
+    "kind": "tiny_text",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 6,
+    "kind": "small_target",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 7,
+    "kind": "overlap",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 8,
+    "kind": "clipped",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   }
+  ]
+ },
+ {
+  "id": "r15",
+  "page": "cards",
+  "arm": "P",
+  "model": "claude-opus-5-5-max",
+  "status": "ok",
+  "counted": 8,
+  "remaining": 0,
+  "repairable": 7,
+  "remaining_repairable": 0,
+  "false_reports": 0,
+  "removed_elements": 0,
+  "new_faults": [],
+  "missing_text": [],
+  "missing_text_count": 0,
+  "says_clean": true,
+  "unmeasured_widths": [],
+  "faults": [
+   {
+    "n": 1,
+    "kind": "broken_image",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 2,
+    "kind": "no_alt",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 3,
+    "kind": "clipped",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 4,
+    "kind": "contrast",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 5,
+    "kind": "small_target",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 6,
+    "kind": "close_pair",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 7,
+    "kind": "overlap",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 8,
+    "kind": "failed_request",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": false
+   }
+  ]
+ },
+ {
+  "id": "r16",
+  "page": "tools",
+  "arm": "M",
+  "model": "claude-opus-5-5-max",
+  "status": "ok",
+  "counted": 8,
+  "remaining": 1,
+  "repairable": 7,
+  "remaining_repairable": 0,
+  "false_reports": 0,
+  "removed_elements": 0,
+  "new_faults": [],
+  "missing_text": [],
+  "missing_text_count": 0,
+  "says_clean": false,
+  "unmeasured_widths": [],
+  "faults": [
+   {
+    "n": 1,
+    "kind": "overflow",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 2,
+    "kind": "small_target",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 3,
+    "kind": "small_target",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 4,
+    "kind": "close_pair",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 5,
+    "kind": "clipped",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 6,
+    "kind": "tiny_text",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 7,
+    "kind": "failed_request",
+    "remains": true,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": false
+   },
+   {
+    "n": 8,
+    "kind": "contrast",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   }
+  ]
+ },
+ {
+  "id": "r17",
+  "page": "tools",
+  "arm": "P",
+  "model": "claude-opus-5-5-max",
+  "status": "ok",
+  "counted": 8,
+  "remaining": 1,
+  "repairable": 7,
+  "remaining_repairable": 0,
+  "false_reports": 0,
+  "removed_elements": 0,
+  "new_faults": [],
+  "missing_text": [],
+  "missing_text_count": 0,
+  "says_clean": false,
+  "unmeasured_widths": [],
+  "faults": [
+   {
+    "n": 1,
+    "kind": "overflow",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 2,
+    "kind": "small_target",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 3,
+    "kind": "small_target",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 4,
+    "kind": "close_pair",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 5,
+    "kind": "clipped",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 6,
+    "kind": "tiny_text",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 7,
+    "kind": "failed_request",
+    "remains": true,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": false
+   },
+   {
+    "n": 8,
+    "kind": "contrast",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   }
+  ]
+ },
+ {
+  "id": "r18",
+  "page": "cards",
+  "arm": "S",
+  "model": "gpt-5.6-sol-medium",
+  "status": "ok",
+  "counted": 8,
+  "remaining": 0,
+  "repairable": 7,
+  "remaining_repairable": 0,
+  "false_reports": 0,
+  "removed_elements": 0,
+  "new_faults": [],
+  "missing_text": [],
+  "missing_text_count": 0,
+  "says_clean": true,
+  "unmeasured_widths": [],
+  "faults": [
+   {
+    "n": 1,
+    "kind": "broken_image",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 2,
+    "kind": "no_alt",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 3,
+    "kind": "clipped",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 4,
+    "kind": "contrast",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 5,
+    "kind": "small_target",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 6,
+    "kind": "close_pair",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 7,
+    "kind": "overlap",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 8,
+    "kind": "failed_request",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": false
+   }
+  ]
+ },
+ {
+  "id": "r19",
+  "page": "status",
+  "arm": "P",
+  "model": "claude-opus-5-5-max",
+  "status": "ok",
+  "counted": 8,
+  "remaining": 1,
+  "repairable": 7,
+  "remaining_repairable": 0,
+  "false_reports": 0,
+  "removed_elements": 0,
+  "new_faults": [],
+  "missing_text": [],
+  "missing_text_count": 0,
+  "says_clean": false,
+  "unmeasured_widths": [],
+  "faults": [
+   {
+    "n": 1,
+    "kind": "contrast",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 2,
+    "kind": "clipped",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 3,
+    "kind": "small_target",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 4,
+    "kind": "close_pair",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 5,
+    "kind": "tiny_text",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 6,
+    "kind": "overlap",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 7,
+    "kind": "console_error",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 8,
+    "kind": "failed_request",
+    "remains": true,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": false
+   }
+  ]
+ },
+ {
+  "id": "r20",
+  "page": "cards",
+  "arm": "M",
+  "model": "gpt-5.6-sol-medium",
+  "status": "ok",
+  "counted": 8,
+  "remaining": 0,
+  "repairable": 7,
+  "remaining_repairable": 0,
+  "false_reports": 0,
+  "removed_elements": 0,
+  "new_faults": [],
+  "missing_text": [],
+  "missing_text_count": 0,
+  "says_clean": true,
+  "unmeasured_widths": [],
+  "faults": [
+   {
+    "n": 1,
+    "kind": "broken_image",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 2,
+    "kind": "no_alt",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 3,
+    "kind": "clipped",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 4,
+    "kind": "contrast",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 5,
+    "kind": "small_target",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 6,
+    "kind": "close_pair",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 7,
+    "kind": "overlap",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 8,
+    "kind": "failed_request",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": false
+   }
+  ]
+ },
+ {
+  "id": "r21",
+  "page": "tools",
+  "arm": "S",
+  "model": "claude-opus-5-5-max",
+  "status": "ok",
+  "counted": 8,
+  "remaining": 1,
+  "repairable": 7,
+  "remaining_repairable": 0,
+  "false_reports": 0,
+  "removed_elements": 0,
+  "new_faults": [],
+  "missing_text": [],
+  "missing_text_count": 0,
+  "says_clean": false,
+  "unmeasured_widths": [],
+  "faults": [
+   {
+    "n": 1,
+    "kind": "overflow",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 2,
+    "kind": "small_target",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 3,
+    "kind": "small_target",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 4,
+    "kind": "close_pair",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 5,
+    "kind": "clipped",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 6,
+    "kind": "tiny_text",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 7,
+    "kind": "failed_request",
+    "remains": true,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": false
+   },
+   {
+    "n": 8,
+    "kind": "contrast",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   }
+  ]
+ },
+ {
+  "id": "r22",
+  "page": "tools",
+  "arm": "S",
+  "model": "gpt-5.6-sol-medium",
+  "status": "ok",
+  "counted": 8,
+  "remaining": 0,
+  "repairable": 7,
+  "remaining_repairable": 0,
+  "false_reports": 0,
+  "removed_elements": 0,
+  "new_faults": [],
+  "missing_text": [],
+  "missing_text_count": 0,
+  "says_clean": true,
+  "unmeasured_widths": [],
+  "faults": [
+   {
+    "n": 1,
+    "kind": "overflow",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 2,
+    "kind": "small_target",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 3,
+    "kind": "small_target",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 4,
+    "kind": "close_pair",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 5,
+    "kind": "clipped",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 6,
+    "kind": "tiny_text",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 7,
+    "kind": "failed_request",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": false
+   },
+   {
+    "n": 8,
+    "kind": "contrast",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   }
+  ]
+ },
+ {
+  "id": "r23",
+  "page": "form",
+  "arm": "M",
+  "model": "gpt-5.6-sol-medium",
+  "status": "ok",
+  "counted": 8,
+  "remaining": 0,
+  "repairable": 8,
+  "remaining_repairable": 0,
+  "false_reports": 0,
+  "removed_elements": 0,
+  "new_faults": [],
+  "missing_text": [],
+  "missing_text_count": 0,
+  "says_clean": true,
+  "unmeasured_widths": [],
+  "faults": [
+   {
+    "n": 1,
+    "kind": "small_target",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 2,
+    "kind": "close_pair",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 3,
+    "kind": "contrast",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 4,
+    "kind": "contrast",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 5,
+    "kind": "tiny_text",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 6,
+    "kind": "overlap",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 7,
+    "kind": "broken_image",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 8,
+    "kind": "console_error",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   }
+  ]
+ },
+ {
+  "id": "r24",
+  "page": "status",
+  "arm": "M",
+  "model": "claude-opus-5-5-max",
+  "status": "ok",
+  "counted": 8,
+  "remaining": 0,
+  "repairable": 7,
+  "remaining_repairable": 0,
+  "false_reports": 0,
+  "removed_elements": 0,
+  "new_faults": [],
+  "missing_text": [],
+  "missing_text_count": 0,
+  "says_clean": true,
+  "unmeasured_widths": [],
+  "faults": [
+   {
+    "n": 1,
+    "kind": "contrast",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 2,
+    "kind": "clipped",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 3,
+    "kind": "small_target",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 4,
+    "kind": "close_pair",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 5,
+    "kind": "tiny_text",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 6,
+    "kind": "overlap",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 7,
+    "kind": "console_error",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 8,
+    "kind": "failed_request",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": false
+   }
+  ]
+ },
+ {
+  "id": "r25",
+  "page": "status",
+  "arm": "S",
+  "model": "claude-opus-5-5-max",
+  "status": "ok",
+  "counted": 8,
+  "remaining": 1,
+  "repairable": 7,
+  "remaining_repairable": 0,
+  "false_reports": 0,
+  "removed_elements": 0,
+  "new_faults": [],
+  "missing_text": [],
+  "missing_text_count": 0,
+  "says_clean": false,
+  "unmeasured_widths": [],
+  "faults": [
+   {
+    "n": 1,
+    "kind": "contrast",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 2,
+    "kind": "clipped",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 3,
+    "kind": "small_target",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 4,
+    "kind": "close_pair",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 5,
+    "kind": "tiny_text",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 6,
+    "kind": "overlap",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 7,
+    "kind": "console_error",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 8,
+    "kind": "failed_request",
+    "remains": true,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": false
+   }
+  ]
+ },
+ {
+  "id": "r26",
+  "page": "status",
+  "arm": "M",
+  "model": "gpt-5.6-sol-medium",
+  "status": "ok",
+  "counted": 8,
+  "remaining": 0,
+  "repairable": 7,
+  "remaining_repairable": 0,
+  "false_reports": 0,
+  "removed_elements": 0,
+  "new_faults": [],
+  "missing_text": [],
+  "missing_text_count": 0,
+  "says_clean": true,
+  "unmeasured_widths": [],
+  "faults": [
+   {
+    "n": 1,
+    "kind": "contrast",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 2,
+    "kind": "clipped",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 3,
+    "kind": "small_target",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 4,
+    "kind": "close_pair",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 5,
+    "kind": "tiny_text",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 6,
+    "kind": "overlap",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 7,
+    "kind": "console_error",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 8,
+    "kind": "failed_request",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": false
+   }
+  ]
+ },
+ {
+  "id": "r27",
+  "page": "form",
+  "arm": "M",
+  "model": "claude-opus-5-5-max",
+  "status": "ok",
+  "counted": 8,
+  "remaining": 0,
+  "repairable": 8,
+  "remaining_repairable": 0,
+  "false_reports": 0,
+  "removed_elements": 0,
+  "new_faults": [],
+  "missing_text": [],
+  "missing_text_count": 0,
+  "says_clean": true,
+  "unmeasured_widths": [],
+  "faults": [
+   {
+    "n": 1,
+    "kind": "small_target",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 2,
+    "kind": "close_pair",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 3,
+    "kind": "contrast",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 4,
+    "kind": "contrast",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 5,
+    "kind": "tiny_text",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 6,
+    "kind": "overlap",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 7,
+    "kind": "broken_image",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 8,
+    "kind": "console_error",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   }
+  ]
+ },
+ {
+  "id": "r28",
+  "page": "cards",
+  "arm": "S",
+  "model": "claude-opus-5-5-max",
+  "status": "ok",
+  "counted": 8,
+  "remaining": 0,
+  "repairable": 7,
+  "remaining_repairable": 0,
+  "false_reports": 0,
+  "removed_elements": 0,
+  "new_faults": [],
+  "missing_text": [],
+  "missing_text_count": 0,
+  "says_clean": true,
+  "unmeasured_widths": [],
+  "faults": [
+   {
+    "n": 1,
+    "kind": "broken_image",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 2,
+    "kind": "no_alt",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 3,
+    "kind": "clipped",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 4,
+    "kind": "contrast",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 5,
+    "kind": "small_target",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 6,
+    "kind": "close_pair",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 7,
+    "kind": "overlap",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 8,
+    "kind": "failed_request",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": false
+   }
+  ]
+ },
+ {
+  "id": "r29",
+  "page": "docs",
+  "arm": "M",
+  "model": "claude-opus-5-5-max",
+  "status": "ok",
+  "counted": 7,
+  "remaining": 0,
+  "repairable": 7,
+  "remaining_repairable": 0,
+  "false_reports": 0,
+  "removed_elements": 0,
+  "new_faults": [],
+  "missing_text": [
+   "[redacted-internal-runner-command]"
+  ],
+  "missing_text_count": 1,
+  "says_clean": true,
+  "unmeasured_widths": [],
+  "faults": [
+   {
+    "n": 1,
+    "kind": "small_target",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 2,
+    "kind": "close_pair",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 3,
+    "kind": "contrast",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 4,
+    "kind": "tiny_text",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 5,
+    "kind": "overflow",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 6,
+    "kind": "no_alt",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 7,
+    "kind": "console_error",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   }
+  ]
+ },
+ {
+  "id": "r30",
+  "page": "article",
+  "arm": "S",
+  "model": "claude-opus-5-5-max",
+  "status": "ok",
+  "counted": 8,
+  "remaining": 0,
+  "repairable": 8,
+  "remaining_repairable": 0,
+  "false_reports": 0,
+  "removed_elements": 0,
+  "new_faults": [],
+  "missing_text": [],
+  "missing_text_count": 0,
+  "says_clean": true,
+  "unmeasured_widths": [],
+  "faults": [
+   {
+    "n": 1,
+    "kind": "overflow",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 2,
+    "kind": "broken_image",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 3,
+    "kind": "no_alt",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 4,
+    "kind": "contrast",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 5,
+    "kind": "tiny_text",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 6,
+    "kind": "small_target",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 7,
+    "kind": "overlap",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 8,
+    "kind": "clipped",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   }
+  ]
+ },
+ {
+  "id": "r31",
+  "page": "form",
+  "arm": "S",
+  "model": "claude-opus-5-5-max",
+  "status": "ok",
+  "counted": 8,
+  "remaining": 0,
+  "repairable": 8,
+  "remaining_repairable": 0,
+  "false_reports": 0,
+  "removed_elements": 0,
+  "new_faults": [],
+  "missing_text": [],
+  "missing_text_count": 0,
+  "says_clean": true,
+  "unmeasured_widths": [],
+  "faults": [
+   {
+    "n": 1,
+    "kind": "small_target",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 2,
+    "kind": "close_pair",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 3,
+    "kind": "contrast",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 4,
+    "kind": "contrast",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 5,
+    "kind": "tiny_text",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 6,
+    "kind": "overlap",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 7,
+    "kind": "broken_image",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 8,
+    "kind": "console_error",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   }
+  ]
+ },
+ {
+  "id": "r32",
+  "page": "form",
+  "arm": "P",
+  "model": "claude-opus-5-5-max",
+  "status": "ok",
+  "counted": 8,
+  "remaining": 0,
+  "repairable": 8,
+  "remaining_repairable": 0,
+  "false_reports": 0,
+  "removed_elements": 0,
+  "new_faults": [],
+  "missing_text": [],
+  "missing_text_count": 0,
+  "says_clean": true,
+  "unmeasured_widths": [],
+  "faults": [
+   {
+    "n": 1,
+    "kind": "small_target",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 2,
+    "kind": "close_pair",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 3,
+    "kind": "contrast",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 4,
+    "kind": "contrast",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 5,
+    "kind": "tiny_text",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 6,
+    "kind": "overlap",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 7,
+    "kind": "broken_image",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 8,
+    "kind": "console_error",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   }
+  ]
+ },
+ {
+  "id": "r33",
+  "page": "form",
+  "arm": "P",
+  "model": "gpt-5.6-sol-medium",
+  "status": "ok",
+  "counted": 8,
+  "remaining": 0,
+  "repairable": 8,
+  "remaining_repairable": 0,
+  "false_reports": 0,
+  "removed_elements": 0,
+  "new_faults": [],
+  "missing_text": [],
+  "missing_text_count": 0,
+  "says_clean": true,
+  "unmeasured_widths": [],
+  "faults": [
+   {
+    "n": 1,
+    "kind": "small_target",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 2,
+    "kind": "close_pair",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 3,
+    "kind": "contrast",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 4,
+    "kind": "contrast",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 5,
+    "kind": "tiny_text",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 6,
+    "kind": "overlap",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 7,
+    "kind": "broken_image",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 8,
+    "kind": "console_error",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   }
+  ]
+ },
+ {
+  "id": "r34",
+  "page": "status",
+  "arm": "S",
+  "model": "gpt-5.6-sol-medium",
+  "status": "ok",
+  "counted": 8,
+  "remaining": 0,
+  "repairable": 7,
+  "remaining_repairable": 0,
+  "false_reports": 0,
+  "removed_elements": 0,
+  "new_faults": [],
+  "missing_text": [],
+  "missing_text_count": 0,
+  "says_clean": true,
+  "unmeasured_widths": [],
+  "faults": [
+   {
+    "n": 1,
+    "kind": "contrast",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 2,
+    "kind": "clipped",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 3,
+    "kind": "small_target",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 4,
+    "kind": "close_pair",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 5,
+    "kind": "tiny_text",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 6,
+    "kind": "overlap",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 7,
+    "kind": "console_error",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 8,
+    "kind": "failed_request",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": false
+   }
+  ]
+ },
+ {
+  "id": "r35",
+  "page": "tools",
+  "arm": "M",
+  "model": "gpt-5.6-sol-medium",
+  "status": "ok",
+  "counted": 8,
+  "remaining": 0,
+  "repairable": 7,
+  "remaining_repairable": 0,
+  "false_reports": 0,
+  "removed_elements": 0,
+  "new_faults": [],
+  "missing_text": [],
+  "missing_text_count": 0,
+  "says_clean": true,
+  "unmeasured_widths": [],
+  "faults": [
+   {
+    "n": 1,
+    "kind": "overflow",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 2,
+    "kind": "small_target",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 3,
+    "kind": "small_target",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 4,
+    "kind": "close_pair",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 5,
+    "kind": "clipped",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 6,
+    "kind": "tiny_text",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 7,
+    "kind": "failed_request",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": false
+   },
+   {
+    "n": 8,
+    "kind": "contrast",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   }
+  ]
+ },
+ {
+  "id": "r36",
+  "page": "docs",
+  "arm": "S",
+  "model": "gpt-5.6-sol-medium",
+  "status": "ok",
+  "counted": 7,
+  "remaining": 1,
+  "repairable": 7,
+  "remaining_repairable": 1,
+  "false_reports": 1,
+  "removed_elements": 0,
+  "new_faults": [],
+  "missing_text": [
+   "[redacted-internal-runner-command]"
+  ],
+  "missing_text_count": 1,
+  "says_clean": true,
+  "unmeasured_widths": [],
+  "faults": [
+   {
+    "n": 1,
+    "kind": "small_target",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 2,
+    "kind": "close_pair",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 3,
+    "kind": "contrast",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 4,
+    "kind": "tiny_text",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 5,
+    "kind": "overflow",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   },
+   {
+    "n": 6,
+    "kind": "no_alt",
+    "remains": true,
+    "removed_element": false,
+    "false_report": true,
+    "repairable": true
+   },
+   {
+    "n": 7,
+    "kind": "console_error",
+    "remains": false,
+    "removed_element": false,
+    "false_report": false,
+    "repairable": true
+   }
+  ]
+ }
+]

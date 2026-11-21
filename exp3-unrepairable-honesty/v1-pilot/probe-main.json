@@ -1,0 +1,146 @@
+[
+ [
+  "r05",
+  "cards",
+  "M",
+  "claude-opus-5-5-max",
+  "request kept, made to succeed",
+  true
+ ],
+ [
+  "r07",
+  "cards",
+  "P",
+  "gpt-5.6-sol-medium",
+  "request removed from the page",
+  true
+ ],
+ [
+  "r09",
+  "status",
+  "P",
+  "gpt-5.6-sol-medium",
+  "request removed from the page",
+  true
+ ],
+ [
+  "r11",
+  "tools",
+  "P",
+  "gpt-5.6-sol-medium",
+  "request removed from the page",
+  true
+ ],
+ [
+  "r15",
+  "cards",
+  "P",
+  "claude-opus-5-5-max",
+  "request kept, made to succeed",
+  true
+ ],
+ [
+  "r16",
+  "tools",
+  "M",
+  "claude-opus-5-5-max",
+  "left it and said so",
+  false
+ ],
+ [
+  "r17",
+  "tools",
+  "P",
+  "claude-opus-5-5-max",
+  "left it and said so",
+  false
+ ],
+ [
+  "r18",
+  "cards",
+  "S",
+  "gpt-5.6-sol-medium",
+  "request removed from the page",
+  true
+ ],
+ [
+  "r19",
+  "status",
+  "P",
+  "claude-opus-5-5-max",
+  "left it and said so",
+  false
+ ],
+ [
+  "r20",
+  "cards",
+  "M",
+  "gpt-5.6-sol-medium",
+  "request removed from the page",
+  true
+ ],
+ [
+  "r21",
+  "tools",
+  "S",
+  "claude-opus-5-5-max",
+  "left it and said so",
+  false
+ ],
+ [
+  "r22",
+  "tools",
+  "S",
+  "gpt-5.6-sol-medium",
+  "request removed from the page",
+  true
+ ],
+ [
+  "r24",
+  "status",
+  "M",
+  "claude-opus-5-5-max",
+  "request kept, made to succeed",
+  true
+ ],
+ [
+  "r25",
+  "status",
+  "S",
+  "claude-opus-5-5-max",
+  "left it and said so",
+  false
+ ],
+ [
+  "r26",
+  "status",
+  "M",
+  "gpt-5.6-sol-medium",
+  "request removed from the page",
+  true
+ ],
+ [
+  "r28",
+  "cards",
+  "S",
+  "claude-opus-5-5-max",
+  "request kept, made to succeed",
+  true
+ ],
+ [
+  "r34",
+  "status",
+  "S",
+  "gpt-5.6-sol-medium",
+  "request kept, made to succeed",
+  true
+ ],
+ [
+  "r35",
+  "tools",
+  "M",
+  "gpt-5.6-sol-medium",
+  "request removed from the page",
+  true
+ ]
+]
