@@ -1,15 +1,15 @@
 # Experiment 2: Do Long Fault Taxonomies Help an AI Reviewer?
 
-**Raw Data:** `results.json` (`45` audio-film review cases × `4` fresh-context tool-free reviews = `180` reviews, `2,781,122` total tokens, `0` missing runs, including full per-case `by_case` counts recomputed directly by `../reproduce.py`).
+**Raw Data:** [`results.json`](results.json) (45 audio-film review cases × 4 fresh-context tool-free reviews = 180 reviews, 2,781,122 total tokens, 0 missing runs, including full per-case `by_case` counts recomputed directly by [`../reproduce.py`](../reproduce.py)).
 
 ## Scope & Protocol (Explicitly Bounded)
-- **Reviewed domain & model:** Audio-film review packets evaluated by a single frontier model (**`claude-opus-5-5`**, `high` effort) — not multi-model code review.
-- **Cases (`n = 45`):** `32` cases contained `35` mechanically planted audio faults (`70` planted fault opportunities per arm across 2 reviews/case); `13` cases were clean controls (`0` planted faults). `32/45` cases (`13/13` clean controls) were previously seen (`seen = true`); `13/45` were fresh unseen cases (`seen = false`).
-- **Blind scoring (same-family judges):** All `179` notes were stripped of arm cues, shuffled with `16` known-answer calibration notes, and scored blind by two Claude-family judges (`claude-opus-5-5` + `claude-sonnet-5-5`; calibration `15/16`, first-pass agreement `174/179 = 97.2%`, `4` unresolved excluded symmetrically).
+- **Reviewed domain & model:** Audio-film review packets evaluated by a single frontier model (**`claude-opus-5-5`**, `high` effort) — not multi-model code review. *(Note: model IDs and audio-film domain metadata are documented here from the original run log rather than embedded as JSON keys inside `results.json`.)*
+- **Cases (*n* = 45):** 32 cases contained 35 mechanically planted audio faults (70 planted fault opportunities per arm across 2 reviews/case); 13 cases were clean controls (0 planted faults). 32/45 cases (including all 13/13 clean controls) were previously seen (`seen = true`); 13/45 were fresh unseen cases (`seen = false`).
+- **Blind scoring (same-family judges):** All 179 notes were stripped of arm cues, shuffled with 16 known-answer calibration notes, and scored blind by two Claude-family judges (`claude-opus-5-5` + `claude-sonnet-5-5`; calibration 15/16, first-pass agreement 174/179 = 97.2%, 4 unresolved excluded symmetrically).
 
 ## Key Findings (Recomputed Directly From `by_case` via `python3 ../reproduce.py`)
-- **True planted-fault recall (`70` opportunities/arm):** **`24/70` (`34.3%`)** with fault list vs. **`23/70` (`32.9%`)** without (mean exact hits/review: `0.267` vs. `0.256`, exact paired randomization `p = 1.000`, `41/45` cases tied).
-- **Mean false alarms per review (all `45` cases):** **`0.322` vs. `0.200`** (`+0.122`/review, exact paired randomization **`p = 0.0257`**).
-- **Clean controls (`13` cases, all `seen = true`):** Mean false-alarm **count** per review rose **`0.500` vs. `0.231`** (`p = 0.03125`); computed as a **binary review proportion (`≥1` false alarm)**, `12/26` (`46.2%`) vs. `6/26` (`23.1%`, exact paired `p = 0.0625`, borderline).
-- **Unseen (`fresh`) subset (`13` cases) & high-confidence errors:** On unseen cases, false alarms were `0.269` vs. `0.192` (`p = 0.6875`, null). High-confidence (`false_sure`) false alarms were **`0.0%` vs. `1.1%`** (`p = 1.0`). The archived overall study verdict was **`"no clear effect"`** on high-confidence accuracy.
-- **Definite overhead:** Token cost rose **`+48.6%`** (`18,470` vs. `12,431` tokens/review, `p < 0.0001`) and notes written per review rose **`+0.211`** (`1.100` vs. `0.889`, `p = 0.0051`).
+- **True planted-fault recall (70 opportunities/arm):** **24/70 (34.3%)** with fault list vs. **23/70 (32.9%)** without (mean exact hits/review: 0.267 vs. 0.256, exact paired randomization *p* = 1.000, 41/45 cases tied).
+- **False alarms across all 45 cases:** Mean false alarms/review rose **0.322 vs. 0.200** (+0.122/review, exact paired randomization ***p* = 0.0257**); binary review rate (≥1 false alarm) was **27/90 (30.0%)** vs. **18/90 (20.0%)** (*p* = 0.0781).
+- **Clean controls (13 cases, all `seen = true`):** Mean false-alarm **count** per review rose **0.500 vs. 0.231** (*p* = 0.03125); computed as a **binary review proportion (≥1 false alarm)**, **12/26 (46.2%)** vs. **6/26 (23.1%)** (exact paired *p* = 0.0625, borderline).
+- **Unseen (`fresh`) subset (13 cases) & high-confidence errors:** On unseen cases, false alarms were 0.269 vs. 0.192 (*p* = 0.6875, null). High-confidence (`false_sure`) false alarms were **0.0% vs. 1.1%** (*p* = 1.0). The archived overall study verdict was **`"no clear effect"`** on high-confidence accuracy.
+- **Definite overhead:** Token cost rose **+48.6%** (18,470 vs. 12,431 tokens/review, *p* < 0.0001) and notes written per review rose **+0.211** (1.100 vs. 0.889, *p* = 0.0051).

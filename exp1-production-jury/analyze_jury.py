@@ -264,21 +264,31 @@ def analyze(path: Path = DATA_PATH) -> dict[str, Any]:
             bj[(r["builder_family"], jf, verd)] += 1
 
     ablation_summary = None
-    if ABLATION_PATH.is_file():
-        abl = json.loads(ABLATION_PATH.read_text(encoding="utf-8"))
-        c_str = abl["codex_only_block_stratum"]
-        m_str = abl["mutual_block_stratum"]
+    ablation_path = path.parent / "agents_md_ablation.json"
+    if ablation_path.is_file():
+        abl = json.loads(ablation_path.read_text(encoding="utf-8"))
+        abl_runs = abl.get("runs") or []
+        c_runs = [r for r in abl_runs if r.get("stratum") == "codex_only_block"]
+        m_runs = [r for r in abl_runs if r.get("stratum") == "mutual_block"]
+        c_with = sum(1 for r in c_runs if r.get("with_agents_md") == "BLOCK")
+        c_clean = sum(1 for r in c_runs if r.get("clean_no_agents_md") == "BLOCK")
+        b_to_p = sum(1 for r in c_runs if r.get("with_agents_md") == "BLOCK" and r.get("clean_no_agents_md") == "PASS")
+        p_to_b = sum(1 for r in c_runs if r.get("with_agents_md") == "PASS" and r.get("clean_no_agents_md") == "BLOCK")
+        m_clean = sum(1 for r in m_runs if r.get("clean_no_agents_md") == "BLOCK")
         ablation_summary = {
-            "codex_only_block_sessions": c_str["n"],
-            "with_agents_md_block": c_str["with_agents_md_block"],
-            "clean_no_agents_md_block": c_str["clean_no_agents_md_block"],
-            "flips_block_to_pass_vs_pass_to_block": f"{c_str['flipped_block_to_pass']} vs {c_str['flipped_pass_to_block']}",
-            "mutual_block_sessions_preserved": f"{m_str['clean_no_agents_md_block']}/{m_str['n']}",
+            "recomputed_from_runs": True,
+            "codex_only_block_sessions": len(c_runs),
+            "with_agents_md_block": c_with,
+            "clean_no_agents_md_block": c_clean,
+            "flips_block_to_pass_vs_pass_to_block": f"{b_to_p} vs {p_to_b}",
+            "exact_mcnemar_p": exact_binomial_two_sided(min(b_to_p, p_to_b), b_to_p + p_to_b, 0.5) if (b_to_p + p_to_b) else 1.0,
+            "mutual_block_sessions_preserved": f"{m_clean}/{len(m_runs)}",
         }
 
     tie_audit_summary = None
-    if TIE_AUDIT_PATH.is_file():
-        ta = json.loads(TIE_AUDIT_PATH.read_text(encoding="utf-8"))
+    tie_audit_path = path.parent / "ties_ground_truth_audit.json"
+    if tie_audit_path.is_file():
+        ta = json.loads(tie_audit_path.read_text(encoding="utf-8"))
         cases = ta.get("cases") or []
         tn = len(cases)
         if tn > 0:
@@ -292,7 +302,7 @@ def analyze(path: Path = DATA_PATH) -> dict[str, Any]:
                 ag = sum(1 for a, b in zip(sa, sb) if a == b)
                 po = ag / tn
                 pe = sum((sa.count(c) / tn) * (sb.count(c) / tn) for c in cls)
-                k = 1.0 if abs(1.0 - pe) < 1e-12 else (po - pe) / (1.0 - pe)
+                k = (po - pe) / (1.0 - pe) if (1.0 - pe) > 1e-12 else 0.0
                 return (ag, round(k, 4))
 
             bin_ag, bin_k = _kappa(ra_bin, rb_bin, ["DEFECT", "NO_DEFECT"])
@@ -302,6 +312,11 @@ def analyze(path: Path = DATA_PATH) -> dict[str, Any]:
             in_310_cases = [c for c in cases if c.get("in_frozen_310_corpus") is True]
             out_310_cases = [c for c in cases if c.get("in_frozen_310_corpus") is False]
             unique_clusters = sorted({c["defect_cluster_id"] for c in cases if c.get("defect_cluster_id")})
+            disc_cases = [c for c in cases if c["rater_a_label"] != c["rater_b_label"]]
+            a_unp_b_nit = sum(1 for c in disc_cases if c["rater_a_label"] == "UNPROVEN_CLAIM_GAP" and c["rater_b_label"] == "FALSE_ALARM_OR_NITPICK")
+            a_nit_b_unp = sum(1 for c in disc_cases if c["rater_a_label"] == "FALSE_ALARM_OR_NITPICK" and c["rater_b_label"] == "UNPROVEN_CLAIM_GAP")
+            disc_non_visual = sum(1 for c in disc_cases if not c.get("has_visual_evidence"))
+            disc_dot_only = sum(1 for c in disc_cases if "dot-only" in str(c.get("anonymized_finding", "")).lower())
             rmeta = ta.get("rater_metadata") or {}
             tie_audit_summary = {
                 "rater_type": rmeta.get("rater_type", "llm_subagent"),
@@ -319,6 +334,14 @@ def analyze(path: Path = DATA_PATH) -> dict[str, Any]:
                 "binary_defect_cohens_kappa": bin_k,
                 "three_class_inter_rater_agree": f"{tri_ag}/{tn}",
                 "three_class_cohens_kappa": tri_k,
+                "rater_ab_nondefect_skew": {
+                    "a_unproven_b_nitpick": a_unp_b_nit,
+                    "a_nitpick_b_unproven": a_nit_b_unp,
+                    "exact_mcnemar_p": round(exact_binomial_two_sided(min(a_unp_b_nit, a_nit_b_unp), a_unp_b_nit + a_nit_b_unp, 0.5), 6) if (a_unp_b_nit + a_nit_b_unp) else 1.0,
+                    "discordant_non_visual": disc_non_visual,
+                    "discordant_dot_only_logs": disc_dot_only,
+                    "discordant_visual": len(disc_cases) - disc_non_visual,
+                },
                 "real_defect_missed_by_passer": {
                     "count": c_counts["REAL_DEFECT_MISSED_BY_PASSER"],
                     "rate": round(c_counts["REAL_DEFECT_MISSED_BY_PASSER"] / tn, 4),

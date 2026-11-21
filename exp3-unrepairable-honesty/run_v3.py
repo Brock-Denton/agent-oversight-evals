@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
-"""run_v3.py — Symmetric Clean-Room 3-Family x 12-Task x 2-Arm Unrepairable-Constraint Honesty Runner.
+"""run_v3.py — Clean-Room 3-Family x 12-Task x 2-Arm Unrepairable-Constraint Honesty Runner.
 
-All three model families run under matched isolation (zero host user rules, zero host hooks,
-matched medium reasoning effort, identical shell/unittest access, and $0 paid API keys).
+Runs three frontier coding CLIs at matched medium reasoning effort with host user rules
+stripped and identical unittest access. See README.md and PAPER.md §3 for full execution
+disclosures (including Claude real-$HOME/no-web-tools vs Codex default web_search/PyPI
+asymmetry in the archived v3 runs, and container --network=none guidance for v3.1 reruns).
 """
 from __future__ import annotations
 
@@ -92,15 +94,18 @@ def clean_env() -> dict[str, str]:
 
 
 def _stage_isolated_codex_home(scratch_dir: Path) -> Path:
-    """Create a clean CODEX_HOME containing only auth.json (zero user rules or config)."""
+    """Create a clean CODEX_HOME containing a private 0o600 copy of auth.json (zero user rules or config)."""
     iso = scratch_dir / "isolated_codex_home"
-    iso.mkdir(parents=True, exist_ok=True)
+    iso.mkdir(mode=0o700, parents=True, exist_ok=True)
     real_home = Path(os.environ.get("CODEX_HOME") or (Path.home() / ".codex"))
     auth_src = real_home / "auth.json"
     if auth_src.is_file():
         dst = iso / "auth.json"
         if not dst.exists():
-            os.symlink(auth_src, dst)
+            fd = os.open(str(dst), os.O_WRONLY | os.O_CREAT | os.O_TRUNC, 0o600)
+            with os.fdopen(fd, "wb") as fh:
+                fh.write(auth_src.read_bytes())
+            os.chmod(dst, 0o600)
     return iso
 
 
@@ -275,8 +280,8 @@ def execute_single_run(
     task_dir = score.TASKS_DIR / task["id"]
     readonly_files = list(task.get("readonly_files") or [])
     # Neutral opaque directory prefix prevents benchmark/family/task-name cues from leaking into model cwd
-    with tempfile.TemporaryDirectory(prefix="ws_") as tmp:
-        tmp_path = Path(tmp)
+    tmp_path = Path(tempfile.mkdtemp(prefix="ws_"))
+    try:
         box_dir = tmp_path / "repo"
         scratch_dir = tmp_path / "scratch"
         scratch_dir.mkdir(parents=True, exist_ok=True)
@@ -296,6 +301,8 @@ def execute_single_run(
 
         raw_tail = _redact_ws(inv["raw_text"][-2000:])
         err_tail = _redact_ws(inv["err_tail"])
+    finally:
+        score.rmtree_force(tmp_path)
 
     return {
         "run_id": f"{model_id}__{arm}__{task['id']}",
@@ -331,6 +338,10 @@ def main() -> int:
     ap.add_argument("--resume", action="store_true", help="Skip already-completed non-error run_ids in --out")
     args = ap.parse_args()
 
+    if hasattr(os, "geteuid") and os.geteuid() == 0:
+        print("ERROR: Do not run benchmark as UID 0 (root bypasses chmod 0444 read-only fixtures).", file=sys.stderr)
+        return 2
+
     manifest = score.load_manifest()
     tasks = manifest["tasks"]
     arms = ["arm_pressure", "arm_escalation"]
@@ -346,6 +357,11 @@ def main() -> int:
     results_map: dict[str, dict[str, Any]] = dict(existing)
     started_at = datetime.now(timezone.utc).isoformat()
 
+    def _atomic_write_json(dest: Path, obj: Any) -> None:
+        tmp_f = dest.with_suffix(dest.suffix + ".tmp")
+        tmp_f.write_text(json.dumps(obj, indent=2) + "\n", encoding="utf-8")
+        os.replace(tmp_f, dest)
+
     def flush() -> None:
         ordered = [results_map[k] for k in sorted(results_map.keys())]
         payload = {
@@ -356,8 +372,8 @@ def main() -> int:
             "completed_runs": len(ordered),
             "runs": ordered,
         }
-        args.out.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
-        args.summary_out.write_text(json.dumps(score.summarize_results(ordered), indent=2) + "\n", encoding="utf-8")
+        _atomic_write_json(args.out, payload)
+        _atomic_write_json(args.summary_out, score.summarize_results(ordered))
 
     def run_family_queue(family: str, model_id: str) -> None:
         for arm in arms:

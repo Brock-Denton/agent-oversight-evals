@@ -1,16 +1,19 @@
 #!/usr/bin/env python3
-"""reproduce.py — Zero-dependency deterministic recomputation of all 4 empirical studies in agent-oversight-evals.
+"""reproduce.py — Zero-dependency deterministic recomputation of all studies in agent-oversight-evals.
 
-Recomputes Exp 1 (from anonymized gates + ablation JSON), Exp 2 (directly from per-case by_case counts via
-exact paired randomization tests), Exp 3 (with symmetric timeout exclusion + strict SHA-256 verification),
-Exp 3 v1 pilot, and Exp 4 (directly from summary.txt with zero hardcoded overrides).
-Exits non-zero if any frozen SHA-256 file is missing or corrupted.
+Recomputes Exp 1 (from anonymized gates + raw ablation runs + blind AI audit JSON),
+Exp 2 (directly from per-case by_case counts via exact paired randomization tests),
+Exp 3 (v3 clean-room + v2 archive + v1 pilot, with SHA-256 verification and summary parity checks),
+and Appendix Exp 4 (mechanical counts from summary.txt, with manual notes labeled separately).
+Requires Python >= 3.9 (standard library only). Exits non-zero if any SHA-256 lock fails.
 """
 from __future__ import annotations
 
 import hashlib
 import itertools
 import json
+import random
+import re
 import sys
 from collections import Counter
 from pathlib import Path
@@ -50,7 +53,7 @@ def verify_sha256_manifest(manifest_path: Path, base_dir: Path) -> tuple[int, in
 
 
 def _exact_paired_sign_flip_p(diffs: list[float]) -> float:
-    """Exact two-sided paired randomization p-value on non-zero per-case differences."""
+    """Two-sided paired randomization p-value on non-zero per-case differences (exact for m<=20, seeded MC for m>20)."""
     nz = [d for d in diffs if abs(d) > 1e-12]
     m = len(nz)
     if m == 0:
@@ -63,10 +66,14 @@ def _exact_paired_sign_flip_p(diffs: list[float]) -> float:
             if abs(sum(s * v for s, v in zip(signs, nz))) >= obs - 1e-12:
                 ge += 1
         return round(ge / total, 6)
-    # Deterministic fallback for large m: exact sign test on direction counts
-    pos = sum(1 for d in nz if d > 0)
-    neg = m - pos
-    return round(analyze_jury.exact_binomial_two_sided(min(pos, neg), m, 0.5), 6)
+    rng = random.Random(20261121)
+    draws = 50000
+    ge = 0
+    for _ in range(draws):
+        tot = sum((v if rng.getrandbits(1) else -v) for v in nz)
+        if abs(tot) >= obs - 1e-12:
+            ge += 1
+    return round((ge + 1) / (draws + 1), 6)
 
 
 def reproduce_exp1_production_jury() -> dict[str, Any]:
@@ -79,6 +86,10 @@ def reproduce_exp2_rubric_rct() -> dict[str, Any]:
     n_cases = len(by_case)
 
     # Recompute directly from the 45 per-case records (2 reviews per arm per case = 90 reviews/arm)
+    for c in by_case:
+        for field in ("list_exact", "none_exact", "list_false", "none_false"):
+            if len(c[field]) != 2:
+                raise ValueError(f"Expected 2 reviews/arm in Exp 2 case {c.get('id')!r} field {field!r}, got {len(c[field])}")
     list_real_sum = sum(sum(c["list_exact"]) for c in by_case)
     none_real_sum = sum(sum(c["none_exact"]) for c in by_case)
     planted_total_opps = sum(int(c.get("reals", 0)) * 2 for c in by_case)
@@ -224,7 +235,7 @@ def reproduce_exp4_selfreport() -> dict[str, Any]:
     lines = [
         ln.strip()
         for ln in (ROOT / "exp4-selfreport-boundary" / "summary.txt").read_text(encoding="utf-8").splitlines()
-        if ln.strip().startswith("b") and "\t" in ln
+        if re.match(r"^b\d+\t", ln.strip())
     ]
     n = len(lines)
     raw_disagrees = sum(1 for ln in lines if "\tCONTRADICTS\t" in ln)
