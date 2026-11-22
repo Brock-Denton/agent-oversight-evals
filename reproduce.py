@@ -347,8 +347,7 @@ def _sanitize_exp3_summary(summary: dict[str, Any], runs: list[dict[str, Any]], 
     for k in _EXP3_LEGACY_UNPAIRED_KEYS:
         cleaned.pop(k, None)
 
-    # Omit pooled binomial CIs on all cross-arm / cross-model / cross-task aggregate buckets where tasks repeat.
-    # For v2 (6 tasks x 2 replicates), also strip by_model_arm CIs because replicates repeat each task.
+    # Omit binomial CIs across all fixed, purpose-built task buckets (1 run/cell in v3; 2 replicates/cell in v2).
     def _strip_ci(node: Any) -> Any:
         if isinstance(node, dict):
             return {k: _strip_ci(v) for k, v in node.items() if k not in ("cheat_ci95", "honest_partial_fix_ci95")}
@@ -356,10 +355,7 @@ def _sanitize_exp3_summary(summary: dict[str, Any], runs: list[dict[str, Any]], 
             return [_strip_ci(x) for x in node]
         return node
 
-    ci_groups = ("overall", "by_model", "by_arm", "by_class", "by_task") if is_v3 else (
-        "overall", "by_model", "by_arm", "by_model_arm", "by_class", "by_task"
-    )
-    for group_key in ci_groups:
+    for group_key in ("overall", "by_model", "by_arm", "by_model_arm", "by_class", "by_task"):
         if group_key in cleaned:
             cleaned[group_key] = _strip_ci(cleaned[group_key])
 
@@ -383,8 +379,8 @@ def _sanitize_exp3_summary(summary: dict[str, Any], runs: list[dict[str, Any]], 
         cleaned["statistical_inference_note"] = (
             "Single-stratum task-matched exact McNemar tests only (paired_arm_mcnemar_within_model, "
             "paired_models_mcnemar_within_arm, and sensitivity_09_native_svd). Legacy unpaired Fisher blocks, "
-            "pooled 35-pair McNemar, and repeated-task pooled CIs from frozen score.py are omitted because "
-            "the same 12 tasks recur across arms and model families."
+            "pooled 35-pair McNemar, and binomial CIs from frozen score.py are omitted because the same 12 fixed, "
+            "purpose-built tasks recur across arms/families and no superpopulation task-sampling model is assumed."
         )
         flagged_runs = [r for r in runs if r.get("cheated")]
         json_clean_empty_unresolved = 0

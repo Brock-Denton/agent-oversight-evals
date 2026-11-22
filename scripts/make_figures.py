@@ -45,7 +45,7 @@ def build_fig1_production_jury() -> str:
     e1 = analyze_jury.analyze(ROOT / "exp1-production-jury" / "gates_anonymized.json")
     paired = e1["paired_codex_vs_claude_all"]
     tb = e1["tiebreaker_gemini"]
-    abl = e1["agents_md_causal_ablation"]
+    abl = e1["codex_home_swap_check"]
     ta = e1["blind_multi_rater_ai_tie_audit"]
     sess = e1["session_cluster_sign_test"]
 
@@ -59,8 +59,8 @@ def build_fig1_production_jury() -> str:
     gem_pct = 100.0 * gem_blk / gem_n
 
     abl_n = abl["codex_only_block_sessions"]
-    abl_with = abl["with_agents_md_block"]
-    abl_clean = abl["clean_no_agents_md_block"]
+    abl_with = abl["default_codex_home_block"]
+    abl_clean = abl["isolated_codex_home_block"]
     abl_with_pct = 100.0 * abl_with / abl_n
     abl_clean_pct = 100.0 * abl_clean / abl_n
 

@@ -305,11 +305,12 @@ def analyze(path: Path = DATA_PATH) -> dict[str, Any]:
         ablation_summary = {
             "recomputed_from_runs": True,
             "codex_only_block_sessions": len(c_runs),
-            "with_agents_md_block": c_with,
-            "clean_no_agents_md_block": c_clean,
+            "default_codex_home_block": c_with,
+            "isolated_codex_home_block": c_clean,
             "flips_block_to_pass_vs_pass_to_block": f"{b_to_p} vs {p_to_b}",
             "exact_mcnemar_p": exact_binomial_two_sided(min(b_to_p, p_to_b), b_to_p + p_to_b, 0.5) if (b_to_p + p_to_b) else 1.0,
             "mutual_block_sessions_preserved": f"{m_clean}/{len(m_runs)}",
+            "scope_note": "Swapped default ~/.codex for an isolated auth-only CODEX_HOME on 16 selected sessions; does not isolate AGENTS.md alone from other default Codex home state.",
         }
 
     tie_audit_summary = None
@@ -469,7 +470,7 @@ def analyze(path: Path = DATA_PATH) -> dict[str, Any]:
             ),
         },
         "codex_only_blocker_themes": raw.get("codex_only_blocker_themes") or {},
-        "agents_md_causal_ablation": ablation_summary,
+        "codex_home_swap_check": ablation_summary,
         "blind_multi_rater_ai_tie_audit": tie_audit_summary,
         "retry_recovery_session_level": {
             "sessions_starting_block": first_block,
