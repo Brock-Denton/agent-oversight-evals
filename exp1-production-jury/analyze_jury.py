@@ -243,11 +243,14 @@ def analyze(path: Path = DATA_PATH) -> dict[str, Any]:
     tb_pass = 0
     tb_block = 0
     tb_unresolved_gemini_err = 0
+    tb_unresolved_ids: list[dict[str, str]] = []
     fb_total = 0
     fb_block = 0
     tb_bj: Counter[tuple[str, str]] = Counter()
     s2_3fam = 0
-    s2_2fam = 0
+    s2_2fam_unanim = 0
+    s2_2fam_fallback = 0
+    s2_2fam_split_err = 0
     s2_1fam = 0
     for r in records:
         vmap = _valid_vmap(r)
@@ -256,7 +259,13 @@ def analyze(path: Path = DATA_PATH) -> dict[str, Any]:
             if nf >= 3:
                 s2_3fam += 1
             elif nf == 2:
-                s2_2fam += 1
+                if "codex" in vmap and "claude" in vmap:
+                    if vmap["codex"] == vmap["claude"]:
+                        s2_2fam_unanim += 1
+                    else:
+                        s2_2fam_split_err += 1
+                else:
+                    s2_2fam_fallback += 1
             elif nf == 1:
                 s2_1fam += 1
         if "codex" in vmap and "claude" in vmap and vmap["codex"] != vmap["claude"]:
@@ -268,11 +277,13 @@ def analyze(path: Path = DATA_PATH) -> dict[str, Any]:
                     tb_block += 1
             else:
                 tb_unresolved_gemini_err += 1
+                tb_unresolved_ids.append({"gate_id": str(r["gate_id"]), "final_verdict": str(r.get("verdict"))})
         elif "gemini" in vmap:
             fb_total += 1
             if vmap["gemini"] == "BLOCK":
                 fb_block += 1
     tb_n = tb_pass + tb_block
+    s2_2fam = s2_2fam_unanim + s2_2fam_fallback + s2_2fam_split_err
 
     bj: Counter[tuple[str, str, str]] = Counter()
     for r in records:
@@ -399,9 +410,14 @@ def analyze(path: Path = DATA_PATH) -> dict[str, Any]:
         "stage2_completed_verdicts": stages[("stage1_plus_jury", "PASS")] + stages[("stage1_plus_jury", "BLOCK")],
         "stage2_completed_blocks": stages[("stage1_plus_jury", "BLOCK")],
         "stage2_cross_family_panels": s2_3fam + s2_2fam,
+        "stage2_resolved_cross_family_panels": s2_3fam + s2_2fam_unanim + s2_2fam_fallback,
         "stage2_panel_breakdown": {
-            "three_family_panels": s2_3fam,
-            "two_family_panels": s2_2fam,
+            "three_family_resolved_ties": s2_3fam,
+            "two_family_total": s2_2fam,
+            "two_family_unanimous_codex_claude": s2_2fam_unanim,
+            "two_family_primary_error_plus_gemini_fallback": s2_2fam_fallback,
+            "two_family_unresolved_1v1_split_fail_closed_block": s2_2fam_split_err,
+            "unresolved_1v1_split_gates": tb_unresolved_ids,
             "single_family_completions_after_primary_error": s2_1fam,
         },
         "total_valid_judge_votes": sum(fam_total.values()),
@@ -414,24 +430,27 @@ def analyze(path: Path = DATA_PATH) -> dict[str, Any]:
             "sessions_codex_higher_block": sess_codex_gt,
             "sessions_claude_higher_block": sess_claude_gt,
             "sessions_tied": sess_tied,
-            "exact_sign_test_p": exact_binomial_two_sided(min(sess_codex_gt, sess_claude_gt), sign_n, 0.5) if sign_n else 1.0,
+            "exact_sign_test_p_conditional_on_session_independence": exact_binomial_two_sided(min(sess_codex_gt, sess_claude_gt), sign_n, 0.5) if sign_n else 1.0,
+            "task_level_significance_established": False,
             "independence_caveat": (
-                "Assumes session-level independence; repeated automated-loop tasks spanning multiple sessions "
-                "are not separately deduplicated, and the production comparison compares full judge stacks "
-                "(model + CLI + tool/prompt setup), not model weights alone."
+                "Descriptive 30-0 session-level directional count; exact_sign_test_p_conditional_on_session_independence "
+                "is strictly conditional on unverified session independence and does NOT establish task-level significance "
+                "because repeated automated loops span multiple sessions without task-level deduplication. Production "
+                "comparison compares full deployed judge stacks (model + CLI + tools/prompts), not model weights alone."
             ),
             "singleton_null_sensitivity": {
                 "clusters_total": len(first_paired) + null_paired_total,
                 "codex_higher": sing_codex_gt,
                 "claude_higher": sing_claude_gt,
                 "tied": sess_tied + null_paired_tied,
-                "exact_sign_test_p": exact_binomial_two_sided(min(sing_codex_gt, sing_claude_gt), sing_n, 0.5) if sing_n else 1.0,
+                "exact_sign_test_p_conditional_on_cluster_independence": exact_binomial_two_sided(min(sing_codex_gt, sing_claude_gt), sing_n, 0.5) if sing_n else 1.0,
             },
         },
         "tiebreaker_gemini": {
             "contested_ties_total": tb_n + tb_unresolved_gemini_err,
             "contested_ties_resolved": tb_n,
             "contested_ties_unresolved_gemini_error": tb_unresolved_gemini_err,
+            "unresolved_tie_fail_closed_verdicts": tb_unresolved_ids,
             "gemini_pass_count": tb_pass,
             "gemini_block_count": tb_block,
             "gemini_pass_rate": round(tb_pass / tb_n, 4) if tb_n else 0.0,

@@ -522,6 +522,14 @@ def _holm_bonferroni(pvals: dict[str, float]) -> dict[str, float]:
     return adjusted
 
 
+def _strip_key_recursive(node: Any, drop_keys: set[str]) -> Any:
+    if isinstance(node, dict):
+        return {k: _strip_key_recursive(v, drop_keys) for k, v in node.items() if k not in drop_keys}
+    if isinstance(node, list):
+        return [_strip_key_recursive(x, drop_keys) for x in node]
+    return node
+
+
 def reproduce_exp5_premise_lockin() -> tuple[dict[str, Any], list[str]]:
     exp5_score = _load_exp5_score()
     results_path = EXP5_DIR / "results-exp5-198runs.json"
@@ -529,8 +537,11 @@ def reproduce_exp5_premise_lockin() -> tuple[dict[str, Any], list[str]]:
     h_ok, h_total, h_errs = exp5_score.verify_sha256_manifest(EXP5_DIR, "harness.sha256")
     summary["harness_sha256_verified"] = {"ok": h_ok, "total": h_total, "errors": h_errs}
 
+    # Omit binomial CIs across fixed, purpose-authored dossier sets (1 run/dossier/family; no sampling population).
+    summary = _strip_key_recursive(summary, {"ci95"})
+
     # Separate descriptive cross-stimulus contrast (E01-E06 vs U01-U12, non-exchangeable stimulus sets -> no Fisher p)
-    # from matched within-dossier inferential tests on the identical 12 U01-U12 dossiers (exact Holm across m=9 tests).
+    # from matched within-dossier inferential tests on the identical 12 U01-U12 dossiers (exact Holm across m=10 tests).
     dl = summary["dossier_level_primary_inference"]
     for cross_key in ("explicit_vs_unresolved_majority_blocked", "explicit_vs_unresolved_any_family_blocked"):
         if isinstance(dl.get(cross_key), dict):
@@ -542,10 +553,14 @@ def reproduce_exp5_premise_lockin() -> tuple[dict[str, Any], list[str]]:
             )
 
     pf = dl["per_family_dossier_mcnemar"]
+    # Both Claude (12/12 PASS) and Gemini (12/12 PASS) vs. Codex (0/12 PASS) on the 12 resolved controls have exact McNemar p = 1/2048.
+    p_ctrl_pass_gap = summary["arm2_escalation_prompt"]["convergent_strictness_on_resolved_ctrl"]["claude_vs_codex_pass_dossier_mcnemar_p"]
+    summary["arm2_escalation_prompt"]["convergent_strictness_on_resolved_ctrl"]["gemini_vs_codex_pass_dossier_mcnemar_p"] = p_ctrl_pass_gap
     matched_pvals = {
         "arm1_vs_arm2_unresolved_dossier_sign": dl["arm1_vs_arm2_unresolved_dossier_sign"]["exact_sign_p"],
         "arm2_unresolved_vs_resolved_ctrl_dossier_sign": dl["arm2_unresolved_vs_resolved_ctrl_dossier_sign"]["exact_sign_p"],
-        "claude_vs_codex_resolved_ctrl_pass": summary["arm2_escalation_prompt"]["convergent_strictness_on_resolved_ctrl"]["claude_vs_codex_pass_dossier_mcnemar_p"],
+        "claude_vs_codex_resolved_ctrl_pass": p_ctrl_pass_gap,
+        "gemini_vs_codex_resolved_ctrl_pass": p_ctrl_pass_gap,
         "claude_arm1_vs_arm2": pf["claude"]["arm1_vs_arm2_unresolved"]["exact_mcnemar_p"],
         "claude_arm2_vs_resolved_ctrl": pf["claude"]["arm2_unresolved_vs_resolved_ctrl"]["exact_mcnemar_p"],
         "codex_arm1_vs_arm2": pf["codex"]["arm1_vs_arm2_unresolved"]["exact_mcnemar_p"],
@@ -553,24 +568,28 @@ def reproduce_exp5_premise_lockin() -> tuple[dict[str, Any], list[str]]:
         "gemini_arm1_vs_arm2": pf["gemini"]["arm1_vs_arm2_unresolved"]["exact_mcnemar_p"],
         "gemini_arm2_vs_resolved_ctrl": pf["gemini"]["arm2_unresolved_vs_resolved_ctrl"]["exact_mcnemar_p"],
     }
-    holm9 = _holm_bonferroni(matched_pvals)
-    dl["arm1_vs_arm2_unresolved_dossier_sign"]["holm_adjusted_p"] = holm9["arm1_vs_arm2_unresolved_dossier_sign"]
-    dl["arm2_unresolved_vs_resolved_ctrl_dossier_sign"]["holm_adjusted_p"] = holm9["arm2_unresolved_vs_resolved_ctrl_dossier_sign"]
+    holm10 = _holm_bonferroni(matched_pvals)
+    dl["arm1_vs_arm2_unresolved_dossier_sign"]["holm_adjusted_p"] = holm10["arm1_vs_arm2_unresolved_dossier_sign"]
+    dl["arm2_unresolved_vs_resolved_ctrl_dossier_sign"]["holm_adjusted_p"] = holm10["arm2_unresolved_vs_resolved_ctrl_dossier_sign"]
     dl.pop("holm_bonferroni_all_11_dossier_tests", None)
-    dl["holm_bonferroni_matched_9_within_dossier_tests"] = holm9
-    dl["max_holm_adjusted_p"] = max(holm9.values())
+    dl["holm_bonferroni_matched_10_within_dossier_tests"] = holm10
+    dl["max_holm_adjusted_p"] = max(holm10.values())
+    dl["ci95_omitted_reason"] = (
+        "Binomial 95% CIs omitted across fixed, purpose-authored dossier sets (1 run/dossier/family) "
+        "because no superpopulation sampling model or rerun-variance estimate is assumed."
+    )
     dl["note"] = (
         "Post-hoc exploratory dossier-level analyses (n=6 explicit controls, n=12 underspecified dossiers; upgraded "
         "from frozen PROTOCOL.md's pooled n=36 tests). Non-exchangeable cross-stimulus contrasts (E01-E06 vs. U01-U12) "
-        "are reported descriptively without Fisher p-values; exact Holm-Bonferroni correction spans the m=9 matched "
-        "within-dossier tests on the identical U01-U12 dossiers (max p_adj = 0.004395)."
+        "are reported descriptively without Fisher p-values; exact Holm-Bonferroni correction spans all m=10 symmetric "
+        "matched within-dossier tests on the identical U01-U12 dossiers (max p_adj = 0.004883)."
     )
     summary["design_separation_note"] = (
         "Distinct evidence types: (1) E01-E06 vs. U01-U12 (6/6 vs. 0/12 majority-blocked, 18/18 vs. 1/36 runs) is a "
         "descriptive cross-stimulus baseline contrast on two independently authored, non-exchangeable stimulus sets "
-        "(Fisher p-value omitted); (2) Arm 1 -> Arm 2, Arm 2 Unresolved -> Resolved Ctrl, and Resolved-Ctrl model-style "
-        "tests (m=9 matched within-dossier tests on the same 12 U01-U12 dossiers, exact Holm max p_adj=0.004395) are "
-        "matched within-dossier inference."
+        "(Fisher p-value and binomial CIs omitted); (2) Arm 1 -> Arm 2, Arm 2 Unresolved -> Resolved Ctrl, and "
+        "Resolved-Ctrl model-style tests (m=10 matched within-dossier tests on the same 12 U01-U12 dossiers, exact "
+        "Holm max p_adj=0.004883) are matched within-dossier inference."
     )
     chk_errs = [f"exp5-premise-lockin/{e}" for e in summary["sha256_verified"]["errors"] + h_errs]
     return summary, chk_errs

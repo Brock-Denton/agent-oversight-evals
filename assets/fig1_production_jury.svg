@@ -20,7 +20,7 @@
   <text x="380" y="178" text-anchor="end" font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace" font-size="11" font-weight="700" fill="#1C1917">39.4% (67/170)</text>
   <rect x="32" y="185" width="348" height="18" rx="5" fill="#ECE6DC"/>
   <rect x="32" y="185" width="137.2" height="18" rx="5" fill="#2F6D8F"/>
-  <text x="32" y="217" font-family="ui-sans-serif, -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="10.2" fill="#635D56">Session sign test: 30 Codex &gt; Claude, 0 reverse (p = 1.86 × 10⁻⁹*)</text>
+  <text x="32" y="217" font-family="ui-sans-serif, -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="10.2" fill="#635D56">Named sessions: 30 Codex &gt; Claude, 0 reverse, 18 tied*</text>
   
   <text x="32" y="234" font-family="ui-sans-serif, -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12" font-weight="600" fill="#1C1917">Gemini 4 Neon (1–1 Tie-Breaker)</text>
   <text x="380" y="234" text-anchor="end" font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace" font-size="11" font-weight="700" fill="#1C1917">4.3% (3/70)</text>
@@ -70,5 +70,5 @@
 
   <!-- Footer -->
   <line x1="32" y1="362" x2="788" y2="362" stroke="#E5DFD5" stroke-width="1"/>
-  <text x="32" y="383" font-family="ui-sans-serif, -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="10.2" fill="#635D56">*Session sign test assumes independent sessions. CODEX_HOME flips: 1 vs 1 (p = 1.0); mutual: 4/4.</text>
+  <text x="32" y="383" font-family="ui-sans-serif, -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="10.2" fill="#635D56">*Descriptive session count (multi-session loops not deduplicated). CODEX_HOME flips: 1 vs 1 (p = 1.0); mutual: 4/4.</text>
 </svg>

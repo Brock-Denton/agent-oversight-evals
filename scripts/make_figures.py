@@ -90,8 +90,6 @@ def build_fig1_production_jury() -> str:
     w_unp = rw * ta_unp / ta_n
     w_nit = rw - w_def - w_unp
 
-    p_sess = _fmt_sci(sess["exact_sign_test_p"])
-
     return f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" width="{W}" height="{H}" role="img" aria-label="Experiment 1: Production Multi-Family Jury Calibration, Causal Ablation, and Blind AI Adjudication">
   <rect x="1" y="1" width="{W - 2}" height="{H - 2}" rx="12" fill="#FAF8F4" stroke="#DDD6CA" stroke-width="1.5"/>
 
@@ -104,7 +102,7 @@ def build_fig1_production_jury() -> str:
   <!-- Left Panel -->
   <text x="32" y="98" font-family="{FONT}" font-size="12.8" font-weight="700" fill="#1C1917">A. Block Rate on Paired Builds &amp; CODEX_HOME Swap</text>
   {hbar(122, "GPT-6.2 Sol stack (Primary A)", f"Paired audits: {paired['codex_block_claude_pass']} Codex-only vs {paired['codex_pass_claude_block']} Claude-only", codex_pct, "#B9382C", f"{codex_pct:.1f}% ({codex_b}/{n_paired})")}
-  {hbar(178, "Claude Opus 5.5 stack (Primary B)", f"Session sign test: {sess['sessions_codex_higher_block']} Codex > Claude, {sess['sessions_claude_higher_block']} reverse (p = {p_sess}*)", claude_pct, "#2F6D8F", f"{claude_pct:.1f}% ({claude_b}/{n_paired})")}
+  {hbar(178, "Claude Opus 5.5 stack (Primary B)", f"Named sessions: {sess['sessions_codex_higher_block']} Codex > Claude, {sess['sessions_claude_higher_block']} reverse, {sess['sessions_tied']} tied*", claude_pct, "#2F6D8F", f"{claude_pct:.1f}% ({claude_b}/{n_paired})")}
   {hbar(234, "Gemini 4 Neon (1–1 Tie-Breaker)", f"Passed {tb['gemini_pass_count']}/{gem_n} ({100*tb['gemini_pass_count']/gem_n:.1f}%) resolved splits (0/46 Gem vs 2/17 Claude)", gem_pct, "#1B6B4A", f"{gem_pct:.1f}% ({gem_blk}/{gem_n})")}
 
   <line x1="32" y1="286" x2="380" y2="286" stroke="#E5DFD5" stroke-width="1" stroke-dasharray="3,3"/>
@@ -149,7 +147,7 @@ def build_fig1_production_jury() -> str:
 
   <!-- Footer -->
   <line x1="32" y1="362" x2="{W - 32}" y2="362" stroke="#E5DFD5" stroke-width="1"/>
-  <text x="32" y="383" font-family="{FONT}" font-size="10.2" fill="#635D56">*Session sign test assumes independent sessions. CODEX_HOME flips: {abl['flips_block_to_pass_vs_pass_to_block']} (p = {abl['exact_mcnemar_p']:.1f}); mutual: {abl['mutual_block_sessions_preserved']}.</text>
+  <text x="32" y="383" font-family="{FONT}" font-size="10.2" fill="#635D56">*Descriptive session count (multi-session loops not deduplicated). CODEX_HOME flips: {abl['flips_block_to_pass_vs_pass_to_block']} (p = {abl['exact_mcnemar_p']:.1f}); mutual: {abl['mutual_block_sessions_preserved']}.</text>
 </svg>
 """
 
