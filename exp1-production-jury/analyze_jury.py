@@ -345,7 +345,8 @@ def analyze(path: Path = DATA_PATH) -> dict[str, Any]:
                 "real_defect_missed_by_passer": {
                     "count": c_counts["REAL_DEFECT_MISSED_BY_PASSER"],
                     "rate": round(c_counts["REAL_DEFECT_MISSED_BY_PASSER"] / tn, 4),
-                    "ci95": list(clopper_pearson(c_counts["REAL_DEFECT_MISSED_BY_PASSER"], tn)),
+                    "unique_defect_clusters": len(unique_clusters),
+                    "ci95_omitted_reason": "All 3 defect-positive splits trace to 1 recurring UI defect cluster; binomial CI omitted because splits are not independent defect observations.",
                 },
                 "unproven_claim_gap": {
                     "count": c_counts["UNPROVEN_CLAIM_GAP"],
