@@ -97,26 +97,26 @@ def build_fig1_production_jury() -> str:
   <rect x="1" y="1" width="{W - 2}" height="{H - 2}" rx="12" fill="#FAF8F4" stroke="#DDD6CA" stroke-width="1.5"/>
 
   <text x="32" y="32" font-family="{MONO}" font-size="10" font-weight="600" letter-spacing="0.08em" fill="#635D56">EXPERIMENT 1 · {e1['total_gates']} PRODUCTION GATES · {sess['unique_paired_sessions']} NAMED SESSIONS</text>
-  <text x="32" y="56" font-family="{FONT}" font-size="18.5" font-weight="700" fill="#1C1917">Same Builds, Different Epistemic Bars — Not Rule Leakage</text>
+  <text x="32" y="56" font-family="{FONT}" font-size="18.5" font-weight="700" fill="#1C1917">Same Builds, Different Stack Thresholds — Isolated CODEX_HOME Unchanged</text>
 
   <line x1="32" y1="71" x2="{W - 32}" y2="71" stroke="#E5DFD5" stroke-width="1"/>
   <line x1="404" y1="84" x2="404" y2="348" stroke="#E5DFD5" stroke-width="1"/>
 
   <!-- Left Panel -->
-  <text x="32" y="98" font-family="{FONT}" font-size="12.8" font-weight="700" fill="#1C1917">A. Block Rate on Paired Builds &amp; Causal Ablation</text>
-  {hbar(122, "GPT-6.2 Sol (Primary A)", f"Paired audits: {paired['codex_block_claude_pass']} Codex-only vs {paired['codex_pass_claude_block']} Claude-only", codex_pct, "#B9382C", f"{codex_pct:.1f}% ({codex_b}/{n_paired})")}
-  {hbar(178, "Claude Opus 5.5 (Primary B)", f"Session sign test: {sess['sessions_codex_higher_block']} Codex > Claude, {sess['sessions_claude_higher_block']} reverse (p = {p_sess})", claude_pct, "#2F6D8F", f"{claude_pct:.1f}% ({claude_b}/{n_paired})")}
-  {hbar(234, "Gemini 4 Neon (1–1 Tie-Breaker)", f"Passed {tb['gemini_pass_count']}/{gem_n} ({100*tb['gemini_pass_count']/gem_n:.1f}%) contested splits; self-pref null", gem_pct, "#1B6B4A", f"{gem_pct:.1f}% ({gem_blk}/{gem_n})")}
+  <text x="32" y="98" font-family="{FONT}" font-size="12.8" font-weight="700" fill="#1C1917">A. Block Rate on Paired Builds &amp; CODEX_HOME Swap</text>
+  {hbar(122, "GPT-6.2 Sol stack (Primary A)", f"Paired audits: {paired['codex_block_claude_pass']} Codex-only vs {paired['codex_pass_claude_block']} Claude-only", codex_pct, "#B9382C", f"{codex_pct:.1f}% ({codex_b}/{n_paired})")}
+  {hbar(178, "Claude Opus 5.5 stack (Primary B)", f"Session sign test: {sess['sessions_codex_higher_block']} Codex > Claude, {sess['sessions_claude_higher_block']} reverse (p = {p_sess}*)", claude_pct, "#2F6D8F", f"{claude_pct:.1f}% ({claude_b}/{n_paired})")}
+  {hbar(234, "Gemini 4 Neon (1–1 Tie-Breaker)", f"Passed {tb['gemini_pass_count']}/{gem_n} ({100*tb['gemini_pass_count']/gem_n:.1f}%) resolved splits; self-pref ns (p=0.070)", gem_pct, "#1B6B4A", f"{gem_pct:.1f}% ({gem_blk}/{gem_n})")}
 
   <line x1="32" y1="286" x2="380" y2="286" stroke="#E5DFD5" stroke-width="1" stroke-dasharray="3,3"/>
-  <text x="32" y="305" font-family="{FONT}" font-size="11.2" font-weight="700" fill="#1C1917">CODEX_HOME Ablation (strip 57 KB AGENTS.md, n = {abl_n})</text>
+  <text x="32" y="305" font-family="{FONT}" font-size="11.2" font-weight="700" fill="#1C1917">Isolated CODEX_HOME Swap (excl. AGENTS.md/state, n = {abl_n})</text>
   <rect x="32" y="315" width="168" height="24" rx="5" fill="#ECE6DC"/>
   <rect x="32" y="315" width="{168 * abl_with_pct / 100.0:.1f}" height="24" rx="5" fill="#B9382C"/>
-  <text x="108" y="331" text-anchor="middle" font-family="{MONO}" font-size="10.2" font-weight="700" fill="#FFFFFF">With rules: {abl_with}/{abl_n}</text>
+  <text x="108" y="331" text-anchor="middle" font-family="{MONO}" font-size="10.2" font-weight="700" fill="#FFFFFF">Default home: {abl_with}/{abl_n}</text>
 
   <rect x="212" y="315" width="168" height="24" rx="5" fill="#ECE6DC"/>
   <rect x="212" y="315" width="{168 * abl_clean_pct / 100.0:.1f}" height="24" rx="5" fill="#8C2B22"/>
-  <text x="288" y="331" text-anchor="middle" font-family="{MONO}" font-size="10.2" font-weight="700" fill="#FFFFFF">Stripped: {abl_clean}/{abl_n}</text>
+  <text x="288" y="331" text-anchor="middle" font-family="{MONO}" font-size="10.2" font-weight="700" fill="#FFFFFF">Isolated: {abl_clean}/{abl_n}</text>
 
   <!-- Right Panel -->
   <text x="{rx}" y="98" font-family="{FONT}" font-size="12.8" font-weight="700" fill="#1C1917">B. Blind AI Audit of {ta_n} Contested Splits</text>
@@ -141,8 +141,8 @@ def build_fig1_production_jury() -> str:
   <text x="{rx + 18}" y="245" font-family="{FONT}" font-size="10.1" fill="#57534E">No visible bug; proof omitted claimed state or test detail</text>
 
   <rect x="{rx}" y="262" width="11" height="11" rx="2.5" fill="#5B6770"/>
-  <text x="{rx + 18}" y="272" font-family="{FONT}" font-size="11.5" font-weight="700" fill="#1C1917">False alarm / nitpick: {ta_nit}/{ta_n} ({100*ta_nit/ta_n:.1f}%)</text>
-  <text x="{rx + 18}" y="287" font-family="{FONT}" font-size="10.1" fill="#57534E">Scoped claim satisfied; extra capture or style demand</text>
+  <text x="{rx + 18}" y="272" font-family="{FONT}" font-size="11.5" font-weight="700" fill="#1C1917">Non-blocking nitpick: {ta_nit}/{ta_n} ({100*ta_nit/ta_n:.1f}%)</text>
+  <text x="{rx + 18}" y="287" font-family="{FONT}" font-size="10.1" fill="#57534E">Scoped claim satisfied; accurate-but-immaterial demand</text>
 
   <rect x="{rx}" y="304" width="{rw}" height="38" rx="6" fill="#F2ECE1" stroke="#DFD7C8"/>
   <text x="{rx + 10}" y="320" font-family="{FONT}" font-size="9.8" font-weight="600" fill="#57534E">Caveat: 3-class κ = {ta['three_class_cohens_kappa']:.3f}; Rater A vs B skewed {skew['a_unproven_b_nitpick']}:{skew['a_nitpick_b_unproven']} (p = {p_skew})</text>
@@ -150,7 +150,7 @@ def build_fig1_production_jury() -> str:
 
   <!-- Footer -->
   <line x1="32" y1="362" x2="{W - 32}" y2="362" stroke="#E5DFD5" stroke-width="1"/>
-  <text x="32" y="383" font-family="{FONT}" font-size="10.2" fill="#635D56">Ablation flips: {abl['flips_block_to_pass_vs_pass_to_block']} (exact McNemar p = {abl['exact_mcnemar_p']:.1f}); mutual blocks preserved: {abl['mutual_block_sessions_preserved']}. Computed directly from exp1-production-jury/*.json.</text>
+  <text x="32" y="383" font-family="{FONT}" font-size="10.2" fill="#635D56">*Session sign test assumes independent sessions. CODEX_HOME flips: {abl['flips_block_to_pass_vs_pass_to_block']} (p = {abl['exact_mcnemar_p']:.1f}); mutual: {abl['mutual_block_sessions_preserved']}.</text>
 </svg>
 """
 

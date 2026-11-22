@@ -110,7 +110,7 @@ def _valid_vmap(r: dict[str, Any]) -> dict[str, str]:
     return vmap
 
 
-def _paired_stats(rows: list[dict[str, Any]]) -> dict[str, Any]:
+def _paired_stats(rows: list[dict[str, Any]], *, include_gate_level_tests: bool = False) -> dict[str, Any]:
     pair: Counter[tuple[str, str]] = Counter()
     for r in rows:
         vmap = _valid_vmap(r)
@@ -128,22 +128,26 @@ def _paired_stats(rows: list[dict[str, Any]]) -> dict[str, Any]:
     p_lb = (both_b + l_only) / n if n else 0.0
     pe = p_cb * p_lb + (1.0 - p_cb) * (1.0 - p_lb)
     kappa = (po - pe) / (1.0 - pe) if (1.0 - pe) > 1e-12 else 0.0
-    mcnemar_p = exact_binomial_two_sided(min(c_only, l_only), disagree, 0.5) if disagree else 1.0
-    return {
+    out: dict[str, Any] = {
         "paired_n": n,
         "both_block": both_b,
         "both_pass": both_p,
         "codex_block_claude_pass": c_only,
         "codex_pass_claude_block": l_only,
         "codex_block_rate": round((both_b + c_only) / n, 4) if n else 0.0,
-        "codex_block_ci95": list(clopper_pearson(both_b + c_only, n)),
         "claude_block_rate": round((both_b + l_only) / n, 4) if n else 0.0,
-        "claude_block_ci95": list(clopper_pearson(both_b + l_only, n)),
         "agreement_rate": round(po, 4),
         "disagreement_rate": round(disagree / n, 4) if n else 0.0,
         "cohens_kappa": round(kappa, 4),
-        "mcnemar_exact_p": mcnemar_p,
     }
+    if include_gate_level_tests:
+        out["mcnemar_exact_p"] = exact_binomial_two_sided(min(c_only, l_only), disagree, 0.5) if disagree else 1.0
+    else:
+        out["inference_omitted_reason"] = (
+            "Gate-level binomial CIs and McNemar p-values omitted because repeated gates occur within sessions; "
+            "see session_cluster_sign_test and paired_codex_vs_claude_first_paired_gate_per_session."
+        )
+    return out
 
 
 def analyze(path: Path = DATA_PATH) -> dict[str, Any]:
@@ -175,7 +179,6 @@ def analyze(path: Path = DATA_PATH) -> dict[str, Any]:
             "valid_votes": fam_total[f],
             "block_votes": fam_block[f],
             "block_rate": round(fam_block[f] / fam_total[f], 4) if fam_total[f] else 0.0,
-            "block_ci95": list(clopper_pearson(fam_block[f], fam_total[f])),
             "severity_counts": dict(fam_sev[f]),
         }
         for f in sorted(fam_attempted.keys())
@@ -239,20 +242,33 @@ def analyze(path: Path = DATA_PATH) -> dict[str, Any]:
 
     tb_pass = 0
     tb_block = 0
+    tb_unresolved_gemini_err = 0
     fb_total = 0
     fb_block = 0
     tb_bj: Counter[tuple[str, str]] = Counter()
+    s2_3fam = 0
+    s2_2fam = 0
+    s2_1fam = 0
     for r in records:
         vmap = _valid_vmap(r)
-        if "gemini" not in vmap:
-            continue
+        if r.get("stage") == "stage1_plus_jury" and r.get("verdict") in ("PASS", "BLOCK"):
+            nf = len(vmap)
+            if nf >= 3:
+                s2_3fam += 1
+            elif nf == 2:
+                s2_2fam += 1
+            elif nf == 1:
+                s2_1fam += 1
         if "codex" in vmap and "claude" in vmap and vmap["codex"] != vmap["claude"]:
-            tb_bj[(r["builder_family"], vmap["gemini"])] += 1
-            if vmap["gemini"] == "PASS":
-                tb_pass += 1
+            if "gemini" in vmap:
+                tb_bj[(r["builder_family"], vmap["gemini"])] += 1
+                if vmap["gemini"] == "PASS":
+                    tb_pass += 1
+                else:
+                    tb_block += 1
             else:
-                tb_block += 1
-        else:
+                tb_unresolved_gemini_err += 1
+        elif "gemini" in vmap:
             fb_total += 1
             if vmap["gemini"] == "BLOCK":
                 fb_block += 1
@@ -346,18 +362,20 @@ def analyze(path: Path = DATA_PATH) -> dict[str, Any]:
                     "count": c_counts["REAL_DEFECT_MISSED_BY_PASSER"],
                     "rate": round(c_counts["REAL_DEFECT_MISSED_BY_PASSER"] / tn, 4),
                     "unique_defect_clusters": len(unique_clusters),
-                    "ci95_omitted_reason": "All 3 defect-positive splits trace to 1 recurring UI defect cluster; binomial CI omitted because splits are not independent defect observations.",
                 },
                 "unproven_claim_gap": {
                     "count": c_counts["UNPROVEN_CLAIM_GAP"],
                     "rate": round(c_counts["UNPROVEN_CLAIM_GAP"] / tn, 4),
-                    "ci95": list(clopper_pearson(c_counts["UNPROVEN_CLAIM_GAP"], tn)),
                 },
                 "false_alarm_or_nitpick": {
                     "count": c_counts["FALSE_ALARM_OR_NITPICK"],
                     "rate": round(c_counts["FALSE_ALARM_OR_NITPICK"] / tn, 4),
-                    "ci95": list(clopper_pearson(c_counts["FALSE_ALARM_OR_NITPICK"], tn)),
+                    "label_note": "Legacy JSON label FALSE_ALARM_OR_NITPICK; denotes accurate-but-non-blocking style/extra-capture nitpicks where the scoped claim was satisfied.",
                 },
+                "ci95_omitted_reason": (
+                    "Binomial CIs omitted across all 24-split categories and blocker accuracy because repeated "
+                    "automated-loop runs induce cross-split dependence (all 3 defect-positive splits trace to 1 unique defect cluster)."
+                ),
                 "blocker_factually_accurate": f"{acc_n}/{tn} ({acc_n/tn:.1%})",
             }
 
@@ -374,19 +392,30 @@ def analyze(path: Path = DATA_PATH) -> dict[str, Any]:
         "builder_family_counts": builder_family_counts,
         "stage_verdict_partition": stage_verdict_partition,
         "stage1_mechanical_blocks": stages[("stage1_mechanical", "BLOCK")],
-        "stage2_full_panel_runs": stages[("stage1_plus_jury", "PASS")] + stages[("stage1_plus_jury", "BLOCK")],
-        "stage2_full_panel_blocks": stages[("stage1_plus_jury", "BLOCK")],
+        "stage2_completed_verdicts": stages[("stage1_plus_jury", "PASS")] + stages[("stage1_plus_jury", "BLOCK")],
+        "stage2_completed_blocks": stages[("stage1_plus_jury", "BLOCK")],
+        "stage2_cross_family_panels": s2_3fam + s2_2fam,
+        "stage2_panel_breakdown": {
+            "three_family_panels": s2_3fam,
+            "two_family_panels": s2_2fam,
+            "single_family_completions_after_primary_error": s2_1fam,
+        },
         "total_valid_judge_votes": sum(fam_total.values()),
         "by_judge_family": by_judge,
-        "paired_codex_vs_claude_all": _paired_stats(records),
-        "paired_codex_vs_claude_builds_only": _paired_stats([r for r in records if r["kind"] == "build"]),
-        "paired_codex_vs_claude_first_per_session": _paired_stats(first_paired),
+        "paired_codex_vs_claude_all": _paired_stats(records, include_gate_level_tests=False),
+        "paired_codex_vs_claude_builds_only": _paired_stats([r for r in records if r["kind"] == "build"], include_gate_level_tests=False),
+        "paired_codex_vs_claude_first_paired_gate_per_session": _paired_stats(first_paired, include_gate_level_tests=True),
         "session_cluster_sign_test": {
             "unique_paired_sessions": len(first_paired),
             "sessions_codex_higher_block": sess_codex_gt,
             "sessions_claude_higher_block": sess_claude_gt,
             "sessions_tied": sess_tied,
             "exact_sign_test_p": exact_binomial_two_sided(min(sess_codex_gt, sess_claude_gt), sign_n, 0.5) if sign_n else 1.0,
+            "independence_caveat": (
+                "Assumes session-level independence; repeated automated-loop tasks spanning multiple sessions "
+                "are not separately deduplicated, and the production comparison compares full judge stacks "
+                "(model + CLI + tool/prompt setup), not model weights alone."
+            ),
             "singleton_null_sensitivity": {
                 "clusters_total": len(first_paired) + null_paired_total,
                 "codex_higher": sing_codex_gt,
@@ -396,11 +425,12 @@ def analyze(path: Path = DATA_PATH) -> dict[str, Any]:
             },
         },
         "tiebreaker_gemini": {
+            "contested_ties_total": tb_n + tb_unresolved_gemini_err,
             "contested_ties_resolved": tb_n,
+            "contested_ties_unresolved_gemini_error": tb_unresolved_gemini_err,
             "gemini_pass_count": tb_pass,
             "gemini_block_count": tb_block,
             "gemini_pass_rate": round(tb_pass / tb_n, 4) if tb_n else 0.0,
-            "gemini_pass_ci95": list(clopper_pearson(tb_pass, tb_n)),
             "primary_error_fallbacks": fb_total,
             "primary_error_fallback_blocks": fb_block,
         },
@@ -411,6 +441,7 @@ def analyze(path: Path = DATA_PATH) -> dict[str, Any]:
             "gemini_1v1_ties_only_on_gemini_block": f"{tb_bj[('gemini','BLOCK')]}/{tb_bj[('gemini','BLOCK')]+tb_bj[('gemini','PASS')]}",
             "gemini_1v1_ties_only_on_claude_block": f"{tb_bj[('claude','BLOCK')]}/{tb_bj[('claude','BLOCK')]+tb_bj[('claude','PASS')]}",
             "gemini_1v1_ties_only_fisher_p": round(fisher_exact_two_sided(tb_bj[('gemini','BLOCK')], tb_bj[('gemini','PASS')], tb_bj[('claude','BLOCK')], tb_bj[('claude','PASS')]), 6),
+            "power_note": "No statistically significant self-preference detected; Gemini 0/46 vs. 2/17 (Fisher p = 0.070) is underpowered and does not establish exact nullity.",
         },
         "codex_only_blocker_themes": raw.get("codex_only_blocker_themes") or {},
         "agents_md_causal_ablation": ablation_summary,

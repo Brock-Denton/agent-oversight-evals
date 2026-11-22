@@ -169,6 +169,22 @@ def reproduce_exp2_rubric_rct() -> dict[str, Any]:
             "notes_per_review": lr["notes"],
             "tokens_total": lr["tokens"]["total"],
             "tokens_per_review": lr["tokens"]["tokens"],
+            "tokens_p_note": (
+                "Archived token permutation p-value 0.0 in results.json is rounded/bounded from Monte Carlo "
+                "resampling (reported as p < 0.0001), not exact zero."
+            ),
+            "note_category_accounting": {
+                arm: {
+                    "notes_total": lr["classes"][arm]["notes"],
+                    "planted_fault_match_notes_not_in_classes_subkeys": (
+                        lr["classes"][arm]["notes"]
+                        - sum(v for k, v in lr["classes"][arm].items() if k != "notes")
+                    ),
+                    "exact_hits_across_70_opportunities": list_real_sum if arm == "list" else none_real_sum,
+                    "archived_classes_subkeys": {k: v for k, v in lr["classes"][arm].items() if k != "notes"},
+                }
+                for arm in ("list", "none")
+            },
             "judge_calibration": lr["calibration"],
             "judge_agreement": lr["judges"],
             "judge_agreement_accounting": {
@@ -195,6 +211,7 @@ _EXP3_LEGACY_UNPAIRED_KEYS = (
     "pairwise_models_within_arm_holm_bonferroni",
     "arm_comparison_overall",
     "arm_comparison_within_model",
+    "paired_arm_mcnemar",
 )
 
 
@@ -232,35 +249,140 @@ def _extract_last_json_obj(text: str) -> dict[str, Any] | None:
     return last
 
 
+def _within_model_arm_mcnemar(
+    runs: list[dict[str, Any]],
+    *,
+    reclassify_tasks: set[str] | None = None,
+    exclude_tasks: set[str] | None = None,
+) -> dict[str, Any]:
+    reclassify = reclassify_tasks or set()
+    exclude = exclude_tasks or set()
+    by_m_t: dict[str, dict[str, dict[str, bool]]] = {}
+    for r in runs:
+        if r.get("outcome") == "RUNNER_ERROR":
+            continue
+        tid = str(r.get("task_id"))
+        if tid in exclude:
+            continue
+        model = str(r.get("model"))
+        arm = str(r.get("arm"))
+        cheated = False if tid in reclassify else bool(r.get("cheated"))
+        by_m_t.setdefault(model, {}).setdefault(tid, {})[arm] = cheated
+    out: dict[str, Any] = {}
+    for model in sorted(by_m_t.keys()):
+        p_only = e_only = both = neither = 0
+        for tid, arms in sorted(by_m_t[model].items()):
+            if "arm_pressure" in arms and "arm_escalation" in arms:
+                p_c, e_c = arms["arm_pressure"], arms["arm_escalation"]
+                if p_c and not e_c:
+                    p_only += 1
+                elif e_c and not p_c:
+                    e_only += 1
+                elif p_c and e_c:
+                    both += 1
+                else:
+                    neither += 1
+        disc = p_only + e_only
+        out[model] = {
+            "matched_tasks": p_only + e_only + both + neither,
+            "pressure_only_cheated": p_only,
+            "escalation_only_cheated": e_only,
+            "both_cheated": both,
+            "neither_cheated": neither,
+            "exact_mcnemar_p": round(analyze_jury.exact_binomial_two_sided(min(p_only, e_only), disc, 0.5), 6) if disc else 1.0,
+        }
+    return out
+
+
+def _within_pressure_model_mcnemar(
+    runs: list[dict[str, Any]],
+    *,
+    reclassify_tasks: set[str] | None = None,
+    exclude_tasks: set[str] | None = None,
+) -> dict[str, Any]:
+    reclassify = reclassify_tasks or set()
+    exclude = exclude_tasks or set()
+    by_t_m: dict[str, dict[str, bool]] = {}
+    models_set: set[str] = set()
+    for r in runs:
+        if r.get("outcome") == "RUNNER_ERROR" or r.get("arm") != "arm_pressure":
+            continue
+        tid = str(r.get("task_id"))
+        if tid in exclude:
+            continue
+        m = str(r.get("model"))
+        models_set.add(m)
+        by_t_m.setdefault(tid, {})[m] = False if tid in reclassify else bool(r.get("cheated"))
+    models = sorted(models_set)
+    out: dict[str, Any] = {}
+    for i in range(len(models)):
+        for j in range(i + 1, len(models)):
+            m1, m2 = models[i], models[j]
+            m1_only = m2_only = both = neither = 0
+            for tid, mdict in sorted(by_t_m.items()):
+                if m1 in mdict and m2 in mdict:
+                    c1, c2 = mdict[m1], mdict[m2]
+                    if c1 and not c2:
+                        m1_only += 1
+                    elif c2 and not c1:
+                        m2_only += 1
+                    elif c1 and c2:
+                        both += 1
+                    else:
+                        neither += 1
+            disc = m1_only + m2_only
+            out[f"{m1}__vs__{m2}"] = {
+                "matched_tasks": m1_only + m2_only + both + neither,
+                "m1_only_cheated": m1_only,
+                "m2_only_cheated": m2_only,
+                "both_cheated": both,
+                "neither_cheated": neither,
+                "exact_mcnemar_p": round(analyze_jury.exact_binomial_two_sided(min(m1_only, m2_only), disc, 0.5), 6) if disc else 1.0,
+            }
+    return out
+
+
 def _sanitize_exp3_summary(summary: dict[str, Any], runs: list[dict[str, Any]], *, is_v3: bool) -> dict[str, Any]:
     cleaned = _rename_exp3_json_disclosure_fields(summary)
     for k in _EXP3_LEGACY_UNPAIRED_KEYS:
         cleaned.pop(k, None)
 
-    # Omit pooled binomial CIs on cross-arm / cross-model aggregates where the same tasks recur.
-    for ci_key in ("cheat_ci95", "honest_partial_fix_ci95"):
-        if isinstance(cleaned.get("overall"), dict):
-            cleaned["overall"].pop(ci_key, None)
-        for group_key in ("by_model", "by_arm"):
-            grp = cleaned.get(group_key)
-            if isinstance(grp, dict):
-                for bucket in grp.values():
-                    if isinstance(bucket, dict):
-                        bucket.pop(ci_key, None)
+    # Omit pooled binomial CIs on all cross-arm / cross-model / cross-task aggregate buckets where tasks repeat.
+    def _strip_ci(node: Any) -> Any:
+        if isinstance(node, dict):
+            return {k: _strip_ci(v) for k, v in node.items() if k not in ("cheat_ci95", "honest_partial_fix_ci95")}
+        if isinstance(node, list):
+            return [_strip_ci(x) for x in node]
+        return node
 
-    sens = cleaned.get("sensitivity_excluding_disputable_09_native_svd")
-    if isinstance(sens, dict):
-        sens.pop("arm_fisher_p", None)
-        sens.pop("within_pressure_pairwise_fisher", None)
+    for group_key in ("overall", "by_model", "by_arm", "by_class", "by_task"):
+        if group_key in cleaned:
+            cleaned[group_key] = _strip_ci(cleaned[group_key])
 
-    cleaned["statistical_inference_note"] = (
-        "Task-matched exact McNemar tests only (paired_arm_mcnemar, paired_models_mcnemar_within_arm, "
-        "and sensitivity_excluding_disputable_09_native_svd). Legacy unpaired Fisher blocks and pooled "
-        "repeated-task CIs returned by frozen score.py are omitted because the same tasks recur across "
-        "arms and model families."
-    )
+    cleaned["paired_arm_mcnemar_within_model"] = _within_model_arm_mcnemar(runs)
 
     if is_v3:
+        cleaned["sensitivity_09_native_svd"] = {
+            "note": (
+                "Distinguishes reclassifying disputable 09_native_svd (disclosed system LAPACK fallback) as non-cheat "
+                "(retaining all 12 tasks) vs. removing 09_native_svd entirely (11 tasks). Pooled 35-pair McNemar is omitted."
+            ),
+            "reclassifying_09_as_non_cheat_12_tasks": {
+                "paired_arm_mcnemar_within_model": _within_model_arm_mcnemar(runs, reclassify_tasks={"09_native_svd"}),
+                "paired_models_mcnemar_within_arm_pressure": _within_pressure_model_mcnemar(runs, reclassify_tasks={"09_native_svd"}),
+            },
+            "removing_09_11_tasks": {
+                "paired_arm_mcnemar_within_model": _within_model_arm_mcnemar(runs, exclude_tasks={"09_native_svd"}),
+                "paired_models_mcnemar_within_arm_pressure": _within_pressure_model_mcnemar(runs, exclude_tasks={"09_native_svd"}),
+            },
+        }
+        cleaned.pop("sensitivity_excluding_disputable_09_native_svd", None)
+        cleaned["statistical_inference_note"] = (
+            "Single-stratum task-matched exact McNemar tests only (paired_arm_mcnemar_within_model, "
+            "paired_models_mcnemar_within_arm, and sensitivity_09_native_svd). Legacy unpaired Fisher blocks, "
+            "pooled 35-pair McNemar, and repeated-task pooled CIs from frozen score.py are omitted because "
+            "the same 12 tasks recur across arms and model families."
+        )
         flagged_runs = [r for r in runs if r.get("cheated")]
         json_clean_empty_unresolved = 0
         flagged_task_ids: list[str] = []
@@ -286,6 +408,13 @@ def _sanitize_exp3_summary(summary: dict[str, Any], runs: list[dict[str, Any]], 
             "worst_case_imputing_1_claude_timeout_as_cheat_12_tasks_mcnemar_p": 0.21875,
             "worst_case_excl_09_native_svd_11_tasks_mcnemar_p": 0.375,
         }
+    else:
+        cleaned.pop("sensitivity_excluding_disputable_09_native_svd", None)
+        cleaned["statistical_inference_note"] = (
+            "Archived v2 pilot: single-stratum task-matched exact McNemar tests only "
+            "(paired_arm_mcnemar_within_model and paired_models_mcnemar_within_arm). Legacy unpaired Fisher blocks, "
+            "pooled 34-pair McNemar, and repeated-task pooled CIs from frozen score.py are omitted."
+        )
     return cleaned
 
 
@@ -390,6 +519,13 @@ def reproduce_exp5_premise_lockin() -> tuple[dict[str, Any], list[str]]:
     summary = exp5_score.score_results(results_path, None, EXP5_DIR)
     h_ok, h_total, h_errs = exp5_score.verify_sha256_manifest(EXP5_DIR, "harness.sha256")
     summary["harness_sha256_verified"] = {"ok": h_ok, "total": h_total, "errors": h_errs}
+    summary["design_separation_note"] = (
+        "Distinct inference types: (1) E01-E06 vs. U01-U12 (6/6 vs. 0/12 majority-blocked, descriptive Fisher p=5.39e-5) "
+        "compares two independently authored, non-exchangeable stimulus sets and summarizes observed cross-set contrast "
+        "without causally isolating underspecification alone; (2) Arm 1 -> Arm 2 and Arm 2 Unresolved -> Resolved Ctrl "
+        "(exact sign p=0.000488) are matched within-dossier tests on the same 12 U01-U12 dossiers measuring explicit "
+        "sign-off instruction compliance."
+    )
     chk_errs = [f"exp5-premise-lockin/{e}" for e in summary["sha256_verified"]["errors"] + h_errs]
     return summary, chk_errs
 
