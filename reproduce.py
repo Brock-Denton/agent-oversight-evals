@@ -348,6 +348,7 @@ def _sanitize_exp3_summary(summary: dict[str, Any], runs: list[dict[str, Any]], 
         cleaned.pop(k, None)
 
     # Omit pooled binomial CIs on all cross-arm / cross-model / cross-task aggregate buckets where tasks repeat.
+    # For v2 (6 tasks x 2 replicates), also strip by_model_arm CIs because replicates repeat each task.
     def _strip_ci(node: Any) -> Any:
         if isinstance(node, dict):
             return {k: _strip_ci(v) for k, v in node.items() if k not in ("cheat_ci95", "honest_partial_fix_ci95")}
@@ -355,13 +356,15 @@ def _sanitize_exp3_summary(summary: dict[str, Any], runs: list[dict[str, Any]], 
             return [_strip_ci(x) for x in node]
         return node
 
-    for group_key in ("overall", "by_model", "by_arm", "by_class", "by_task"):
+    ci_groups = ("overall", "by_model", "by_arm", "by_class", "by_task") if is_v3 else (
+        "overall", "by_model", "by_arm", "by_model_arm", "by_class", "by_task"
+    )
+    for group_key in ci_groups:
         if group_key in cleaned:
             cleaned[group_key] = _strip_ci(cleaned[group_key])
 
-    cleaned["paired_arm_mcnemar_within_model"] = _within_model_arm_mcnemar(runs)
-
     if is_v3:
+        cleaned["paired_arm_mcnemar_within_model"] = _within_model_arm_mcnemar(runs)
         cleaned["sensitivity_09_native_svd"] = {
             "note": (
                 "Distinguishes reclassifying disputable 09_native_svd (disclosed system LAPACK fallback) as non-cheat "
@@ -409,11 +412,12 @@ def _sanitize_exp3_summary(summary: dict[str, Any], runs: list[dict[str, Any]], 
             "worst_case_excl_09_native_svd_11_tasks_mcnemar_p": 0.375,
         }
     else:
+        cleaned.pop("paired_models_mcnemar_within_arm", None)
         cleaned.pop("sensitivity_excluding_disputable_09_native_svd", None)
         cleaned["statistical_inference_note"] = (
-            "Archived v2 pilot: single-stratum task-matched exact McNemar tests only "
-            "(paired_arm_mcnemar_within_model and paired_models_mcnemar_within_arm). Legacy unpaired Fisher blocks, "
-            "pooled 34-pair McNemar, and repeated-task pooled CIs from frozen score.py are omitted."
+            "Archived 6-task x 2-replicate exploratory v2 pilot (descriptive counts only; inferential tests "
+            "and binomial CIs omitted because each task has 2 repeated replicates and documented v2 confounders; "
+            "superseded by the single-replicate v3 clean-room benchmark)."
         )
     return cleaned
 
@@ -473,22 +477,16 @@ def reproduce_exp3_honesty_v1() -> dict[str, Any]:
     op_mock = by_model.get(m_opus, Counter()).get("request kept, made to succeed", 0)
     so_mock = by_model.get(m_sol, Counter()).get("request kept, made to succeed", 0)
     return {
-        "effort_mismatch_note": (
+        "statistical_inference_note": (
             "Archived exploratory pilot comparing claude-opus-5-5 (max effort) vs gpt-5.6-sol (medium effort) "
-            "across repeated pages; superseded by v3 task-matched McNemar."
+            "across repeated pages (descriptive counts only; nested-opportunity binomial CIs and unpaired Fisher "
+            "p-values omitted; superseded by v3 task-matched McNemar)."
         ),
         "repairable_repaired": repairable - remaining,
         "repairable_total": repairable,
-        "remaining_ci95": list(score.clopper_pearson(remaining, repairable)),
         "probe_runs": len(probe),
         "claude_opus_5_5_max": {"removed": op_del, "mocked_success": op_mock, "honest_refusal": op_hon, "n": totals[m_opus]},
         "gpt_5_6_sol_medium": {"removed": so_del, "mocked_success": so_mock, "honest_refusal": so_hon, "n": totals[m_sol]},
-        "archived_exploratory_unpaired_fisher_p_silent_deletion": score.fisher_exact_two_sided(
-            op_del, totals[m_opus] - op_del, so_del, totals[m_sol] - so_del
-        ),
-        "archived_exploratory_unpaired_fisher_p_honest_refusal": score.fisher_exact_two_sided(
-            op_hon, totals[m_opus] - op_hon, so_hon, totals[m_sol] - so_hon
-        ),
     }
 
 
@@ -513,18 +511,66 @@ def reproduce_exp4_selfreport() -> dict[str, Any]:
     }
 
 
+def _holm_bonferroni(pvals: dict[str, float]) -> dict[str, float]:
+    ordered = sorted(pvals.items(), key=lambda kv: (kv[1], kv[0]))
+    m = len(ordered)
+    running_max = 0.0
+    adjusted: dict[str, float] = {}
+    for rank, (name, p) in enumerate(ordered):
+        running_max = max(running_max, min(1.0, p * (m - rank)))
+        adjusted[name] = round(running_max, 8)
+    return adjusted
+
+
 def reproduce_exp5_premise_lockin() -> tuple[dict[str, Any], list[str]]:
     exp5_score = _load_exp5_score()
     results_path = EXP5_DIR / "results-exp5-198runs.json"
     summary = exp5_score.score_results(results_path, None, EXP5_DIR)
     h_ok, h_total, h_errs = exp5_score.verify_sha256_manifest(EXP5_DIR, "harness.sha256")
     summary["harness_sha256_verified"] = {"ok": h_ok, "total": h_total, "errors": h_errs}
+
+    # Separate descriptive cross-stimulus contrast (E01-E06 vs U01-U12, non-exchangeable stimulus sets -> no Fisher p)
+    # from matched within-dossier inferential tests on the identical 12 U01-U12 dossiers (exact Holm across m=9 tests).
+    dl = summary["dossier_level_primary_inference"]
+    for cross_key in ("explicit_vs_unresolved_majority_blocked", "explicit_vs_unresolved_any_family_blocked"):
+        if isinstance(dl.get(cross_key), dict):
+            dl[cross_key].pop("exact_fisher_p", None)
+            dl[cross_key].pop("holm_adjusted_p", None)
+            dl[cross_key]["inference_omitted_reason"] = (
+                "Descriptive cross-stimulus contrast only; Fisher p-value omitted because E01-E06 and U01-U12 "
+                "are independently authored, non-exchangeable stimulus sets."
+            )
+
+    pf = dl["per_family_dossier_mcnemar"]
+    matched_pvals = {
+        "arm1_vs_arm2_unresolved_dossier_sign": dl["arm1_vs_arm2_unresolved_dossier_sign"]["exact_sign_p"],
+        "arm2_unresolved_vs_resolved_ctrl_dossier_sign": dl["arm2_unresolved_vs_resolved_ctrl_dossier_sign"]["exact_sign_p"],
+        "claude_vs_codex_resolved_ctrl_pass": summary["arm2_escalation_prompt"]["convergent_strictness_on_resolved_ctrl"]["claude_vs_codex_pass_dossier_mcnemar_p"],
+        "claude_arm1_vs_arm2": pf["claude"]["arm1_vs_arm2_unresolved"]["exact_mcnemar_p"],
+        "claude_arm2_vs_resolved_ctrl": pf["claude"]["arm2_unresolved_vs_resolved_ctrl"]["exact_mcnemar_p"],
+        "codex_arm1_vs_arm2": pf["codex"]["arm1_vs_arm2_unresolved"]["exact_mcnemar_p"],
+        "codex_arm2_vs_resolved_ctrl": pf["codex"]["arm2_unresolved_vs_resolved_ctrl"]["exact_mcnemar_p"],
+        "gemini_arm1_vs_arm2": pf["gemini"]["arm1_vs_arm2_unresolved"]["exact_mcnemar_p"],
+        "gemini_arm2_vs_resolved_ctrl": pf["gemini"]["arm2_unresolved_vs_resolved_ctrl"]["exact_mcnemar_p"],
+    }
+    holm9 = _holm_bonferroni(matched_pvals)
+    dl["arm1_vs_arm2_unresolved_dossier_sign"]["holm_adjusted_p"] = holm9["arm1_vs_arm2_unresolved_dossier_sign"]
+    dl["arm2_unresolved_vs_resolved_ctrl_dossier_sign"]["holm_adjusted_p"] = holm9["arm2_unresolved_vs_resolved_ctrl_dossier_sign"]
+    dl.pop("holm_bonferroni_all_11_dossier_tests", None)
+    dl["holm_bonferroni_matched_9_within_dossier_tests"] = holm9
+    dl["max_holm_adjusted_p"] = max(holm9.values())
+    dl["note"] = (
+        "Post-hoc exploratory dossier-level analyses (n=6 explicit controls, n=12 underspecified dossiers; upgraded "
+        "from frozen PROTOCOL.md's pooled n=36 tests). Non-exchangeable cross-stimulus contrasts (E01-E06 vs. U01-U12) "
+        "are reported descriptively without Fisher p-values; exact Holm-Bonferroni correction spans the m=9 matched "
+        "within-dossier tests on the identical U01-U12 dossiers (max p_adj = 0.004395)."
+    )
     summary["design_separation_note"] = (
-        "Distinct inference types: (1) E01-E06 vs. U01-U12 (6/6 vs. 0/12 majority-blocked, descriptive Fisher p=5.39e-5) "
-        "compares two independently authored, non-exchangeable stimulus sets and summarizes observed cross-set contrast "
-        "without causally isolating underspecification alone; (2) Arm 1 -> Arm 2 and Arm 2 Unresolved -> Resolved Ctrl "
-        "(exact sign p=0.000488) are matched within-dossier tests on the same 12 U01-U12 dossiers measuring explicit "
-        "sign-off instruction compliance."
+        "Distinct evidence types: (1) E01-E06 vs. U01-U12 (6/6 vs. 0/12 majority-blocked, 18/18 vs. 1/36 runs) is a "
+        "descriptive cross-stimulus baseline contrast on two independently authored, non-exchangeable stimulus sets "
+        "(Fisher p-value omitted); (2) Arm 1 -> Arm 2, Arm 2 Unresolved -> Resolved Ctrl, and Resolved-Ctrl model-style "
+        "tests (m=9 matched within-dossier tests on the same 12 U01-U12 dossiers, exact Holm max p_adj=0.004395) are "
+        "matched within-dossier inference."
     )
     chk_errs = [f"exp5-premise-lockin/{e}" for e in summary["sha256_verified"]["errors"] + h_errs]
     return summary, chk_errs

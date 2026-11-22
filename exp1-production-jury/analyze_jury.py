@@ -353,10 +353,14 @@ def analyze(path: Path = DATA_PATH) -> dict[str, Any]:
                 "rater_ab_nondefect_skew": {
                     "a_unproven_b_nitpick": a_unp_b_nit,
                     "a_nitpick_b_unproven": a_nit_b_unp,
-                    "exact_mcnemar_p": round(exact_binomial_two_sided(min(a_unp_b_nit, a_nit_b_unp), a_unp_b_nit + a_nit_b_unp, 0.5), 6) if (a_unp_b_nit + a_nit_b_unp) else 1.0,
                     "discordant_non_visual": disc_non_visual,
                     "discordant_dot_only_logs": disc_dot_only,
                     "discordant_visual": len(disc_cases) - disc_non_visual,
+                    "inference_omitted_reason": (
+                        "Descriptive pass-to-pass directional imbalance (13:1); case-level exact McNemar p-value "
+                        "omitted due to cross-session loop dependence in the 24-split sample, and the counts alone "
+                        "do not identify a causal mechanism."
+                    ),
                 },
                 "real_defect_missed_by_passer": {
                     "count": c_counts["REAL_DEFECT_MISSED_BY_PASSER"],
@@ -435,13 +439,15 @@ def analyze(path: Path = DATA_PATH) -> dict[str, Any]:
             "primary_error_fallback_blocks": fb_block,
         },
         "self_preference_regime_matched": {
-            "claude_on_claude_block": f"{bj[('claude','claude','BLOCK')]}/{bj[('claude','claude','BLOCK')]+bj[('claude','claude','PASS')]}",
-            "claude_on_gemini_block": f"{bj[('gemini','claude','BLOCK')]}/{bj[('gemini','claude','BLOCK')]+bj[('gemini','claude','PASS')]}",
-            "claude_fisher_p": round(fisher_exact_two_sided(bj[('claude','claude','BLOCK')], bj[('claude','claude','PASS')], bj[('gemini','claude','BLOCK')], bj[('gemini','claude','PASS')]), 6),
-            "gemini_1v1_ties_only_on_gemini_block": f"{tb_bj[('gemini','BLOCK')]}/{tb_bj[('gemini','BLOCK')]+tb_bj[('gemini','PASS')]}",
-            "gemini_1v1_ties_only_on_claude_block": f"{tb_bj[('claude','BLOCK')]}/{tb_bj[('claude','BLOCK')]+tb_bj[('claude','PASS')]}",
-            "gemini_1v1_ties_only_fisher_p": round(fisher_exact_two_sided(tb_bj[('gemini','BLOCK')], tb_bj[('gemini','PASS')], tb_bj[('claude','BLOCK')], tb_bj[('claude','PASS')]), 6),
-            "power_note": "No statistically significant self-preference detected; Gemini 0/46 vs. 2/17 (Fisher p = 0.070) is underpowered and does not establish exact nullity.",
+            "claude_on_claude_block": f"{bj[('claude','claude','BLOCK')]}/{bj[('claude','claude','BLOCK')]+bj[('claude','claude','PASS')]} ({bj[('claude','claude','BLOCK')]/(bj[('claude','claude','BLOCK')]+bj[('claude','claude','PASS')]):.1%})",
+            "claude_on_gemini_block": f"{bj[('gemini','claude','BLOCK')]}/{bj[('gemini','claude','BLOCK')]+bj[('gemini','claude','PASS')]} ({bj[('gemini','claude','BLOCK')]/(bj[('gemini','claude','BLOCK')]+bj[('gemini','claude','PASS')]):.1%})",
+            "gemini_1v1_ties_only_on_gemini_block": f"{tb_bj[('gemini','BLOCK')]}/{tb_bj[('gemini','BLOCK')]+tb_bj[('gemini','PASS')]} ({tb_bj[('gemini','BLOCK')]/(tb_bj[('gemini','BLOCK')]+tb_bj[('gemini','PASS')]):.1%})",
+            "gemini_1v1_ties_only_on_claude_block": f"{tb_bj[('claude','BLOCK')]}/{tb_bj[('claude','BLOCK')]+tb_bj[('claude','PASS')]} ({tb_bj[('claude','BLOCK')]/(tb_bj[('claude','BLOCK')]+tb_bj[('claude','PASS')]):.1%})",
+            "gemini_1v1_ties_only_on_unknown_block": f"{tb_bj[('unknown','BLOCK')]}/{tb_bj[('unknown','BLOCK')]+tb_bj[('unknown','PASS')]} (0 other-builder resolved ties)",
+            "inference_omitted_reason": (
+                "Descriptive regime-matched block rates only; gate-level Fisher p-values omitted because "
+                "production gates repeat within sessions and compare different builders' workloads without task matching."
+            ),
         },
         "codex_only_blocker_themes": raw.get("codex_only_blocker_themes") or {},
         "agents_md_causal_ablation": ablation_summary,

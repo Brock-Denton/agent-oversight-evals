@@ -91,7 +91,6 @@ def build_fig1_production_jury() -> str:
     w_nit = rw - w_def - w_unp
 
     p_sess = _fmt_sci(sess["exact_sign_test_p"])
-    p_skew = f"{skew['exact_mcnemar_p']:.4f}"
 
     return f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" width="{W}" height="{H}" role="img" aria-label="Experiment 1: Production Multi-Family Jury Calibration, Causal Ablation, and Blind AI Adjudication">
   <rect x="1" y="1" width="{W - 2}" height="{H - 2}" rx="12" fill="#FAF8F4" stroke="#DDD6CA" stroke-width="1.5"/>
@@ -106,7 +105,7 @@ def build_fig1_production_jury() -> str:
   <text x="32" y="98" font-family="{FONT}" font-size="12.8" font-weight="700" fill="#1C1917">A. Block Rate on Paired Builds &amp; CODEX_HOME Swap</text>
   {hbar(122, "GPT-6.2 Sol stack (Primary A)", f"Paired audits: {paired['codex_block_claude_pass']} Codex-only vs {paired['codex_pass_claude_block']} Claude-only", codex_pct, "#B9382C", f"{codex_pct:.1f}% ({codex_b}/{n_paired})")}
   {hbar(178, "Claude Opus 5.5 stack (Primary B)", f"Session sign test: {sess['sessions_codex_higher_block']} Codex > Claude, {sess['sessions_claude_higher_block']} reverse (p = {p_sess}*)", claude_pct, "#2F6D8F", f"{claude_pct:.1f}% ({claude_b}/{n_paired})")}
-  {hbar(234, "Gemini 4 Neon (1–1 Tie-Breaker)", f"Passed {tb['gemini_pass_count']}/{gem_n} ({100*tb['gemini_pass_count']/gem_n:.1f}%) resolved splits; self-pref ns (p=0.070)", gem_pct, "#1B6B4A", f"{gem_pct:.1f}% ({gem_blk}/{gem_n})")}
+  {hbar(234, "Gemini 4 Neon (1–1 Tie-Breaker)", f"Passed {tb['gemini_pass_count']}/{gem_n} ({100*tb['gemini_pass_count']/gem_n:.1f}%) resolved splits (0/46 Gem vs 2/17 Claude)", gem_pct, "#1B6B4A", f"{gem_pct:.1f}% ({gem_blk}/{gem_n})")}
 
   <line x1="32" y1="286" x2="380" y2="286" stroke="#E5DFD5" stroke-width="1" stroke-dasharray="3,3"/>
   <text x="32" y="305" font-family="{FONT}" font-size="11.2" font-weight="700" fill="#1C1917">Isolated CODEX_HOME Swap (excl. AGENTS.md/state, n = {abl_n})</text>
@@ -145,7 +144,7 @@ def build_fig1_production_jury() -> str:
   <text x="{rx + 18}" y="287" font-family="{FONT}" font-size="10.1" fill="#57534E">Scoped claim satisfied; accurate-but-immaterial demand</text>
 
   <rect x="{rx}" y="304" width="{rw}" height="38" rx="6" fill="#F2ECE1" stroke="#DFD7C8"/>
-  <text x="{rx + 10}" y="320" font-family="{FONT}" font-size="9.8" font-weight="600" fill="#57534E">Caveat: 3-class κ = {ta['three_class_cohens_kappa']:.3f}; Rater A vs B skewed {skew['a_unproven_b_nitpick']}:{skew['a_nitpick_b_unproven']} (p = {p_skew})</text>
+  <text x="{rx + 10}" y="320" font-family="{FONT}" font-size="9.8" font-weight="600" fill="#57534E">Caveat: 3-class κ = {ta['three_class_cohens_kappa']:.3f}; Rater A vs B directional imbalance {skew['a_unproven_b_nitpick']}:{skew['a_nitpick_b_unproven']}</text>
   <text x="{rx + 10}" y="334" font-family="{FONT}" font-size="9.8" fill="#57534E">on non-defect boundary ({skew['discordant_dot_only_logs']}/14 dot-only logs, {skew['discordant_non_visual']}/14 non-visual).</text>
 
   <!-- Footer -->
@@ -249,7 +248,6 @@ def build_fig3_premise_lockin() -> str:
     sar = s["spec_review_vs_goal_selection"]
     a3a_f = s["arm3a_single_best_priors"]["by_family"]
     a3b = s["arm3b_stage0_orthogonal"]["pooled"]
-    p_diss = _fmt_sci(dl["explicit_vs_unresolved_majority_blocked"]["exact_fisher_p"])
     p_a12 = f"{dl['arm1_vs_arm2_unresolved_dossier_sign']['exact_sign_p']:.4f}"
     p_a2c = f"{dl['arm2_unresolved_vs_resolved_ctrl_dossier_sign']['exact_sign_p']:.4f}"
 
@@ -293,7 +291,7 @@ def build_fig3_premise_lockin() -> str:
   <!-- Left Panel: BLOCKED rate across 4 regimes -->
   <text x="32" y="98" font-family="{FONT}" font-size="12.4" font-weight="700" fill="#1C1917">A. Strict BLOCKED Rate on Spec Audit (3 Families)</text>
   {hbar(120, "1. Explicit Contradiction (E01–E06)", "6/6 dossiers majority-blocked (6/6 Claude, 6/6 Codex, 6/6 Gemini)", ctrl["k"], ctrl["n"], "#1B6B4A")}
-  {hbar(174, "2. Unresolved Tension (U01–U12, Std)", f"0/12 maj-blocked; 0/36 asked human (E vs U diff. stimuli, p = {p_diss})", a1["k"], a1["n"], "#B9382C")}
+  {hbar(174, "2. Unresolved Tension (U01–U12, Std)", "0/12 maj-blocked; 0/36 asked human (separate non-exchangeable stimuli)", a1["k"], a1["n"], "#B9382C")}
   {hbar(228, "3. Unresolved + Sign-Off Rule (Arm 2)", f"Explicit rule compliance: 12/12 dossiers blocked vs Arm 1 (p = {p_a12})", a2u["k"], a2u["n"], "#1B6B4A")}
   {hbar(282, "4. Matched Sign-Off Control (Arm 2)", f"0/12 dossiers blocked vs Arm 2 (p = {p_a2c}); Codex 12/12 PATCH*", a2r["k"], a2r["n"], "#1B6B4A")}
 
